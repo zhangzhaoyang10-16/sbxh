@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 1.构造函数和原型概述
+    // 1.1 概述
+    // 在面向对象（OOP）的语言中，都存在类的概念，类就是对象的模板，对象就是类的实例，但是在ES6之前，JS中并没有引入类的概念
+    // ES6全称ECMAScript6.0   但是目前浏览器的javascript是ES5版本，大多数高版本的浏览器也才支持ES6,只是支持了ES6的部分特性和功能
+    // 在ES6之前，对象不是基于类创建的，而是用一种称为构造函数的特殊函数来定义对象和他们的特征
+
+    // 创建对象可以通过3种方式进行创建：
+    // 1.对象字面量
+    // 2.new Object();
+    // 3.自定义构造函数
+
+     // 1. 利用new Object()  创建对象
+    // var obj1 = new Object();
+    // 2.利用字面量创建对象
+    // var obj2 = {};
+    // 3.利用构造函数创建对象
+    // function Star(uname, age) {
+    //     this.uname = uname;
+    //     this.age = age;
+    //     this.sing = function () { 
+    //         console.log('娇娇会唱歌');
+    //     }
+    // }
+    // var lmj = new Star('刘梦娇', 98);
+    // // console.log(lmj)
+    // console.log(lmj.uname);
+    // lmj.sing()
+    // 构造函数就是一种特殊的函数，主要用来初始化对象，也就是对象成员变量初始值，它一直会与这个new 一起使用，我们可以把对象中一些公共的属性和方法抽取出来，然后封装到一个函数里面
+
+    // 在js中，使用构造函数要注意的地方：
+    // 1.构造函数用于创建某一类对象，首字母必须大写
+    // 2.构造函数一定要和new 一起使用才有意义
+
+    // new 在执行时会做的四件事情：
+    // 1.在内存中创建一个新的空对象
+    // 2.this指向这个新的对象
+    // 3.执行构造函数里面的代码，给这个新的对象添加属性和方法
+    // 4.返回新的对象（构造函数中不需要return）
+
+
+    // 1.2 构造函数
+    // 一个静态成员  一个叫实例成员
+    // function Star(uname, age) {
+    //     this.uname = uname;
+    //     this.age = age;
+    //     this.sing = function () {
+    //         console.log('我会唱歌');
+    //     }
+    // }
+
+    // var zxy = new Star('张学友', 52);
+    // 1.实例成员
+    // 实例成员就是构造函数内部通过this添加的成员
+    // 实例成员只能通过实例化的对象来访问
+    // console.log(zxy.uname);
+    // zxy.sing();
+    // console.log(Star.uname); //不可以通过构造函数来访问实例化成员
+
+    // 2.静态成员   在构造函数本身上添加的成员
+    // Star.sex = '男';  // sex 就是静态成员
+    // console.log(Star.sex);
+    // console.log(zxy.sex);
+    // 静态成员只能通过构造函数来访问，不能通过对象来访问
+
+    // 1.3 构造函数的问题：
+    // function Star(uname, age) {
+    //     this.uname = uname;
+    //     this.age = age;
+    //     this.sing = function () {
+    //         console.log('我会唱歌');
+    //     }
+    // }
+    // var ldh = new Star('刘德华', 18);
+    // var zxy = new Star('张学友', 20);
+
+    // // // 构造函数虽然好用，但是存在浪费内存的问题
+    // console.log(ldh.sing === zxy.sing);      // false
+
+    // 1.4 构造函数原型对象   prototype
+    // 构造函数通过原型分配的函数是所有对象的共享
+
+    // JavaScript规定，每一个构造函数都有一个prototype属性，指向另一个对象,注意：这个prototype就是一个对象，这个对象的所以属性和方法，都会被构造函数所拥有
+    // Star 是一个构造函数
+    function Star(uname, age) {
+        this.uname = uname;
+        this.age = age;
+        // this.sing = function () {
+        //     console.log('我会唱歌');
+        // }
+    }
+    // 动态添加
+    // Star.prototype 构造函数的原型对象
+    // Star.prototype.sing = function () {
+    //     console.log('我会唱歌');
+    // }
+    // var ldh = new Star('刘德华', 18);
+    // console.log(ldh);
+    // var zxy = new Star('张学友', 20);
+    // // console.dir(Star);
+    // // ldh.sing();
+    // // zxy.sing();
+    // console.log(ldh.sing === zxy.sing); //true
+    // 原型对象能干嘛？
+    // 我们可以把一些不变的方法，直接定义在prototype对象上，这样所有的对象的实例就可以共享这些方法了
+
+    // 1.原型是什么？
+        // 一个对象，我们也称为prototype为原型对象
+    // 2.原型的作用是什么？
+        // 共享方法    这样我们是不是节约了内存
+
+    // 一定要记住：
+    // 一般情况下，我们的公共属性定义到构造函数里面，公共的方法我们放到原型对象身上
+
+
+</script>
+
+</html>

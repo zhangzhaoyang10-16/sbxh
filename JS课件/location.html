@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location对象：获取URL</title>
+</head>
+
+<body>
+    <a href="../index.html?course=javascript&title=location#content" id='url'>返回首页</a>
+    <button onclick="myAssign()">assign()</button>
+    <button onclick="myReload()">reload()</button>
+    <button onclick="myReplace()">replace()</button>
+    <button onclick="myToString()">toString()</button>
+    <script>
+        // JavaScript location 对象中包含了有关当前页面链接（URL）的信息，例如当前页面的完整 URL、端口号等，我们可以通过 window 对象中的 location 属性来获取 location 对象。由于 window 对象是一个全局对象，因此在使用window.location时可以省略 window 前缀，例如window.location.href可以简写为location.href。
+
+        // location 对象中的属性
+
+        // 属性	                        描述
+        // hash	        返回一个 URL 中锚的部分，例如：http://127.0.0.1:5500/object/location.html#js 中的 #js。
+        // host	        返回一个 URL 的主机名和端口号，例如 http://127.0.0.1:5500。
+        // hostname	    返回一个 URL 的主机名，例如 https://www.baidu.com。
+        // href	        返回一个完整的 URL，例如http://127.0.0.1:5500/object/location.html。
+        // pathname	    返回一个 URL 中的路径部分，开头有个/。
+        // port	        返回一个 URL 中的端口号，如果 URL 中不包含明确的端口号，则返回一个空字符串' '。
+        // protocol	    返回一个 URL 协议，即 URL 中冒号:及其之前的部分，例如 http: 和 https:。
+        // search	    返回一个 URL 中的查询部分，即 URL 中?及其之后的一系列查询参数。
+
+        var url = document.getElementById('url');
+        document.write("<b>hash：</b>" + url.hash + "<br>");
+        document.write("<b>host：</b>" + url.host + "<br>");
+        document.write("<b>hostname：</b>" + url.hostname + "<br>");
+        document.write("<b>href：</b>" + url.href + "<br>");
+        document.write("<b>pathname：</b>" + url.pathname + "<br>");
+        document.write("<b>port：</b>" + url.port + "<br>");
+        document.write("<b>protocol：</b>" + url.protocol + "<br>");
+        document.write("<b>search：</b>" + url.search + "<br>");
+
+        // location 对象中的方法
+
+        // 方法	                说明
+        // assign()	加载指定的 URL，即载入指定的文档。
+        // reload()	重新加载当前 URL。
+        // replace()	用指定 URL 替换当前的文档，与 assign() 方法不同的是，使用 replace() 替换的新页面不会保存在浏览历史中，用户不能使用后退来返回该页面。
+        // toString()	与 href 属性的效果相同，以字符串的形式返回当前完整的 URL。
+
+        var url = 'https://www.baidu.com';
+        function myAssign() {
+            location.assign(url);
+        }
+        function myReload() {
+            location.reload();
+        }
+        function myReplace() {
+            location.replace(url);
+        }
+        function myToString() {
+            var url = document.getElementById('url');
+            var str = url.toString();
+            alert(str);
+        }
+    </script>
+</body>
+
+</html>

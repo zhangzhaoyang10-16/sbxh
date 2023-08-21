@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+</head>
+<style>
+    ul {
+        height: 200px;
+        background-color: #d4d4d4;
+    }
+
+    li {
+        float: left;
+        width: 200px;
+        height: 200px;
+        margin-left: 10px;
+        background: url(../img/takeda-letter.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .box {
+        width: 600px;
+        background: url(../img/wange.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
+
+<body>
+    <ul>
+        <li class="box"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+<script>
+    $("li").hover(function () {
+        // 移除之前的active类
+        $("li").removeClass("box");
+        $('.box').css({
+            width: '600',
+            background:' url(../img/wange.jpg)',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center'
+        })
+        // 添加当前点击的li的active类
+        $(this).addClass("box");;
+    });
+
+</script>
+
+</html>

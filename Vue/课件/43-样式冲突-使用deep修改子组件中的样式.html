@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>样式冲突-使用deep修改子组件中的样式</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 1. /deep/样式穿透
+        // 加上 scoped 以后并不是完美的，它也是有缺陷的
+        // 那大家可以看到在 Left组件里面加了 scoped ,在Right组件里面是不是没有加，在Right子组件里面也嵌套了一个MyCount 子组件，接下来我们希望在 Left组件里面 子组件的标题改成一个其他颜色
+        // 意思就是咱们不要修改Count里面的样式，咱们这个Count标题是不是被Left组件所嵌套了，咱们希望在父组件 Left里面通过写样式把标题改成其他颜色，就是在 父组件里面改子组件的样式
+
+        // 大家会发现 Left组件里面添加了 scoped属性在设置 Count标题是不生效的，而 Right组件没有添加 scoped属性在设置 Count标题的时候会生效因为在 Right组件中设置 h4是全局生效的，那这样就又是样式冲突了
+
+        // 我们是不是只想在 Left组件下修改自己的 h4，原因呢就是 加了 scoped 属性了
+        // /deep/标签 {}
+    
+    
+</script>
+</html>

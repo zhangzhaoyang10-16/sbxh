@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <!-- 希望Vue能够控制div，帮我们把数据填充到div内部 -->
+    <div class="app">{{ username }}</div>
+    <!--View 视图区域 -->
+
+    <!-- vue 要控制的 DOM 区域 -->
+    <!-- {{}}  插值表达式 -->
+    <!-- <div id="box">{{ words }}</div> -->
+    <a href="">{{baidu}}</a>
+  </body>
+  <script>
+    // 1. vue 的基本使用
+    // 1.1 基本使用步骤
+    // 1）导入vue.js的script脚本文件
+    // 2）在页面中声明一个将要被 vue 所控制的 DOM 区域
+    // 3）创建 vm 实例对象（vue实例对象）
+    // 步骤：
+    // (1) 导入 vue 的库文件，在window 全局就有了Vue 这个构造函数
+    // (2) 创建 Vue 的实例对象
+    let vm = new Vue({
+      // el属性是固定的写法，表示当前 vm 实例要控制页面上的哪个区域，接收的值是一个选择器
+      el: ".app", // el指向的选择器属于 View  el简称挂载器，绑定给要挂载的元素
+      // data 对象就是要渲染到页面上的数据
+      data: {
+        //data里边放的是数据，以key value的形式
+        username: "玛卡巴卡你个小垃圾",
+        words: "你好",
+      }, // data指向对象属于 Model数据
+    }); // 整个new Vue构造函数 得到的vm实例对象就是 ViewModel
+
+    // 1.2 安装 vue-devtools 调试工具
+    // vue 官方提供的 vue-devtools 调试工具，能够方便开发者对 vue项目进行调试与开发
+    // Root就是我们el所对应的区域  我们可以理解为根节点
+    // 这样是不是我们只需要把数据维护好，页面结构就会自动更新
+    // 问题：谁在变化谁在更新？
+    // 数据的变化更新到我们页面上
+
+    // 2. Vue指令
+    // 2.1 指令的概念
+    // 指令是vue为开发者提供的模板语法，用于辅助开发者渲染页面的基本结构
+    // vue中的指令按照不同的用途可以分为如下6大类
+    // (1)内容渲染指令
+    // (2)条件渲染指令
+    // (3)列表渲染指令
+    //   <div id="app">
+    //     <ul>
+    //       <li v-for="item in items" :key="item.id">{{ item.name }}</li>
+    //     </ul>
+    //   </div>
+
+    //   let vm = new Vue({
+    //     el: "#app",
+    //     data: {
+    //       items: [
+    //         { id: 1, name: "苹果" },
+    //         { id: 2, name: "香蕉" },
+    //         { id: 3, name: "橙子" },
+    //       ],
+    //     },
+    //   });
+
+    // (4)属性绑定指令
+    //   <div id="app">
+    //   <p :class="className">{{ message }}</p>
+    //   <a :href="link">点击跳转</a>
+    //   <input :disabled="isDisabled" type="text" />
+    // </div>
+    // let vm = new Vue({
+    //   el: "#app",
+    //   data: {
+    //     message: "这是一段文本",
+    //     className: "red-text",
+    //     link: "https://www.example.com",
+    //     isDisabled: true,
+    //   },
+    // });
+    // (5)事件绑定指令
+    // (6)双向绑定指令
+    // 注意：指令是vue开发中最基础、最常用、最简单的知识点，学习的目的就是为了渲染数据
+
+    // 2.2 内容渲染指令
+    // 内容渲染指令用来辅助开发者渲染 DOM元素的文本内容，常用的内容渲染指令有以下3个：
+    // v-text
+    // 用法示例：
+    // v-text 指令的缺点：会覆盖元素内部原有的内容
+    // {{}}   插值表达式
+    // 用法示例：
+    // vue 提供的 {{}} 语法，专门用来解决 v-text 会覆盖默认文本内容的问题。这种 {{}} 语法的专业名称是 插值表达式
+    // {{}} 插值表达式：在实际开发中用的最多，只是内容的占位符，不会覆盖原有的内容
+    // v-html
+    // v-text指令和插值表达式只能渲染纯文本内容。如果要把包含HTML标签的字符串渲染为页面的HTML元素，则需要用到 v-html这个指令
+    // 用法示例：
+    // v-html 指令作用：可以把带有标签的字符串，渲染成真正的HTML内容
+
+    // 2.3 属性绑定指令
+    // 注意：插值表达式只能用在元素的内容节点中，不能用在元素的属性节点中
+
+    // 如果需要为 元素的属性 动态 绑定属性值，则需要用到 v-bind: 属性绑定指令。
+    // v-bind:
+    // 用法示例：
+    // 注意：vue规定 v-bind: 指令可以简写为 :
+    // v-if    v-for   v-once   v-if-else
+    // 3.使用JavaScript表达式
+    // 在vue提供的模板渲染语法中，除了支持  绑定简单的数据值 之外，还支持 JavaScript表达式的运算
+
+    // 在使用v-bind 属性绑定期间，如果绑定内容需要进行动态拼接，则字符串的外面应该包裹单引号
+  </script>
+</html>

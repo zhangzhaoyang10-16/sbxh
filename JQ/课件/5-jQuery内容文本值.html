@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery内容文本值</title>
+    <script src="../js/js/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div>
+        <span>我是span</span>
+    </div>
+    <input type="text" value="请输入内容">
+    <button>点我</button>
+    "}+{
+
+     <div class="one">
+        <div class="tow">
+            <div class="three">
+                <div class="four">终于到家了</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // jQuery内容文本值   主要针对元素的内容还有表单的值操作
+    // 1.普通元素内容    html()   相当于原生js中的innerHTML
+        // console.log($("div").html());   //获取元素内容
+        // console.log($(".tow").html());   //获取元素内容
+        // $("div").html("我是div");    // 修改元素内容
+        // console.log($('div').html());
+
+    // 2.普通元素文本内容     text()   相当于原生js innerText
+        // console.log($("div").text());   // 获取元素文本内容
+        // $("div").text("我是div");     // 修改元素文本内容
+        // console.log($("div").text());     // 修改元素文本内容
+
+    // 3.获取设置表单值     val()
+        // $(function(){
+        //     $('button').click(function(){
+        //         console.log($("input").val());
+        //     })
+        // })
+        // console.log($("input").val());     // 获取表单值
+        // $("input").val("请搜索内容");
+
+    // 案例练习：
+        // 1.购物车案例-增减商品数量
+        // 分析：
+            // 加号
+                // 1.首先声明一个变量，当我们点击 + 号，就让这个值 ++ ，然后赋值给文本框
+                // 2.只能增加本商品的数量，就是当前 + 号的兄弟文本框的值
+                // 3.修改表单的值是val()方法
+                // 4.这个变量初始值应该是这个文本框的值，在这个值的基础上 ++ ，需要获取表单的值
+            // 减号
+                // 1.与上同理，但是如果文本框的值是1，就不能在减了
+
+        // 2. 购物车案例-修改商品小计
+        // 分析：
+            // 1.每次点击 + 号或者 - 号 ，根据文本框的值乘以当前商品的价格 就是商品的小计
+            // 2.只能增加本商品的小计，就是当前商品的小计
+            // 3.修改普通元素内容是 text()
+            // 4.当前商品价格，要把￥符合去掉再相乘 截取字符串substr(1)
+            // 5. 通过toFixed() 保留两位小数数位
+
+            // 控制手动改input值之后小计的数值发生变化
+            // 6.用户可以直接修改表单里面的值，同样要计算小计，用表单 change()事件
+            // 7.用最新的表单内的值 乘以 单价即可  但是还是当前的商品小计
+    
+    // 4.返回指定祖先元素      parents()
+    // 之前写的格式：
+        // console.log($(".four").parent().parent().parent());
+    // 现在写法：
+        // console.log($(".four").parents('.tow'));
+
+    // 5. 保留小数几位     toFixed()   括号写保留小数位数
+        // var x = 3.1415622;
+        // console.log(x.toFixed())    
+
+</script>
+</html>

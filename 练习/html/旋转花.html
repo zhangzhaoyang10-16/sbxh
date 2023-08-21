@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>旋转花瓣</title>
+	<style>
+		.box {
+			width: 10px;
+			height: 10px;
+			background: pink;
+			border-radius: 50%;
+			position: relative;
+			margin: 200px auto;
+
+		}
+
+		.box1 {
+			width: 40px;
+			height: 0px;
+			border-radius: 12.5% 200% 12.5% 200%;
+			position: absolute;
+			bottom: 50%;
+			left: -36px;
+			transform-origin: 100% 100%;
+			transition: all 0.1s;
+		}
+
+		.b1 {
+			background: #FCC0B6;
+			transform: rotate(45deg);
+
+		}
+
+		.b2 {
+			background: #e60012;
+			transform: rotate(105deg);
+
+		}
+
+		.b3 {
+			background: yellow;
+			transform: rotate(165deg);
+
+		}
+
+		.b4 {
+			background: blue;
+			transform: rotate(225deg);
+
+		}
+
+		.b5 {
+			background: green;
+			transform: rotate(285deg);
+
+		}
+
+		.b6 {
+			background: #FF7333;
+			transform: rotate(345deg);
+
+		}
+
+		.bb {
+			width: 200px;
+			height: 200px;
+			position: relative;
+			margin: 400px auto;
+		}
+
+		.box2 {
+			width: 50px;
+			height: 50px;
+			overflow: hidden;
+			transform: rotate(45deg);
+			position: absolute;
+			top: 25px;
+			right: -20px;
+
+		}
+
+		.box3 {
+			width: 40px;
+			height: 40px;
+			border: 2px solid black;
+			border-radius: 50%;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box">
+		<div class="box1 b1"></div>
+		<div class="box1 b2"></div>
+		<div class="box1 b3"></div>
+		<div class="box1 b4"></div>
+		<div class="box1 b5"></div>
+		<div class="box1 b6"></div>
+	</div>
+	<script type="text/javascript">
+		var box = document.getElementsByClassName('box')[0];
+		var box1 = document.getElementsByClassName('box1');
+		var num = 0;  // 旋转角度
+		var num1 = 0;  // 小盒子高度
+		function a() {
+			// num 是最大盒子旋转的角度
+			num += 10;
+			// num1 是所有小盒子的高度，从10 开始绽放
+			num1 += 10;
+
+			// 设置大盒子旋转角度   10度
+			box.style.transform = 'rotate(' + num + 'deg)';
+
+			// 循环每一个小盒子  
+			for (var i = 0; i < box1.length; i++) {
+				if (num1 > 40) {  //  如果 num1 高度大于 40 px 时
+					// num1 的最终高度就是40
+					num1 = 40;
+				}
+				// 将高度赋值给每一个小盒子
+				box1[i].style.height = num1 + "px";
+			}
+
+		}
+		// 定时器调用函数 a, 每1秒变化一次
+		setInterval(a, 1000);
+	</script>
+</body>
+
+</html>

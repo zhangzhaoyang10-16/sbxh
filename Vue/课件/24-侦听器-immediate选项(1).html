@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侦听器-immediate选项</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../jQuery/jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="uname">
+    </div>
+</body>
+<script>
+    // 1. immediate选项
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            // 现在有个小问题，我们之前测试是不是 admin是不是已经被占用了，那我在uname设置一个默认值 admin
+            uname: "admin"
+            // 当我们一刷新，默认值是不是没有发起请求啊，那有时候我们在实际开发中就有这种需求，就是我一进入这个页面，我就要执行一次侦听器
+            // 那当前是不是没有触发，只要在页面内容发生变化的时候才会触发，怎么能让它一进来就触发这个侦听器
+        },
+
+        //     // 函数格式的侦听器
+        // watch: {
+        //     uname(newVal, oldVal) {
+        //         // 判断 newVal 是否为空，为空就 return出去
+        //         if (newVal === '') {
+        //             return
+        //         }
+        //         // 调用 jQuery 中的 Ajax 发起请求，判断 newVal 是否被占用
+        //         $.get('https://www.escook.cn/api/finduser/' + newVal, function (res) {
+        //             // 发起 get Ajax请求，请求服务器接口，把当前的用户名发给服务器来拿到一个结果,在后面接收一个函数
+        //             console.log(res);
+        //         })
+        //         // 当我们删除到没有的时候是不是会报错，没有发起请求，那这里是不是我们必须给一个用户名，不能为空啊，为了防止这个问题，是不是可以在发请求之前判断 newVal 是否为空
+        //     }
+        // }
+
+
+        // 那么现在我们需要把这个侦听器的格式改造一下，就不能把侦听器定义成函数了，要把这个侦听器改成一个对象，因为函数格式的侦听器一进来是不是不会触发啊
+        // 侦听器的格式：
+        // 1.方法格式的侦听器
+        // 缺点：无法在刚进入页面的时候，自动触发
+        // 2.对象格式的侦听器
+        // 好处：可以通过immediate 选项，让侦听器自动触发一次
+
+        // 对象格式的侦听器
+        watch: {
+            // 首先我们明确目标 监视 uname 的变化   uname 初始值 admin
+            // 注意：接下来写的是对象，定义对象格式的侦听器
+            uname: {
+                // 注意：在对象里面有一个handler属性    它指向一个方法   那这个 handler 就是侦听器的处理函数
+                // handler:function(){
+                //     // 在这里只要监视到了 uname 值的变化就会触发 handler 这个函数，改成对象格式的话里边定义监听函数就用 handler 
+                //     // 这里是不是可以简写为 handler(){}
+                // }
+                handler(newVal, oldVal) {
+                    // 在这里只要监视到了 uname 值的变化就会触发 handler 这个函数，改成对象格式的话里边定义监听函数就用 handler
+                    // 侦听器是不是能拿到两个参数，一个最新值一个 旧值 进行传参  输出两个参数
+                    console.log(newVal, oldVal);
+                    // 能调用到，但是一进来是不是也没有触发，也就是改成对象格式也没有被判断，然后我们在加一个选项 immediate
+                    if (newVal == '') {
+                        return
+                    }
+                    $.get('https://www.escook.cn/api/finduser/' + newVal, function (res) {
+                        console.log(res);
+                    })
+                },
+
+                // // immediate选项 
+                // // immediate选项作用：控制侦听器是否自动触发一次
+                immediate: true    // true 或者 false   这值是布尔类型值  true 表示一进页面立即触发一次handler函数，false是默认值
+
+                // 目前侦听器有两种格式，方法格式只需要一个方法就搞定了对吧，如果你确实需要立即触发一次，此时你才应该要考虑把它改成一个对象格式
+                // 所以一切都先考虑最简单的形式能不能满足我们的需求，如果最简单的满足不了需求，在将其改成对象格式
+            }
+        }
+    })
+</script>
+
+</html>

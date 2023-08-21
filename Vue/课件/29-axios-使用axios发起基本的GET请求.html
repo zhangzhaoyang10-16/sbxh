@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios-使用axios发起基本的GET请求</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../axios/axios.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 1. axios
+    // 作用：axios 是一个专注于网络请求的库
+    // jquery它可以操作 DOM 获取 DOM元素，还可以做动画，最后它还可以发送 Ajax 请求，功能很庞大业务不专一
+    // 现在我们的 axios 只负责发网络请求 ，这也是这个 axios库的特点
+    // 而且在后面的学习中都会用 axios 来请求数据，不再使用 jQuery 发送请求了
+
+    // 2. axios 的基础语法
+    // 我们需要先导入它的库文件，之后直接给window挂载一个方法 axios  输出看一下
+    console.log(axios);
+    // 语法格式：
+    // axios({
+    //     method:'请求的类型',
+    //     //  用jquery 的ajax 是 type来定义类型，在 axios 里面是用 method
+    //     url:'请求 URL 地址'
+
+    // // 在这里我们没有 success 的回调来接收数据的  但是有 .then
+    // }).then((result) => {
+    //     // .then 用来指定请求成功之后的回调函数
+    //     // 形参中的 result 是请求成功之后的结果
+    // })
+
+
+    // 地址：http://www.liulongbin.top:3006/api/getbooks
+
+    // 1.调用 axios 方法得到的返回值是 Promise 对象
+
+    let result = axios({
+        // 请求方式
+        method: 'GET',
+        // 请求的地址
+        url: 'http://www.liulongbin.top:3006/api/getbooks'
+    })
+    console.log(result);  //Promise 对象
+
+
+    result.then(function (books) {
+        console.log(books);
+        // books 的返回值是不是一个对象  展开有6个属性，
+
+        // 那现在大家想一个问题，这6个属性是接口返回的数据吗
+
+
+        // 而我们返回的对象有6个属性，说明这6个属性返回的不是服务器的真属性
+
+        // 在返回的6个属性里面有一个data 属性，打开大家会发现这里才是我们服务器的真实属性
+
+        // 所以说在 axios 调用成功以后，咱们拿到的books是真实属性吗？不是对吧
+
+        console.log(books.data.data);// books.data里面的数据才是真实的数据  
+
+        // 因为在axios请求到数据之后，在真正的数据之外，套了一层壳，相当于进行了一个包装，只有data 里面是真实的属性，其他属性是axios追加进来的一些属性，所以我们只关心data里面的数据就可以了
+        // 这样大家就明白了为什么会有6个属性的原因了
+    })
+
+
+    // // 简写：
+    axios({
+        method: 'GET',
+        url: 'http://www.liulongbin.top:3006/api/getbooks'
+    }).then((result) => {
+        console.log(result.data)
+    })
+</script>
+
+</html> 

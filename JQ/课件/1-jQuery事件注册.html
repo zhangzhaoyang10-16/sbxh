@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery事件注册</title>
+    <script src="../js/js/jquery-3.5.1.min.js"></script>
+</head>
+<style>
+    div {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+    }
+
+    .box1 {
+        background-color: #939603;
+    }
+
+    span {
+        display: block;
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+    }
+</style>
+
+<body>
+    <div>
+        <!-- <span class="box1"></span> -->
+    </div>
+</body>
+<script>
+    // jQuery事件注册        重点  重点   重点
+    // 以前给元素注册事件或者说绑定事件都是单个事件注册
+    // 1.单个事件注册
+    // 语法：element.事件(function(){})
+    // 以前写法：
+    // $("div").click(function(){事件处理程序})
+    // 其他事件和元素基本一致：
+    // 比如：mouseover,mouseout,blur,focus,change,keydow,keyup,resize,scroll等等
+    // $(function () {
+    //     // 单个事件注册
+    //     $("div").click(function () {
+    //         $(this).css("background", "blue");
+    //     })
+    //     $("div").mouseover(function () {
+    //         $(this).css("background", "yellow");
+    //     })
+    // })
+    // 2.事件处理on()绑定事件
+    // on()方法     可以为我们在匹配元素上绑定一个或者多个事件的事件处理函数
+    // 语法：element.on(events,[selector],fn)
+    //     events:一个或多个用空格分隔的事件类型，如"click"或"keydown"
+    //     selector:元素的子元素选择器
+    //     fn：回调函数  即绑定在元素身上的侦听函数
+    // $(function () {
+    //     $("div").on({
+    //         mouseover: function () {
+    //             $(this).css("background", "yellow");
+    //         },
+    //         click: function () {
+    //             $(this).css("background", "blue");
+    //         },
+    //         mouseleave: function () {
+    //             $(this).css("background", "orange");
+    //         }
+    //     })
+    // })
+    // on() 方法优势1：
+    // (1) 可以绑定多个事件，多个处理事件处理程序
+    // $("div").on({
+    //     mouseover:function(){},
+    //     click:function(){},
+    //     mouseout:function(){}
+    // })
+    // (2) 如果事件处理程序相同
+    // $("div").on("mouseover", function () {
+    //     // remove 删除元素
+    //     $('div').remove();
+    // })
+    // $(function () {
+    //     $("div").on("mouseover mouseleave click", function () {
+    //         $(this).toggleClass("box1");
+    //     })
+    // })
+
+</script>
+
+</html>

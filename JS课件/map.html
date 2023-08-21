@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 通过 forEach 添加数据   .set()
+    // var ee = [['name', '张三'], ['sex', '男']];
+    // var tt = new Map();
+    // ee.forEach(([k, v]) => tt.set(k, v))
+    // console.log(tt);
+
+    // .size()  长度     has()  查找     get()   获取值
+    // var ww = new Map(
+    //     [['name', '张三'], ['sex', '男']]
+    // );
+    // console.log(ww.size);
+    // console.log(ww.has('name'));  // 查找   true
+    // console.log(ww.get('name'));  // 获取值   张三
+
+    // undefined和null
+    // NaN不严格等于自身  但是在Map会将其视为同一个键
+    // var aa = new Map();
+    // aa.set(-0, 123);   //  0
+    // console.log(aa.get(0));  //123
+
+    // 布尔值的true和字符串的true不一样
+    // aa.set(true, 1);
+    // aa.set('true', 2);
+    // console.log(aa);
+
+    // undefined和null不一样
+    // var bb = new Map();
+    // bb.set(undefined, 1);
+    // bb.set(null, 2);
+    // console.log(bb);
+
+
+
+    // keys()    // 返回键名的遍历器
+    // values()   // 返回键值的遍历器
+    // entries()   // 返回所有成员的遍历器
+    // forEach()  // 遍历 Map 的所有成员
+
+    // Map的遍历顺序就是插入顺序
+    // var hh = new Map([['id', 1], ['name', '张三'], ['age', 30]]);
+    // for (let k of hh.keys()) {
+    //     console.log(k);
+    // }  // keys  键 
+    // for (let v of hh.values()) {
+    //     console.log(v);
+    // } // value 值
+
+    // for (let k of hh.entries()) {
+    //     console.log(k);
+    // }//  entries  键值数组
+    // entries等同于 [k,v]
+    // for (let [k, v] of hh) {
+    //     console.log(k, v);
+    // }
+
+    // console.log([...hh.keys()]); // 返回数组 键
+    // console.log([...hh.values()]); // 返回数组 键值
+    // console.log([...hh.entries()]); // 返回数组 键值对
+
+    // console.log([...hh]);   // 与  entries方法返回值相同
+
+    // 结合filter 实现Map的遍历和过滤
+    // var uu = new Map().set(1, 'a').set(2, 'b').set(3, 'c');
+    // console.log([...uu]) // [[1,'a'],[2,'b'],[3,'c']]
+    // var ii = new Map([...uu].filter(([k, v]) => k < 3));
+    // var aaa = new Map([...uu].map(([k, v]) => ([k * 2, "-" + v])));
+    // // console.log(uu);
+    // console.log(ii);  // 1a 2b
+    // console.log(aaa); // 2,-a  4,-b 6 ,-c
+
+    // Map转换JSON
+    // var aaaaa = new Map().set("true",1).set('a',2)
+    // function MapToJson(aaaaa) {
+    //     // [...aaaaa] === [['true',1],['a',2]]
+    //     return JSON.stringify([...aaaaa]); // JSON.stringify  转换为json字符串
+    // }
+    // console.log(MapToJson(aaaaa))
+    // var gg = new Map().set(true, 7).set({ foo: 3 }, ['aa']);
+    // console.log(gg); // true => 7   {foo:3} => 'aa'
+    // console.log(MapToJson(gg)); //  转换成数组JSON     [[true,7],[{'foo':3},"aa"]]
+
+    // // JSON 转换 Map
+    // function jsonToStrMap(jsonStr) {
+    //     return JSON.parse(jsonStr);  //  JSON.parse  转换为json 对象
+    // }
+    // var jsonStr = '{"yes": true, "no": false}';
+    // console.log(jsonToStrMap(jsonStr));
+</script>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器-使用全局过滤器格式化时间</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 只要导入了 day.js 的库文件，在 window 全局就可以使用 dayjs()这个方法了 -->
+    <script src="../day.min.js/day.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <table class="table table-bordered table-hover table-strped">
+            <thead>
+                <th scope="col">#</th>
+                <th scope="col">品牌名称</th>
+                <th scope="col">状态</th>
+                <th scope="col">创建时间</th>
+                <th scope="col">操作</th>
+            </thead>
+            <tbody>
+                <tr v-for="item in list" :key="item.id">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>
+                        <div class="custom-control custom-switch">
+                            <!-- 是不是使用v-bind绑定属性值，字符串拼接的方式 -->
+
+                            <input type="checkbox" class="custom-control-input" :id="'cc' + item.id"
+                                v-model="item.state">
+                            <label :for="'cc' + item.id" class="custom-control-label"
+                                v-if="item.state === true">已启用</label>
+                            <label :for="'cc' + item.id" class="custom-control-label" v-else>已禁用</label>
+                        </div>
+                    </td>
+                    <td>
+                        <!-- 使用过滤器 -->
+                        {{ item.time | dataTime}}
+                    </td>
+                    <td>
+                        <!-- 点击这个链接绑定一个点击事件 -->
+                        <a href="javascript:" @click="remover(item.id)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script>
+    // 1.使用全局过滤器格式化时间   (循环渲染表格行案例)
+    // 我们想要把这个时间是不是格式化一样，得到我们的年月日
+    // 声明格式化时间的过滤器
+    Vue.filter('dataTime', (times) => {
+        // 1. 对 times 进行格式处理，得到 YYYY-MM-DD HH:mm:ss
+        // 2.把格式化的结果 return 出去
+
+        // 直接调用 dayjs() 得到的是当前时间
+        // 如果有给定的时间    那么这么写    dayjs(给定的日期时间)  就可以得到指定的日期
+
+        // format()  格式化时间   在里面可以传一个具体的格式来格式化 
+        let a = dayjs(times).format('YYYY-MM-DD HH:mm:ss');
+        return a;
+    })
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            // 品牌的列表数据
+            list: [
+                // 这里注意 操作是不是用户的一个操作，是一种状态，不需要添加，我们在页面放一个链接就可以了
+                { id: 1, name: "宝马", state: true, time: new Date() },
+                { id: 2, name: "奥迪", state: false, time: new Date() },
+                { id: 3, name: "奔驰", state: true, time: new Date() },
+            ],
+            // 用户输入的品牌名称
+            brand: "",
+            // nextId 是下一个可用的id
+            nextId: 4,
+            // 那我们是不是一直添加id的数值会一直增加，那我们接下来是不是要给nextId自增就可以了，而且 brand 的值是不是也需要清空一下
+        },
+        methods: {
+            // 点击链接，删除对应的品牌信息
+            remover(id) {
+                this.list = this.list.filter(item => item.id != id);
+
+            },
+
+            // 阻止表单的默认提交行为之后触发  add方法
+            add() {
+                // 如果判断到brand的值为空字符串，就截取出去 return
+                if (this.brand === '') {
+                    return;
+                }
+
+                let obj = { id: this.nextId, name: this.brand, state: true, time: new Date() };
+                // 2.在this,list数组中 Push 步骤1中得到的对象
+                this.list.push(obj);
+                // 3.清空this.brand 让 this.nextId自增 + 1
+                this.brand = "";
+                this.nextId += 1;
+            }
+
+        }
+    })
+
+</script>
+
+</html>

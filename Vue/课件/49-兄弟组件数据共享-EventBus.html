@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兄弟组件数据共享-EventBus</title>
+</head> 
+<body>
+    
+</body>
+<script>
+    // 1. 兄弟组件数据共享
+    // 在 vue2.x 中，兄弟组件之间数据共享的方案是 EventBus   (面试会经常问到vue组件的区域共享，有哪些具体的方案)
+
+    // 接下来我们看一下兄弟之间怎样数据共享1256476788   Left和Right兄弟，比如我们Left的数据传给 Right
+    // 首先我们要确定两个兄弟组件谁是发数据的谁是收数据的，比如组件A和组件B，组件A是发送数据的，在数据发送方有一个 data 数据里面定义了一个 msg的消息，那我们要把这个msg里面的内容发给兄弟组件B，第二个是接收方我们的 组件B，在数据接收方我们也定义好一个 msgFromLeft,那么将来我们接收到数据了把msg 的数据存到 msgFromLeft里面去，收发方已经确定了
+
+    // 那么在这里兄弟组件之间有一个 eventBus.js ,在这个 eventBus里面我们只做三件事，先导入vue的构造函数，new一个vue 的实例对象，空的实例对象,那我们 new 了一个构造函数，为什么要new 一个构造函数，因为他是实现eventBus的核心，有了这个 new vue才能实现兄弟组件之间数据的传递
+
+    // 那现在把这个共享出去了，共享出去以后，谁导入eventBus.js，谁就拿到一个vue 的实例
+    // 兄弟组件A导入了一个 eventBus.js，导入之后得到 vue的实例对象，通过 bus来接收，然后就该发数据了，
+
+    
+
+    // 接收是bus，要发送的是 msg 这个数据，那我们在methods里面调用 bus.$emit来触发一个自定义事件 share,然后把我们的数据 this.msg在触发事件的同时发生出去，发出去之后是不是需要组件B接收，那在组件B里面是不是也需要导入 eventBus.js,那样接收数据肯定就不是 $emit了，而是$on,是不是在jquery里面有一个 $on,在jquery里面on方法是绑定事件的，那么在这里也是同样的
+
+    // bus绑定了事件，自定义 share事件，只要这个事件被触发，就会调处理函数，那咱们是不是就可以拿到一个 val，那么 $emit是触发事件发送数据，那触发了事件 this.msg 的值是不是就被val接收到了，this.msg是向外共享的值，val是接收的值
+
+    // 在这里大家要注意：在created这个生命周期函数里面我们调用了 $on
+
+    // 兄弟组件A：（发送方）
+    // import bus from './eventBus.js'
+    // export default{
+    //     data() {
+    //         return {
+    //             msg:'Hello Vue'
+    //         }
+    //     },
+    // methods: {
+        // sendMsg(){
+        //     bus.$emit('share',this.msg)
+        // }
+    // },
+    // }
+
+    // eventBus.js 
+    // import Vue from 'vue'
+    //向外共享 vue 的实例对象
+    // export default new Vue()
+
+
+    // 兄弟组件B：（接收方）
+    // import bus from './eventBus.js' 
+    // export default{
+    //     data() {
+    //         return {
+    //             msgFromLeft:'Hello Vue'
+    //         }
+    //     },
+    // created() {
+    //     bus.$on('share',val =>{
+    //         this.msgFromLeft = val
+    //     })
+    // },
+    // }
+
+
+    // 2. EventBus 的使用步骤
+        // 1.1 创建 eventBus.js 模块，并向外共享一个 vue的实例对象
+        // 1.2 在数据发送方，调用 bus.$emit('事件名称',要发送的数据)方法触发自定义事件
+        // 1.3 在数据接收方，调用 bus.$on('事件名称',事件处理函数) 方法注册一个自定义事件
+        
+</script>
+</html>

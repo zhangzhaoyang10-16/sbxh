@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .content {
+        width: 640px;
+        height: auto;
+        margin: 50px auto;
+    }
+
+    .box1 {
+        width: 640px;
+        height: 880px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .box1_1 {
+        width: 3200px;
+        height: 480px;
+        list-style: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: 0.7s;
+    }
+
+    .box1_1 li {
+        width: 640px;
+        height: 880px;
+    }
+
+    li {
+        float: left;
+    }
+
+    .box2 {
+        width: 640px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        clear: both;
+    }
+
+    .box_left {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 30px;
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        background-color: rgba(182, 178, 178, 0.5);
+        border-radius: 9px;
+        text-align: center;
+        /* display: none; */
+    }
+
+    .box_right {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 30px;
+        color: white;
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        background-color: rgba(182, 178, 178, 0.5);
+        border-radius: 9px;
+        text-align: center;
+        /* display: none; */
+
+    }
+
+    .p1 {
+        width: 0%;
+        height: 5px;
+        background-color: red;
+    }
+
+
+    .box_left,
+    .box_right {
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="content">
+        <div class="box1">
+            <ul class="box1_1">
+                <li><img src="../img/1688959952946.jpg" alt="" style="width: 640px"></li>
+                <li><img src="../img/Lui.jpg" alt="" style="width: 640px"></li>
+                <li><img src="../img/liu (2).jpg" alt="" style="width: 640px"></li>
+                <li><img src="../img/liu (3).jpg" alt="" style="width: 640px"></li>
+                <li><img src="../img/1688959896113.jpg" alt="" style="width: 640px"></li>
+
+            </ul>
+            <div class="box_left">&lt;</div>
+            <div class="box_right">&gt;</div>
+        </div>
+        <p class="p1"></p>
+        <div class="box2">
+            <img src="../img/1688959952946.jpg" alt="" style="width: 16%" class="img2 img_border">
+            <img src="../img/Lui.jpg" alt="" style="width: 16%" class="img2">
+            <img src="../img/liu (2).jpg" alt="" style="width: 16%" class="img2">
+            <img src="../img/liu (3).jpg" alt="" style="width: 16%" class="img2">
+            <img src="../img/1688959896113.jpg" alt="" style="width: 16%" class="img2">
+        </div>
+    </div>
+</body>
+<script>
+    var ul = document.getElementsByClassName("box1_1")[0];
+    var img2 = document.getElementsByClassName("img2");
+    var box1 = document.getElementsByClassName("box1")[0];
+    var content = document.getElementsByClassName("content")[0];
+    var box_left = document.getElementsByClassName("box_left")[0];
+    var box_right = document.getElementsByClassName("box_right")[0];
+    var p1 = document.getElementsByClassName("p1")[0];
+
+    // 初始化变量
+    let num = 0, stop, num1 = 0, stop1;
+
+    // 定义函数p_add，用于增加p1元素的宽度
+    let p_add = function () {
+        p1.style.width = num1 + "%";
+        num1++;
+        if (num1 > 100) {
+            p1.style.width = 0 + "%";
+            num1 = 0;
+            clearInterval(stop1);
+        }
+    }
+
+    // 定义函数move，用于设置图片轮播
+    let move = function () {
+        stop1 = setInterval(p_add, 19);
+        num++;
+        for (let i = 0; i < img2.length; i++) {
+            if (i == num) {
+                img2[i].classList.add("img_border");
+                break;
+            } else {
+                for (let i = 0; i < img2.length; i++) {
+                    img2[i].classList.remove("img_border");
+                }
+            }
+        }
+        ul.style.left = -num * 640 + "px";
+        if (num == 5) {
+            num = 0;
+            ul.style.left = -num * 640 + "px";
+            img2[num].classList.add("img_border");
+        }
+    }
+
+    // 每2秒执行一次move函数
+    stop = setInterval(move, 2000);
+
+    // 当鼠标在content元素上时，停止轮播，显示左右切换按钮
+    content.addEventListener("mouseover", function () {
+        clearInterval(stop1);
+        p1.style.width = 0 + "%";
+        clearInterval(stop);
+        box_left.style.display = "block";
+        box_right.style.display = "block";
+    }, false);
+
+    // 当鼠标离开content元素时，开始轮播，隐藏左右切换按钮
+    content.addEventListener("mouseout", function () {
+        stop = setInterval(move, 2000);
+        box_left.style.display = "none";
+        box_right.style.display = "none";
+    }, false);
+
+    // 点击左切换按钮，向前切换一张图片
+    box_left.addEventListener('click', function () {
+        num--;
+        if (num == -1) {
+            num = 4;
+        }
+        for (let i = 0; i < img2.length; i++) {
+            img2[i].classList.remove("img_border"); 
+        }
+        img2[num].classList.add("img_border");
+        ul.style.left = -num * 640 + "px";
+    }, false);
+
+    // 点击右切换按钮，向后切换一张图片
+    box_right.addEventListener('click', function () {
+        num++;
+        if (num == 5) {
+            num = 0;
+        }
+        for (let i = 0; i < img2.length; i++) {
+            img2[i].classList.remove("img_border");
+        }
+        img2[num].classList.add("img_border");
+        ul.style.left = -num * 640 + "px";
+    }, false);
+
+    // 点击图片，切换到对应的图片
+    for (let i = 0; i < img2.length; i++) {
+        img2[i].index = i;
+        img2[i].onclick = function () {
+            num = this.index;
+            for (let j = 0; j < img2.length; j++) {
+                img2[j].classList.remove("img_border");
+            }
+            img2[num].classList.add("img_border");
+            ul.style.left = -num * 640 + "px";
+        }
+    }
+    // 当窗口失去焦点时，停止轮播
+    window.onblur = function () {
+        clearInterval(stop1);
+        p1.style.width = 0 + "%";
+        num1 = 0;
+        clearInterval(stop);
+    }
+    // 当窗口获得焦点时，开始轮播
+    window.onfocus = function () {
+        stop = setInterval(move, 2000);
+    }
+</script>
+
+</html>

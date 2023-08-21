@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表渲染-强调v-for 循环中 key 值的注意点</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 数组数据有了，我在这里放一个 table -->
+        <table class="table table-bordered table-hover table-striped" style="width:1200px;margin:100px auto">
+            <!-- thead 标签定义表格的表头，与 tbody和tfoot元素结合使用 -->
+            <!-- 注意：如果您使用 thead、tfoot 以及 tbody 元素，您就必须使用全部的元素。它们的出现次序是：thead、tfoot、tbody，这样浏览器就可以在收到所有数据前呈现页脚了。您必须在 table 元素内部使用这些标签。 -->
+            <thead>
+                <th>索引</th>
+                <th>id</th>
+                <th>姓名</th>
+            </thead>
+            <!-- 整体结构有了，而我们在 tbody里面是不是写的都是假数据 -->
+            <!-- 真正的写法是不是循环谁渲染谁，我们应该循环的是不是 data 里面的 list 数组数据，而要渲染的数据是tbody还是每一行tr -->
+            <!-- 那是不是给 tr 添加 v-for 就可以了，剩下的数据我们就不要了 -->
+            <tbody>
+                <!-- <tr>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>某某某</td>
+                </tr>-->
+                <!--这里注意：in 后面是谁，是不是数组也就是我们 data 里面的 list 数组数据，其次 item相当于是形参，它不一定是这个，也可以是 row ,只是推荐 item  -->
+                <!-- <tr v-for="item in list"> -->
+                <!-- tr是外层父元素，在里面还嵌套了多个td，父子嵌套，那里面的 td 能否访问到 item? -->
+                <!-- 那么第一次循环是不是item指向 id:1的那个，第二次id:2,一直循环 -->
+                <!-- <td>0</td> -->
+                <!-- 第一次循环是不是把 id值渲染进去，在元素内容中我们填写 id，是不是用插值表达式 ，item是指向对象的，那我们是不是就可以 item.id了 -->
+                <!-- <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                </tr> -->
+
+                <!-- 设置索引 -->
+                <tr v-for="item in list" :key="item.id">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                </tr>
+
+                <!-- 最后这里有一个小注意点：我现在是不是循环每一个tr对吧，那我循环的时候，tr之上能不能访问到item和index？ -->
+                <!-- 我在tr加一个title 动态绑定一下,然后我们把item每一项的name属性的值作为 title 在加上我们的索引-->
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    // 1.key 值的注意点
+    // 官方建议：只要用到了 v-for 那么一定要绑定一个 :key 属性
+    // 而且，尽量把 id作为 key的值 
+    // 官方对 key 的值类型，是有要求的：key的值只能是字符串或数字类型
+    // 语法：<tr v-for="item in list" :key="item.id" ></tr>    key属性里面等于一个 id 的值，就是拿item项也就是循环项的id当作key的值  
+
+    // 刚才我们写是不是没有报错对吧，那现在我们使用的是 html 文件格式，以后我们都会使用 .vue的文件格式来写 Vue ,到时候如果你使用了 v-for 没有绑 key 属性，那么终端就会直接报错
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            // 数组数据
+            list: [
+                { id: 1, name: '拓儿' },
+                { id: 2, name: '轩儿' },
+                { id: 3, name: '娇儿' },
+                { id: 4, name: '拓儿' },
+            ]
+        }
+    })
+    // 在这里我们是不是id是数字型，那name是不是字符串类型，是不是也可以啊，但是不要那么干，因为有可能两个人的名字都叫拓儿，但是id不一样，人是不是就不一样，只是名字一样，那这样如果拿name当做 key的话是不是会产生冲突啊，会有两个重复的name,所以会报错 我们不能保证name是唯一的，但是我们知道 id是不是在页面是唯一的
+
+    // key 的值是千万不能重复的 ，否则会终端报错    Duplicate keys detected
+
+    // key的注意事项：
+        // key的值只能是字符串或数字类型
+        // key的值必须具有唯一性（key的值不能重复）
+        // 建议把数据项 id 属性的值作为 key的值（因为id属性的值具有唯一性）
+        // 使用 index 的值当作 key的值没有任何意义（因为index 的值不具有唯一性）
+        // 建议使用 v-for 指令时一定要指定key的值（既提升性能，又防止列表状态紊乱）
+    // key值作用：既提升性能，又防止列表状态紊乱
+</script>
+
+</html>

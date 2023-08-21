@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+</head>
+
+<body>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+
+</body>
+
+
+<script>
+    $('button').click(function () {
+        let $button = $(this);
+        $button.css('background', 'red');
+        $button.siblings().css('background', '');
+        //
+        // $button.prop('disabled', true); // 禁用按钮
+        //
+        // setTimeout(function () {
+        //     $button.prop('disabled', false); // 启用按钮
+        // }, 3000); // 三秒后启用按钮
+    });
+</script>
+
+</html>

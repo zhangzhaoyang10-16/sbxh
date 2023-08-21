@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组中的方法</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 1. 数组中的方法-some循环
+    // let arr = ['大红','大雷','苏大强','小军'];
+    // 在上面四个元素我希望找到苏大强，我们之前学过有一个 forEach 循环
+    
+    // arr.forEach((item,index) => {
+    //     // 测试循环之后中间会终止
+    //     console.log('ok');  // 如果输出了四次 ok 证明  return 没有作用1
+        
+    //     // item 代表循环的每一项，index 代表索引
+    //     if(item === "苏大强"){
+    //         console.log(index)
+    //         return;
+    //         // break;
+    //     }
+    // })
+    // 现在的问题就是 forEach 确实能可以实现我们的需求，但是性能比较差，找到 '苏大强' 以后还有必要在循环吗，是不是没有必要了，但是 forEach这个循环不能被终止，一旦开始了，中间就没有办法停掉了
+
+    // 测试之后return 没有作用， break报错，break只能结合  switch 来使用
+
+    // 结论：forEach循环一旦开始，无法在中间被停止
+
+    // 从数组里面找元素用 some 比较合适  some是不是代表某一项，因为 some 在找到那一项之后会终止后续的循环了
+
+    // arr.some((item,index) =>{
+    //     // 测试循环之后中间会终止
+    //     console.log('ok');
+
+    //     if(item === '苏大强'){
+    //         console.log(index);
+    //         // 在找到对应的项之后，就可以通过 return true 固定的语法，来终止 some 循环
+    //         return true  // 固定写法，只要终止 some 循环了一定是这个写法
+    //     }
+    // })
+
+    // some 应用场景：从数组里面找元素，找到以后不再循环，终止循环一定是找到自己要找的那一项后在去  return true
+
+
+    // 2. 数组中的方法-every循环
+    // 接下来学习 every 方法， every单词代表每一个，在数组里面它的这个作用就代表判断里面的每一项是否都满足我们的判断条件，如果每一项都满足返回 true,如果只要有任何一项不满足就会返回 false,它是来判断我们每一项的需求来的
+    
+    // 当前数组放置的每一项是水果的信息 的对象，包含水果的名字，水果的 id 水果是否被选中
+    // let arr =[
+    //     {id:1,name:'香蕉',state:true},
+    //     {id:2,name:'葡萄',state:true},
+    //     {id:3,name:'榴莲',state:true}
+    // ]
+    // 现在每一个水果都被选中了，它的选中状态都是 true,那咱们希望判断出它们是否被全选
+    // 需求：判断数组中，水果是否被全选
+    // 比如我们在淘宝买东西，在购物车里面在下面有一个全选的按钮，它的值true 和false 由谁来决定，是不是由我们选中的选项来决定，比如我的购物车有4项东西，那我选择了三项下面的全选会有选中效果吗，是不是没有，只要我是4个选项都选中才会有，那这里我们是不是就可以使用 every来判断
+
+    // let result = arr.every(item => item.state === true)
+    // console.log(result);  // 返回 true
+    // 在这里但凡有一项不是 true 那输出结果就会使 false 
+
+
+    // 3.数组中的方法-reduce 的基本用法
+    
+    // 声明一个数组
+    // let arr =[
+    //     {id:1,name:'香蕉',state:true,price:10,count:1},
+    //     {id:2,name:'葡萄',state:false,price:15,count:2},
+    //     {id:3,name:'榴莲',state:true,price:80,count:3}
+    // ]
+
+    // 需求：把数组里面已经勾选的水果的总价计算出来
+    // 分析：
+        // 1.首先应该把数组里面的已勾选的项过滤出来
+        // 2. filter 过滤之后的结果是不是就是所以勾选的结果
+        // 3. 然后再循环 filter 的结果，把每一项的结果单价 * 数量累加起来是不是就可以了
+    
+    // 普通写法；
+    // 总价
+    // let sum = 0;
+    // arr.filter( item => item.state ).forEach(item =>{
+    //     // 每一项勾选中的水果的价格
+    //     // item.price * item.count
+
+    //     // 累加求和
+    //     sum += item.price * item.count
+    // })
+    // console.log(sum);
+
+
+    // reduce 循环写法：
+    // reduce 也会循环数组的每一项，现在过滤之后返回的新数组是香蕉和榴莲，那使用 reduce 就会先循环香蕉在循环榴莲
+    // arr.filter(item => item.state).reduce((累加的结果，当前循环项) => {},初始值)
+
+//     let result = arr.filter(item => item.state).reduce((sum,item) => {
+//         return sum += item.price * item.count
+
+//     },0)
+//    console.log(result);
+
+    // reduce 简写形式：
+    // let result = arr.filter(item => item.state).reduce((sum,item) => sum += item.price * item.count,0)
+    // console.log(result);
+
+
+
+</script>
+</html>

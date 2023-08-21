@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery多库存</title>
+    <script src="../js/js/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div></div>
+
+    <span></span>
+</body>
+<script>
+    // jQuery多库共存
+    // 问题概述：
+        // jQuery使用$作为标识符，随着jQuery的流行，其他js库也会用这$作为标识符，这样一起使用会引起冲突
+        
+        $(function(){
+            // $符做一个封装
+            function $(ele){// ele元素
+                return document.querySelector(ele);
+            }
+            console.log($("div"));
+            // 在这里会报错，因为我们自己刚才封装了一个函数，函数名叫 $ ,而jquery也有 $ 符号，那这样就会产生冲突
+            // $.each();   
+            // 客观需求：
+            // 需要一个解决方案，让jQuery和其他js库不存在冲突，可以同时存在，这就叫做多库共存
+
+            // jQuery解决方案：
+            // 1.把里面的$符号统一改成jQuery，比如jQuery("div")
+
+                // jQuery.each();
+            // 2.jQuery变量规定新的名称：$.noConflict()      var x = $.noConflict();   noConflict不冲突
+            // var x = $.noConflict();    // 会报错，因为上边已经使用了 $  所以在使用  $.noConflict()就报错
+                // var x = jQuery.noConflict();
+                // x("span");
+                // console.log(x("span"));  
+                // x.each();
+            // 总结：
+                // 1. 如果$符号冲突 我们使用jQuery 
+                // 2. 让jQuery 释放对 $ 控制权 让我们自己决定
+        })
+</script>
+</html>

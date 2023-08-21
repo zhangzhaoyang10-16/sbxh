@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery尺寸和位置</title>
+    <script src="../js/js/jquery-3.5.1.min.js"></script>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .father {
+        width: 400px;
+        height: 400px;
+        background-color: red;
+        margin: 100px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .son {
+        width: 150px;
+        height: 150px;
+        background-color: pink;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+
+    .back {
+        width: 50px;
+        height: 50px;
+        background-color: red;
+        position: fixed;
+        right: 30px;
+        bottom: 100px;
+        /* display: none; */
+    }
+
+    .container {
+        width: 1000px;
+        height: 500px;
+        margin: 20px auto;
+        background-color: aqua;
+        text-align: center;
+        font-size: 50px;
+        line-height: 500px;
+    }
+
+    .container1 {
+        width: 1000px;
+        height: 500px;
+        margin: 20px auto;
+        background-color: red;
+        text-align: center;
+        font-size: 50px;
+        line-height: 500px;
+    }
+
+    /* div {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        padding: 10px;
+        margin: 20px;
+        border: 15px solid blue;
+    } */
+
+    .header {
+        width: 100%;
+        height: 400px;
+        background-color: blueviolet;
+    }
+</style>
+
+<body>
+    <!-- <div></div>
+    <div class="father">
+        <div class="son"></div>
+    </div> -->
+
+    <div class="back">
+        <ul>
+            <li>京东秒杀</li>
+            <li>特色优选</li>
+            <li>频道广场</li>
+            <li>为你推荐</li>
+            <li>返回顶部</li>
+        </ul>
+    </div>
+    <div class="header">
+
+    </div>
+    <div class="container">
+        第一屏
+    </div>
+    <div class="container1">
+        第二屏
+    </div>
+</body>
+<script>
+    // jQuery尺寸
+    // 语法：
+    //     width()/height()                            取得匹配元素宽度和高度值   只算width/height
+    //     innerWidth()/innerHeight()                  取得匹配元素宽度和高度值  包含 padding
+    //     outerWidth()/outerHeight()                  取得匹配元素宽度和高度值  包含 padding、border
+    //     outerWidth(true)/outerHeight(true)          取得匹配元素宽度和高度值  包含 padding、border 、 margin
+
+    // $(function () {
+    // 1.width()/height()   获取设置元素width 和height 大小
+    // console.log($("div").width());
+    // console.log($("div").height());
+    // $("div").width(300);
+    // console.log($("div").innerWidth());
+    // })
+
+    // jQuery尺寸
+    // 位置主要有三个：offset()、position()、scrollTop()/scrollLeft()
+    // 1. offset() 设置或获取元素偏移
+    // (1) offset()方法设置或返回被选元素相对于文档的偏移坐标，跟父级没有关系
+    // $(function () {
+    //     // 1. 获取设置距离文档的位置（偏移）offset
+    //     console.log($(".son").offset());
+    //     console.log($(".son").offset().top);   // 获取到距离文档上边位置的数值
+    //     // 修改距离文档的距离上边和左边位置
+    //     $(".son").offset({
+    //         top:200,
+    //         left:200
+    //     })
+
+    //     console.log($(".son").offset());
+    // })
+    // (2) 该方法有2个属性left、top,offset().top用于获取距离文档顶部的距离，offset().left用于获取距离文档左侧的距离
+    // (3) 可以设置元素的偏移：offset({top:100,left:10});
+
+    // 2. position()  获取元素偏移
+    // (1) position() 方法用于返回被选元素相对于稀有定位的父级偏移坐标，如果父级都没有定位，则以文档为准
+    $(function () {
+        // 1. 获取距离带有定位父级位置（偏移）position    如果没有带有定位的父级，则以文档为准
+        // console.log($(".son").position());
+        // 修改距离文档的距离上边和左边位置
+        // $(".son").position({
+        //     top:200,
+        //     left:200
+        // })
+        // 这个方法只能获取不能设置
+    })
+
+    // 3. scrollTop()/scrollLeft()  设置或获取元素被卷去的头部和左侧
+    // (1) scrollTop()方法设置或返回被选元素被卷去的头部
+    $(function () {
+        //     // 同时可以进行一个修改
+        // console.log($(document).scrollTop(100));
+        //     // 被卷去的头部scrollTop()   被卷去的左侧scrollLeft()
+        //     // 先将蓝色盒子距离文档顶部的值获取到
+        var boxTop = $(".container").offset().top;
+        //     // 页面滚动事件
+        $(window).scroll(function () {
+            // $(document).scrollTop()  页面被卷去的头部距离
+            // console.log($(document).scrollTop());
+            // 页面被卷去的头部距离大于等于了蓝色盒子距离文档顶部的值就显示返回顶部
+            if ($(document).scrollTop() >= boxTop) {
+                $(".back").fadeIn();
+            } else {
+                $(".back").fadeOut();
+            }
+        });
+
+        //     // 返回顶部
+        // $(".back").click(function(){
+        //     $(document).scrollTop(0);
+        // })
+
+        // 那带有动画的返回顶部：
+        // 核心：使用animate动画返回顶部
+        // animate动画函数里面有一个scrollTop属性，可以设置位置
+        // animate做动画主要针对元素做动画  因为我们要将之前的对象修改成DOM元素才可以$("body,html").animate({scrollTop(0)})
+
+        $(".back").on("click", function () {
+            $("body,html").stop().animate({
+                scrollTop: 0
+            })
+        })
+
+            // $(".back").click(function(){
+            //     $("body,html").stop().animate({
+            //         scrollTop:0
+            //     })
+            //     // $(document).stop().animate({
+            //     //     scrollTop:0
+            //     // })  不能是文档而是html和body元素做动画
+            // })
+    })
+</script>
+
+</html>

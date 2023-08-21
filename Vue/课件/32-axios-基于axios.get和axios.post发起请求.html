@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基于axios.get和axios.post发起请求</title>
+    <script src="../axios/axios.js"></script>
+</head>
+
+<body>
+    <button id="btnGet">GET</button>
+    <button id="btnPost">POST</button>
+</body>
+<script>    
+    // 昨天讲解了axios的基本的语法，引入axios.js文件之后，在window全局就可以调用 axios 方法  直接发起POST 或者 GET请求
+    // 如果result返回的是Promise 对象 在 axios 前面加 await 对应的方法一定要加 async  而且我们为了简化它的用法，是不是我们使用了一下解构赋值
+    // 除了直接.axios之外，还提供了 .get  .post请求
+
+    // 1. 直接发起 GET 请求
+    // 绑定点击事件  监听函数
+    document.querySelector('#btnGet').addEventListener('click', async function () {
+        // 直接调 get 发起请求
+        // 语法格式：
+        // axios.get('url地址',{ params:{} }) // 第一个值 url地址，第二个值 配置选项 是个对象 在这里对象里面要写一个参数 params
+
+        // await 和 async 调用返回值结构   
+        // let result = await axios.get('http://www.liulongbin.top:3006/api/getbooks') //  如果不需要参数，可以直接写一个地址就可以了
+        // console.log(result); // 返回值是 Promise 对象 之后加 await 和 async 
+
+        //     解构赋值
+        //     属性中我们只需要 data 属性，所以我们可以 解构赋值一下
+        // let { data: res } = await axios.get('http://www.liulongbin.top:3006/api/getbooks');
+        // console.log(res.data);
+
+        //     // 配置选项传参
+        let { data: res } = await axios.get('http://www.liulongbin.top:3006/api/getbooks', {
+            params: { id: 1 }
+        });
+        console.log(res.data);
+    })
+
+    // 2. 直接调 POST 请求
+    // 语法：
+    // axios.post('url地址',{ POST请求体数据 })    // 第一个值 url地址，第二个值 配置选项 是个对象 和get 不同的是我们在这个对象里面不用写 data参数，直接在这个对象里面传参就可以了，{}对象就是我们post 对应提交的参数
+    document.querySelector('#btnPost').addEventListener('click', async function () {
+        let { data: res } = await axios.post('http://www.liulongbin.top:3006/api/post', { name: "zs", age: 20 });
+        console.log(res);
+    })
+</script>
+
+</html>

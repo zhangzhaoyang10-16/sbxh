@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/index.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div class="max">
+      <div class="box">
+        <ul class="top">
+          <li>
+            <input type="checkbox" id="checkAll" />
+            <p>全选</p>
+          </li>
+          <li>
+            <p>商品</p>
+          </li>
+          <li>
+            <p>单价</p>
+          </li>
+          <li>
+            <p>数量</p>
+          </li>
+          <li>
+            <p>小计</p>
+          </li>
+          <li>
+            <p>操作</p>
+          </li>
+        </ul>
+        <!-- 商品列表 -->
+        <div class="nr_box">
+          <!-- 商品信息 -->
+          <ul class="sp">
+            <li>
+              <input type="checkbox" class="checkbox" />
+              <img src="../img/liu%20(3).jpg" alt="" />
+            </li>
+            <li>
+              <!-- <div>
+                            <p>[299.减180] 良品铺子 鸭脖 鸭脖子网红鸭脖子鸭舌鸭锁骨鸭肉小吃肉干肉</p>
+                        </div>
+                        <div>
+                            <p>符华 (绿色)</p>
+                            <p>OLED保护套+钢化膜</p>
+                        </div> -->
+            </li>
+            <li><span>￥</span><span class="price">9999999</span></li>
+            <li>
+              <button class="jian">-</button
+              ><input type="text" value="1" class="v" /><button class="add">
+                +
+              </button>
+            </li>
+            <li><strong class="a">¥9999999</strong></li>
+            <li>
+              <p class="delete"><a href="#">删除</a></p>
+
+              <p>移入关注</p>
+            </li>
+          </ul>
+
+          <ul class="sp">
+            <li>
+              <input type="checkbox" class="checkbox" />
+              <img src="../img/Lui.jpg" alt="" />
+            </li>
+            <li>
+              <!-- <div>
+                            <p>烨白72款可选Switch OLED保护包TPU磨砂软可插底座浮雕彩绘保护套 符华</p>
+                        </div>
+                        <div>
+                            <p>符华 (绿色)</p>
+                            <p>OLED保护套+钢化膜</p>
+                        </div>
+                    </li> -->
+            </li>
+
+            <li><span>￥</span><span class="price">9999999</span></li>
+            <li>
+              <button class="jian">-</button
+              ><input type="text" value="1" class="v" /><button class="add">
+                +
+              </button>
+            </li>
+            <li><strong class="a">¥9999999</strong></li>
+            <li>
+              <p class="delete"><a href="#">删除</a></p>
+
+              <p>移入关注</p>
+            </li>
+          </ul>
+
+          <ul class="sp">
+            <li>
+              <input type="checkbox" class="checkbox" />
+              <img src="../img/liu%20(2).jpg" alt="" />
+            </li>
+            <li>
+              <!-- <div>
+                            <p>烨白72款可选Switch OLED保护包TPU磨砂软可插底座浮雕彩绘保护套 符华</p>
+                        </div>
+                        <div>
+                            <p>符华 (绿色)</p>
+                            <p>OLED保护套+钢化膜</p>
+                        </div> -->
+            </li>
+            <li><span>￥</span><span class="price">1</span></li>
+            <li>
+              <button class="jian">-</button
+              ><input type="text" value="1" class="v" /><button class="add">
+                +
+              </button>
+            </li>
+            <li><strong class="a">¥1</strong></li>
+            <li>
+              <p class="delete"><a href="#">删除</a></p>
+
+              <p>移入关注</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- 购物车底部信息 -->
+      <div class="foot">
+        <div class="footter">
+          <p><a href="#">删除已选商品</a></p>
+          <p><a href="#">清空购物车</a></p>
+          <span>已选商品：<span></span></span>
+          <span>总价：<span></span></span>
+          <div>去结算</div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="../js/input.js"></script>
+</html>

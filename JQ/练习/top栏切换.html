@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+</head>
+<style>
+    img {
+        width: 512px;
+        height: 680px;
+    }
+
+    .top-bar {
+        background-color: #333;
+        padding: 10px;
+        height: 20px;
+    }
+
+    .nav {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav li {
+        display: block;
+        margin-right: 10px;
+    }
+
+    .nav li a {
+        color: #fff;
+        text-decoration: none;
+        float: left;
+        line-height: 100%;
+        margin-left: 50px;
+    }
+
+    .nav li.active a {
+        font-weight: bold;
+    }
+
+    .section {
+        display: none;
+        padding: 20px;
+    }
+
+    .section h2 {
+        margin-top: 0;
+    }
+</style>
+
+<body>
+    <div class="top-bar">
+        <ul class="nav">
+            <li class="active"><a href="#section1">部分1</a></li>
+            <li><a href="#section2">部分2</a></li>
+            <li><a href="#section3">部分3</a></li>
+        </ul>
+    </div>
+
+    <div id="section1" class="section">
+        <img src="../img/Lui.jpg" alt="">
+        <!-- 部分1的内容 -->
+    </div>
+
+    <div id="section2" class="section">
+        <img src="../img/liu (2).jpg" alt="">
+        <!-- 部分2的内容 -->
+    </div>
+
+    <div id="section3" class="section">
+        <img src="../img/1688959896113.jpg" alt="">
+        <!-- 部分3的内容 -->
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+ <script>
+    $(document).ready(function () {
+        // 默认显示第一个部分
+        $("#section1").show();
+
+        // 导航栏点击事件
+        $(".nav li").mouseover(function () {
+            // 移除之前的active类
+            $(".nav li").removeClass("active");
+            // 添加当前点击的li的active类
+            $(this).addClass("active");
+
+            // 隐藏所有部分
+            $(".section").hide();
+
+            // 根据点击的li的索引显示对应的部分
+            var index = $(this).index();
+            $(".section").eq(index).show();
+        });
+    });
+</script>
+
+</html>

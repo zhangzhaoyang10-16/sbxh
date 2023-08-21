@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件修饰符</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 需求：给超链接绑定事件在控制台输出一个字符串，"a标签被点击了" -->
+
+      <!-- 使用e.preventDefault 实现 -->
+      <!-- <a href="https://www.baidu.com" @click="show">{{ ami }}</a> -->
+
+      <!-- 使用事件修饰符实现阻止默认行为 -->
+      <!-- <a href="https://www.baidu.com" @click.prevent="show">跳转到百度首页</a> -->
+      <!-- 绑事件同时阻止默认行为     事件修饰符 .prevent-->
+
+      <!-- 阻止事件冒泡行为 -->
+      <!-- 使用 e.stopPropagation() 实现 -->
+      <!-- <div style="height:150px;background-color: orange;padding-left: 100px;line-height: 150px;" @click="divHandler">
+            <button @click="btn">点击按钮</button>
+        </div> -->
+
+      <!-- 使用事件修饰符实现阻止冒泡 -->
+      <div
+        style="
+          height: 150px;
+          background-color: orange;
+          padding-left: 100px;
+          line-height: 150px;
+        "
+        @click="divHandler"
+      >
+        <button @click.stop="btn">点击按钮</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    // 1. .prevent事件修饰符
+    // let vm = new Vue({
+    //     el: "#app",
+    //     data: {
+    //         ami: '跳转到百度首页'
+    //     },
+    //     methods: {
+    //         show(e) {
+    //             console.log(e);
+    //             console.log('a标签被点击了');
+    //             // 一点击就跳转  在这里我们添加一个 e.preventDefault()  阻止默认行为
+    //             e.preventDefault();   // 阻止默认行为
+    //             console.log("超链接被点击了");
+    //             // 那这里这个单词太长，不好记，在vue里提供了一种简化的方式，就是事件修饰符，将其注销
+    //         }
+    //     }
+    // })
+    // event.stopPropagation() 方法阻止事件冒泡到父元素，阻止任何父事件处理程序被执行
+    // event.preventDefault() 方法阻止元素发生默认的行为
+    // 总结：在事件处理函数中调用 event.preventDefault() 或 event.stopPropagation() 是非常常见的需求。因此， vue 提供了 事件修饰符 的概念 ，来辅助程序员更方便的 对事件的触发进行控制 。常见的5个事件修饰符：
+
+    // .prevent    阻止默认行为（例如：阻止 a链接的跳转，阻止表单提交 ）
+    // .stop       阻止事件冒泡行为
+    // .capture    以捕获模式触发当前的事件处理函数
+    // .once       绑定的事件只触发一次
+    // .self       只有在 event.target 是当前元素自身时触发事件处‘理函数
+    // 后面三个不经常使用
+
+    // 2. .stop事件修饰符
+    // 上面我们已经了解到  .stop  是阻止事件冒泡行为
+    // 什么是冒泡:
+    // 假如说外层的元素包着里层的元素，里层的元素和外层的元素同时绑定了点击事件，点里层的元素是不是会触发里层的事件，然后再继续冒泡在触发外层元素的事件，那如果不想触发外层的元素是不是要通过 event.stopPropagation()阻止一下
+
+    let vm = new Vue({
+      el: "#app",
+      data: {},
+      methods: {
+        // 原生做法：在btn里面 设置  e.stopPropagation() 就阻止了
+        btn(e) {
+          // 但是vue是不是有事件修饰符，我们进行事件修饰符操作  去形参 注销 e.stopPropagation()
+          // e.stopPropagation()
+          console.log("btn");
+        },
+        divHandler() {
+          console.log("divHandler");
+        },
+
+        // 点击div 会触发返回 divHandler
+        // 点击btn会触发返回btn 和 divHandler
+      },
+    });
+  </script>
+</html>

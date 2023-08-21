@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>按键修饰符</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 需求：给一个文本框，在里面输入内容，当我获得焦点的时候，按下esc键，清空文本框 -->
+
+        <!-- 分析： -->
+        <!-- 在这里我们是不是需要监听是哪个键，在按下特定按键的时候才进行清空 -->
+
+        <!-- 传统的方式就是用户每一次按下键盘都应该判断它按下的是否是esc键 -->
+
+        <!-- 现在在vue里面可以直接按键修饰符的绑定 -->
+
+        <!-- 那目前我们是不是需要给 input 绑定一个keyup键盘按下弹起的事件，如果判断到用户按下的键正好是esc这个键就会执行处理函数，如果按下的不是esc键就不会触发这个处理函数 -->
+
+        <!-- <input type="text" @keyup.esc="clearInp"> -->
+        <!-- 按键多少次就触发多少次，这样是不对的，我们是要按下esc键才触发，那在这里我们就可以在事件上加一个按键修饰符 .esc 就可以了 -->
+
+        <!-- 目前添加了按键修饰符，按下其他键只是输入了内容，并未触发事件，只有在按下 esc 按键时才会触发 -->
+
+        <!-- 那接下来是不是要做的就是触发之后清空输入框 -->
+        <!-- 在clearInp 后面是不是可以传参数，但是默认是不是有一个 事件对象 e,这里我们是不是可以拿到这个e  -->
+ l
+        <!-- .enter按键绑定 -->
+        <input type="text" @keyup.enter="commitAjax">
+    </div>
+</body>
+<script>
+    // 1. .esc 按键修饰符
+    // 在监听键盘事件时，我们经常需要判断详细的按键，此时，可以为键盘相关的事件添加按键修饰符
+    // let vm = new Vue({
+    //     el: "#app",
+    //     data: {
+
+    //     },
+    //     methods: {
+    //         clearInp(e) {
+    //             console.log(1);
+    //             console.log(e)
+    //             e.target.value = "";
+    //             // 这里我们通过 e.target 获取到最初发生事件的元素(事件源) input 来找到 value值，给其为空，就清空了
+    //         }
+    //     }
+    // })
+    // 在这里要注意像 .esc 这样的按键修饰符只能结合键盘事件来使用，和其他事件是不能使用的
+
+
+    // 2. .enter 按键修饰符
+    // 那我们按下 esc 是清空 按下 enter 是希望能够发起 ajax 请求等等，我们在来绑定一个enter按键
+    let vm = new Vue({
+        el: "#app",
+        data: {
+
+        },
+        methods: {
+            commitAjax() {
+                console.log(1); //  目前按下 enter 会触发这个方法
+            }
+        }
+    })
+    // 那么目前我们这个按键修饰符用的不是很多，我们能够知道这个清除演示这个按键修饰符就可以了，在实际开发的时候有这种需要按下某个按键相应某个处理函数，此时我们能够想到按键事件后面对应的按键修饰符来进行处理
+</script>
+
+</html>

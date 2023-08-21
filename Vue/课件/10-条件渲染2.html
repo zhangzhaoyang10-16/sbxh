@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染-v-if配套的指令</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p v-if="flag"> 这是被 v-if 控制的元素</p>
+        <p v-show="flag"> 这是被 v-show 控制的元素</p>
+        <!-- v-else-if  v-else 演示-->
+        <!-- 再页面直接可以看到这四个页面部分，那我们的需求是不是通过type值类型  ABCD来决定渲染出哪个div -->
+        <div v-if="type ==='A'">优秀</div>   
+        <!-- 这里""引号里面我们要得到一个布尔值啊，true和false 直接写true是不是就直接展示了，所以我们里面需要填写判断条件了-->
+        <div v-else-if="type === 'B'">良好</div>
+        <div v-else-if="type === 'C'">一般</div>
+        <div v-else>差</div>
+        <!-- 再这里默认展示的优秀 -->
+        <!-- 在这里我们可以直接给一个true也可以给判断条件，我们写的是不是一个判断条件，也能得到我们想要的 -->
+    </div>
+</body>
+<script>
+    // 1.v-if配套的指令
+    // 接下来我们看一下 v-if 的配套指令，v-if 只能单纯的控制某一个节点的展示和隐藏，比如我把 v-if 指令加给一个 p标签，就只能控制这个元素的显示和隐藏
+    // 需求：如果我们希望有多个元素按需求来进行展示，此时就像我们写 if(){}else{} 一样 
+    // 我们之前写if判断是不是可以这样：if(){}else if(){}else{}这么写
+    // 在 vue 指令里面有v-if v-else-if v-else指令
+        //  v-else-if指令   v-else指令
+        // v-else-if指令 充当 v-if 的 else-if 块，可以连续使用
+
+        // <div v-if="type === 'A'">优秀</div> // type类型等于 字符串A
+        // <div v-else-if="type === 'B'">良好</div>
+        // <div v-else-if="type === 'C'">一般</div>
+        // <div v-else>差</div>
+        // 那么通过我们的分析，那v-if 后面是不是要写一个判断条件，那其他的后面是不是也需要写判断条件啊，只有else里面不需要再写
+        // 再实际开发中 v-if  结合 v-else 可以满足我们大多数的一个情况 ，一般情况用不到 v-else-if 除非再你的条件特别复杂的情况下
+
+        // 注意： v-else-if 指令必须配合 v-if 指令一起使用，否则它将不会被识别
+
+        // 演示：
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                flag:false,
+                // 这里加一个 type 默认值写死 'A'
+                type:'A' // 一般默认是空，看开发场景，如果是个接口就看后台给什么这里就写什么
+            }
+        })
+</script>
+</html>

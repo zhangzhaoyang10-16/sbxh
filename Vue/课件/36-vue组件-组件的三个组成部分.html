@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue-cli 组件的三个组成部分</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 接下来讲解一下怎样把我们自己创建的 vue 项目文件渲染到页面里面去 
+        // 1. 声明一个 .vue文件，里面写上模板结构
+        // 2. 再main.js 导入自己的文件，然后把它放到函数里面去，放哪个文件就渲染哪个文件到页面去
+        // 3. 再这先解决个语法问题：打开public 文件目录下的 index.html文件  title和strong里面写的是一个奇奇怪怪的语法，我们来说一下，首页大家不要管它，放着就行，不要注释掉，这些代码是有意义的，咱们后面再做完一个项目之后要打包发布，再进行打包发布的时候这些代码就用的到了，到时候详谈
+        // 4. div区域，是不是我们放进我们自己的文件，就会将id为app的div替换掉，所以这里也不需要管，不要注释掉，总而言之，public文件中的index 文件里面的代码一行都不要注释掉 只许看不许动
+    // 1. 什么是组件化开发
+        // 组件化开发指的是：根据封装的思想，把页面上可重复的 UI结构封装为组件，从而方便项目的开发和维护
+
+    // 2. vue 中的组件开发
+        // 1. 首先 vue 是一个 支持组件化开发 的前端框架
+        // 2. vue 中规定：组件的后缀名是 .vue。如接触到的 App.vue 文件以及我们自己创建的 Test.vue 文件本质上就是一个 vue 的组件
+            // App.vue 就是APP组件，Test.vue 就是 Test组件
+
+    // 3. vue 组件的三个组成部分
+        // 每个 .vue 组件都由3部分构成，分别是：
+            // template ->  组件的 模板结构
+            // script  ->   组件的 JavaScript行为
+            // style  ->    组件的样式
+    // 如果有人问到我们什么是组件，我们是不是可以回答，组件就是对 UI结构的复用
+    // 既然组件是对UI结构的复用，那UI结构需不需要被渲染啊，咱们把UI结构复用过来了，那样式是不是也应该拿到组件中
+    // template 是咱们要复用的UI结构，是DOM标签  要美化就要放到 style中  -->   到Test.vue 组件中
+    
+</script>
+</html>

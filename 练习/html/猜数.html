@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var randomNumber = Math.floor(Math.random() * 20) + 1;
+    var guessCount = 0;
+    var guess;
+
+    while (guessCount < 5) {
+        guess = parseInt(prompt("请输入一个1到20之间的数字："));
+
+        if (guess < randomNumber) {
+            alert("小了");
+        } else if (guess > randomNumber) {
+            alert("大了");
+        } else {
+            alert("恭喜猜对了");
+            break;
+        }
+
+        guessCount--;
+    }
+
+    boxs.innerHTML = "随机数的值是：" + randomNumber;
+</script>
+
+</html>

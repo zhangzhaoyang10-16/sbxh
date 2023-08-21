@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-model的修饰符</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 在这里我们给两个文本框，值给到一个插值表达式 -->
+        <!-- 我们第一个input双向绑定到n1，n1里面填写了值会自动同步过来，第二个input双向绑定到n2 n2里面填写值会自动同步过来-->
+        <!-- 那现在只要n1或n2里面的值发生变化，那我们最后的值是不是会自动求值 我们在最后给一个加法运算 -->
+
+        <!-- <input type="text" v-model="n1"> + <input type="text" v-model="n2"> = <span>{{ n1 + n2 }}</span><br /> -->
+        <!-- 打开调试工具，n1和n2目前是数字类型对吧，当我改变n1或者n2的值，大家会发现变成了字符串 最后的值变成了字符串的拼接-->
+        <!-- 按照我们之前所学的内容，是不是我更改了n1或n2的内容值都应该转成number数字在赋值给n1或n2，这样是不是非常麻烦 -->
+        <!-- 那这里我们vue给出了简单的写法，也就是v-model 指令的修饰符 -->
+
+
+        <!-- v-model.number修饰符 -->
+
+        <!-- 我们进行使用v-model.number -->
+        <!-- <input type="text" v-model.number="n1"> + <input type="text" v-model.number="n2"> = {{ n1 + n2 }}<br /> -->
+        <!-- 现在我们就没有那么麻烦了直接加一个修饰符就可以了 -->
+
+        <!-- v-model.trim修饰符 -->
+        <!-- 这个文本框双向绑定到uname上，给一个点击按钮 -->
+        <!-- <input type="text" v-model="uname"> -->
+        <!-- 在这个按钮上给一个点击事件触发一个事件处理函数 -->
+        <!-- <input type="text" v-model.trim="uname">
+        <button @click="showBtn">获取用户名</button> -->
+
+
+        <!-- v-model.lazy修饰符 -->
+        <!-- <input type="text" v-model="uname"> -->
+        <!-- 在这里打开调试工具我们可以看到，我在input里面每删除一个字符，data 数据源就会及时同步新的数据，这是实时同步的 -->
+
+        <!-- 那这里我们来说需求，我们希望的是在input删除修改过程我们不再关心，不在实时同步 data数据源里面，我们只需要在最后更改完鼠标离开输入框时将最后的最新数据同步到 data 数据源里面就可以了 -->
+        <!-- 那如果有这种需求了，我们在 v-model后面加上 .lazy就可以了    验证一下-->
+        <input type="text" v-model.lazy="uname">
+    </div>
+</body>
+<script>
+    // 1. v-model 指令的修饰符
+    // 为了方便对用户输入的内容进行处理，vue为 v-model指令提供了3个修饰符，分别是：
+    // .number        作用：自动将用户的输入值转为数值类型            
+    // .trim          作用：自动过滤用户输入的首尾空白字符     
+    // .lazy          作用：在"change" 时而非"input" 时更新 
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            uname: "张三26637",
+            n1: 1,
+            n2: 2
+        },
+        methods: {
+            // 定义方法名：
+            showBtn() {
+                console.log(`用户名:"${this.uname}"`);
+                // 这样我们就把用户的名字最后一个占位符的方式填充到里面去了
+                // 我们通过这个控制台可以看出有没有空格，注意：当前我们只是单纯的用 v-model 把 uname绑定给了文本框，是不是没有去除 两边空格啊
+                // 之前我们可以调用.trim方法来进行操作，那现在我们只需要在v-model 后面加一个.trim就可以了,这样我们在拿到数据之后去除两端空格，在同步到 data 里面
+                // 这个一定注意:它只会处理两端的空格，不会处理中间空格
+            }
+        }
+    })      
+</script>
+
+</html>

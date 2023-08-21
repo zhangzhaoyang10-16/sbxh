@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery样式操作</title>
+</head>
+<style>
+    div{
+        width: 200px;
+        height:200px;
+        background-color: blue;
+        /* transition: all 0.5s; */
+    }
+
+
+    .box{
+        background-color: red;
+        /* transform:rotate(360deg); */
+    }
+
+
+
+
+
+</style>
+<body>
+    <div class="box"></div>
+</body>
+<script>
+    // 1. 操作css方法
+        // (1) 参数只写属性名，则返回属性值   不会认为你在改样式，而是在获取属性值
+            // $(function(){
+            //     console.log($("div").css('width'));
+            //     console.log($(".box").css("height"));
+            // })
+        // (2) 修改元素样式 参数是属性名，属性值,设置一组样式，必须加引号，值如果是数字可以不用跟单位和引号
+            // $(function(){
+            //     $("div").css("width",300);
+            //     $("div").css(height,"300px"); // 会将height当成变量
+            // })
+        // (3) 修改多组元素样式  参数可以是对象形式，属性名和属性值用冒号隔开，属性可以不用加引号
+            // $(function(){
+            //     $("div").css({
+            //         width:400,
+            //         height:400,
+            //         backgroundColor:"pink"
+            //         // 复合属性必须采取驼峰命名法，值如果不是数字，需加引号
+            //     })
+            // })
+    // 2. 设置类样式方法  等同于以前的classList
+        // (1) 添加类    addClass()         $("div").addClass('box');
+        //    $(function(){
+        //        $("div").click(function(){
+        //            $(this).addClass("box1");
+        //        })
+        //    })
+        // (2) 删除类   removeClass()         $("div").removeClass("box");
+        //   $(function(){
+        //       $(".box").click(function(){
+        //           $(this).removeClass("box");
+        //       })
+        //   })
+        // (3) 切换类    toggleClass()
+        //    $(function(){
+        //        $("div").click(function(){
+        //            $(this).toggleClass("box");
+        //        })
+        //    })
+        // 案例练习：
+            // tab栏切换 （选项卡）  使用链式编程操作
+            // 开发思路：
+                // 1.点击上部的li，当前li添加current类，其余li移出类
+                // 2.点击的同时，得到当前li的下标
+                // 3.让下部里面相应下标的item显示，其余的item隐藏
+
+
+    // 3. 类操作与className区别
+        // (1) 原生js中className会覆盖元素原先的类名
+            // var box = document.querySelector(".box");
+            // box.className = "box1";
+        // (2) jQuery里面类操作只是对指定类进行操作，不影响原先的类名
+            // $(".box").addClass("box1");     // addClass相当于追加类名  不影响以前类名
+            // $(".box").removeClass("box1");
+</script>
+</html>

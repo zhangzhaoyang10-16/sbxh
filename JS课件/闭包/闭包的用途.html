@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包的用途</title>
+</head>
+<body>
+<script>
+    // 闭包的用途
+    // 在介绍闭包的作用之前，我们先来了解一下 JavaScript 中的 GC（垃圾回收）机制。
+
+    // 在 JavaScript 中，如果一个对象不再被引用，那么这个对象就会被 GC 回收，否则这个对象会一直保存在内存中。在上面的例子中，内部函数 funTwo() 定义在外部函数 funOne() 中，因此 funTwo() 依赖于 funOne()，而全局变量 fun 又引用了 funTwo()，所以 funOne() 间接的被 fun 引用。因此 funOne() 不会被 GC 回收，会一直保存在内存中，如下所示：
+
+    function funOne(){
+        var num = 0;
+        function funTwo(){
+            num++;
+            console.log(num);
+        }
+        return funTwo;
+    }
+    var fun = funOne();
+    // fun();      // 输出：1
+    // fun();      // 输出：2
+    // fun();      // 输出：3
+    // fun();      // 输出：4
+
+    // num 是外部函数 funOne() 中的一个变量，它的值在内部函数 funTwo() 中被修改，函数 funTwo() 每执行一次就会将 num 加 1。根据闭包的特点，函数 funOne() 中的变量 num 会一直保存在内存中。
+
+    // 当我们需要在函数中定义一些变量，并且希望这些变量能够一直保存在内存中，同时不影响函数外的全局变量时，就可以使用闭包。
+
+    // 闭包的高级用法
+    // 上面介绍的是闭包最原始的写法，在实际开发中，通常会将闭包与匿名函数结合使用，如下所示：
+    // var funOne = (function(){
+    //     var num = 0;
+    //     return function(){
+    //         num++;
+    //         return num;
+    //     }
+    // })();
+    
+    // console.log(funOne());      // 输出：1
+    // console.log(funOne());      // 输出：2
+    // console.log(funOne());      // 输出：3
+
+    // 此外，同一个闭包机制可以创建多个闭包函数出来，它们彼此没有联系，都是独立的，如下所示：
+    function funOne(i){
+        function funTwo(){
+            console.log('数字：' + i);
+        }
+        return funTwo;
+    };
+    var fa = funOne(110);
+    // var fb = funOne(111);
+    // var fc = funOne(112);
+    fa();      
+    // fb();       
+    // fc();      
+</script>    
+</body>
+</html>

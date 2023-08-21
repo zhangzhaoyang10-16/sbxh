@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigator对象：获取浏览器信息</title>
+</head>
+
+<body>
+    <script>
+        // JavaScript navigator 对象中存储了与浏览器相关的信息，例如名称、版本等，我们可以通过 window 对象的 navigator 属性（即 window.navigator）来引用 navigator 对象，并通过它来获取浏览器的基本信息。
+
+        // 由于 window 对象是一个全局对象，因此在使用window.navigator时可以省略 window 前缀，例如window.navigator.appName可以简写为navigator.appName。
+
+        // navigator 对象中的属性
+
+        // 属性	                描述
+        // appCodeName	    返回当前浏览器的内部名称（开发代号）
+        // appName	        返回浏览器的官方名称
+        // appVersion	    返回浏览器的平台和版本信息
+        // cookieEnabled	返回浏览器是否启用 cookie，启用返回 true，禁用返回 false
+        // onLine	        返回浏览器是否联网，联网则返回 true，断网则返回 false
+        // platform	        返回浏览器运行的操作系统平台
+        // userAgent	    返回浏览器的厂商和版本信息，即浏览器运行的操作系统、浏览器的版本、名称
+
+        // navigator 对象中的方法
+
+        // 方法	                            描述
+        // javaEnabled()	返回浏览器是否支持运行 Java Applet 小程序，支持则返回 true，不支持则返回 false
+        // sendBeacon()	    向浏览器异步传输少量数据
+
+        document.write("navigator.appCodeName也就是内核名称：" + navigator.appCodeName + "<br>");  
+        document.write("navigator.appName官方名称：" + navigator.appName + "<br>");   
+        document.write("navigator.appVersion平台和版本信息：" + navigator.appVersion + "<br>"); 
+        document.write("navigator.cookieEnabled是否启用cookie：" + navigator.cookieEnabled + "<br>");
+        document.write("navigator.onLine是否联网：" + navigator.onLine + "<br>");
+        document.write("navigator.platform操作系统：" + navigator.platform + "<br>");
+        document.write("navigator.userAgent浏览器产商信息：" + navigator.userAgent + "<br>");
+        document.write("navigator.javaEnabled()是否支持小程序：" + navigator.javaEnabled() + "<br>");
+    </script>
+</body>
+
+</html>

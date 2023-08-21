@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侦听器-判断用户名是否被占用</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../jQuery/jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model.lazy="uname">
+    </div>
+</body>
+<script>
+    // 1. 侦听器应用场景    用户名是否被占用
+    // 在注册新用户的时候，用户名是不允许被重复的
+    // 在这里我们是不是就需要每一次按下键盘都有拿着这个最新的文本去请求服务器查询一下我们输入的名字有没有被占用,一变化就发起请求就进行判断
+    // 那这个场景是不是很适合我们的侦听器，只要值变化，我们是不是就需要监听到
+
+    // let vm = new Vue({
+    //     el:"#app",
+    //     data:{
+    //         uname:""
+    //     },
+    //     // 所有的听器要定义到 watch 节点之下
+    //     watch:{
+    //         // 侦听器本质上就是个函数，要监视哪个数据的变化，就把数据名作为方法名 
+
+    //         uname(newVal,oldVal){
+
+    //         // 直接输出newVal 和oldVal
+
+    //         console.log("监听到了 uname 值的变化",newVal,oldVal);
+    //         // 参数新增在前，旧值在后
+    //         }
+    //     }
+    // })
+
+    // 现在我们是不是监听到了uname值的变化，每一次新值是不是可以通过 newVal 接收到，现在新值拿到了，，是不是拿到新值去调接口，判断这个数据是否被占用了
+    // 怎么调接口，是不是发起ajax请求,怎么发起 ajax
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            uname: ""
+        },
+        watch: {
+            uname(newVal, oldVal) {
+                // 判断 newVal 是否为空，为空就 return出去
+                if (newVal === '') {
+                    return
+                }
+                // 调用 jQuery 中的 Ajax 发起请求，判断 newVal 是否被占用
+                $.get('https://www.escook.cn/api/finduser/' + newVal, function (res) {
+                    // 发起 get Ajax请求，请求服务器接口，把当前的用户名发给服务器来拿到一个结果,在后面接收一个函数
+                    console.log(res);
+                })
+                // 当我们删除到没有的时候是不是会报错，没有发起请求，那这里是不是我们必须给一个用户名，不能为空啊，为了防止这个问题，是不是可以在发请求之前判断 newVal 是否为空
+            }
+        }
+    })
+</script>
+</script>
+
+</html>

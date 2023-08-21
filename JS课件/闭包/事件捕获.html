@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件捕获</title>
+    <style>
+        div,
+        p,
+        a {
+            padding: 20px;
+            border: 2px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <p id="hint">
+            <a href="#">点击我</a>
+        </p>
+    </div>
+    <script>
+        // 事件捕获
+        // 在事件捕获阶段，事件会从 DOM 树的最外层开始，依次经过目标节点的各个父节点，并触发父节点上的事件，直至到达事件的目标节点。以上边的代码为例，如果单击其中的<a>标签，则该事件将通过document -> div -> p -> a的顺序传递到<a>标签。
+
+        var elems = document.querySelectorAll("div, p, a");
+        console.log(elems);  // 
+        for (let elem of elems) {
+            elem.addEventListener("click", showTagName, true);
+        }
+        function showTagName() {
+            alert("事件捕获: " + this.tagName);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>介绍并安装vue-cli</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 讲之前我们普及一个小知识
+    // 1. 什么是 单页面 应用程序
+        // 这里最重要的一个词 就是 单页面
+        // 单页面应用程序简称 SPA，就是指 一个WEB网站中只有唯一的一个html页面，所有的功能与交互都在这唯一的一个页面内完成
+
+        // 那大家想一下，单页面应用程序来讲的话，它的复杂度高还是不高？是不是很高，难度还是很高的
+    
+    // 2. 什么是 vue-cli
+        // vue-cli 是 Vue.js开发的标准工具。它简化了程序员基于 webpack 创建工程化的Vue项目的过程
+        // 我们刚才说的单页面应用程序的开发项目怎么快速搭建起来，就用到我们 vue-cli这个工具了
+
+        // 引用 vue-cli官网上的一句话：
+        // 程序员可以专注在撰写应用上，而不必花好几天去纠结 webpack 配置的问题
+        // 中文官网：https://cli.vuejs.org/zh/guide/
+        // 总体来说它就是快速生成vue项目的，这样就可以开发咱们的单页面应用程序了
+
+    // 3. 安装和使用
+        // 在安装之前呢我们先要安装一个 node.js
+        // vue-cli是 npm 上的一个全局包，使用 npm install 命令，即可方便的把它安装到自己的电脑上: npm install -g @vue/cli
+        // 基于 vue-cli 快速生成工程化的Vue项目：
+            // vue create 项目的名称  这个是固定的命令 项目的名称是自己的起的名字，咱们自己起的这个名字都用英文不要有中文、中文字符以及空格，其次要想好你要把这个创建好的项目放到哪个目录下
+
+        // vue-cli 的使用：
+        // 1. 在终端下运行如下的命令，创建指定名称的项目
+            //   vue create 项目的名称
+            // 创建vue-cli 项目及把项目跑起来：
+            // 1. 创建vue-cli项目步骤：
+                    // 1. 安装好 vue-cli 之后，我们打开我要创建目录的盘 比如：D:   新建一个文件夹 如：vueTest 文件夹
+                    // 2. 全部选中，输入 cmd 直接进入D盘的cmd终端，输入 npm install -g @vue/cli 回车
+                    // 3. 安装完之后，输入 vue -V 测试是否返回 @vue/cli 5.0.4
+                    // 4. 返回版本号之后，在下面输入 cd vueTest 进入刚建立的文件夹 vueTest 
+                    // 5. 进入输入命令： vue create 项目名称   进行创建vue-cli 项目
+                    // 6. 创建成功之后，输入 cd 项目名称（刚建的项目名称） 
+                    // 7. 把项目跑起来 输入命令： npm run serve 回车
+                    // 8. Local:   http://localhost:8080/   是本机的访问地址
+                    // 9. Network: http://192.168.0.2:8080/  是局域网的访问地址  （一般用不到，我们只用上面的 Local 就可以了）
+            
+            // 2. 把项目跑起来看效果
+                // 复制 Local:   http://localhost:8080/ 本机地址到浏览器   
+                // 大家看到的就是 vue-cli 帮咱们创建好的项目  他运行在本机的8080端口   切忌：终端窗口不要关  终端窗口不要关  终端窗口不要关
+
+                // 将刚建的 vue-cli 项目放到 vscode 离开，打开文件夹可以看到一个 package.json 双击打开
+                // 打开之后是不是有一个 scripts 脚本，有两个脚本，一个 serve 另一个是 build 
+                // build是我们项目开发完以后发布要上线 就要 npm run build 目前我们正在开发阶段所以是 npm run serve
+                // 在vscode同样也能打开终端  在这里大家一定要知道我们 npm run serve 的是package.json里面的serve脚本,我们相当于执行的是 vue-cli-service serve
+
+
+                // 安装 vue.cmd 
+                // npm install -g vue 
+                // 全局卸载 vue-cli  
+                // npm uninstall vue-cli -g 
+                // 全局安装 vue-cli 
+                // npm install -g @vue/cli 
+                // 测试 vue-cli 版本 
+                // vue -V 
+                // 查找list 目录 
+                // npm config list 
+                // 找到 prefix 对应的地址   也就是你的D:// 下的地址
+                // 将这个配置新建到用户变量的path 和 系统变量的path 里面
+                // 最后：
+                // vue -V 
+
+                
+</script>
+</html>

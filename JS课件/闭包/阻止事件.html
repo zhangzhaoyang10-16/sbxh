@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阻止事件冒泡与捕获</title>
+    <style>
+        div,
+        p,
+        a {
+            padding: 20px;
+            border: 2px solid #333;
+            margin: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <p id="hint">
+            <a href="https://www.baidu.com">点击我</a>
+        </p>
+    </div>
+
+    <div onclick="alert('您点击了 ' + this.tagName + ' 标签')">DIV
+        <p onclick="alert('您点击了 ' + this.tagName + ' 标签')">P
+            <a href="#" id="link">我有多个事件，但是我只会执行第一个</a>
+        </p>
+    </div>
+
+    <a href="https://www.baidu.com" id="conk">我有跳转连接，但是你点击我，我是不会跳转的</a>
+    <script>
+        // 阻止事件捕获和冒泡
+
+        // JavaScript 中提供了 stopPropagation() 方法来阻止事件捕获和事件冒泡的发生，语法格式如下：
+        // event.stopPropagation();
+
+        // 注意：stopPropagation() 会阻止事件捕获和事件冒泡，但是无法阻止标签的默认行为，例如点击链接仍然可以打开对应网页。
+
+        // function showTagName(e) {
+        //     e.stopPropagation();
+        //     alert('我是：' + this.tagName + '标签');
+        // }
+        // var aa = document.querySelectorAll('div,p,a');
+        // for (let element of aa) {
+        //     element.addEventListener('click', showTagName);
+        // }
+
+
+
+
+
+        // 此外，我们也可以使用 stopImmediatePropagation() 方法来阻止同一节点的同一事件的其它事件处理程序，例如为某个节点定义了多个点击事件，当事件触发时，这些事件会按定义顺序依次执行，如果其中一个事件处理程序中使用了 stopImmediatePropagation() 方法，那么剩下的事件处理程序将不再执行。
+
+        // stopImmediatePropagation() 方法的语法格式如下：
+        // event.stopImmediatePropagation();
+
+        // function sayHi() {
+        //     alert("事件处理程序 1");
+        //     event.stopImmediatePropagation();
+        // }
+        function sayHello() {
+            alert("事件处理程序 2");
+        }
+        // 为 id 为 link 的标签定义多个点击事件
+        var link = document.getElementById("link");
+        // link.addEventListener("click", sayHi);
+        link.addEventListener("click", sayHello);
+
+
+
+        // 阻止默认操作
+        // 某些事件具有与之关联的默认操作，例如当你单击某个链接时，会自动跳转到指定的页面，当你单击提交按钮时，会将数据提交到服务器等。如果不想这样的默认操作发生，可以使用 preventDefault() 方法来阻止，其语法格式如下：
+        // event.preventDefault();
+
+        var conk = document.getElementById("conk");
+        conk.addEventListener('click', function (e) {
+            e.preventDefault(); // 阻止链接跳转
+        });
+
+
+
+    </script>
+</body>
+
+</html>

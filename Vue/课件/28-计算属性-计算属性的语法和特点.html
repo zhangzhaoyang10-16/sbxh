@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性-计算属性的语法和特点</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<style>
+    .box {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #000;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div>
+            <span>R:</span>
+            <input type="text" v-model.number="r">
+        </div>
+        <div>
+            <span>G:</span>
+            <input type="text" v-model.number="g">
+        </div>
+        <div>
+            <span>B:</span>
+            <input type="text" v-model.number="b">
+        </div>
+
+        <div class="box" :style="{ backgroundColor:rgb}">
+            <!-- {{`rgb(${r},${g},${b})`}} -->
+
+            <!-- 不需要在动态生成 -->
+            {{ rgb }}
+        </div>
+        <button @click="show">按钮</button>
+    </div>
+</body>
+<script>
+    // 1. 计算属性的语法
+    // 定义到 computed节点之下   它代表计算属性
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            r: 0,
+            g: 0,
+            b: 0
+        },
+        methods: {
+            show() {
+                console.log(this.rgb)
+
+
+                // console.log(this.rgb)
+            }
+        },
+        // 所有的计算属性，都要定义到 computed 节点之下
+        // 计算属性在定义的时候，要定义成方法格式
+        computed: {
+            // 需求：动态生成rgb的一个字符串
+            // rgb作为一个计算属性，被定义成了方法格式，最终，在这个方法中，要返回一个生成好的 rgb() 的字符串
+            rgb() {
+                // 内部 return 一个字符串
+                // return `rgb( ${r} ,${g} ,${b})`
+                // 这样写可以吗？
+
+
+
+                return `rgb( ${this.r} ,${this.g} ,${this.b})`
+                // 返回一个字符串
+                // 这里我们声明的时候是不是一个方法，但是你在用的时候它是一个属性，不再需要动态生成
+            }
+        }
+    })
+    // console.log(vm);
+
+    // 计算属性特点：
+        // 1. 定义的时候，要被定义为"方法"
+        // 2. 在使用计算属性的时候，当普通的属性使用即可
+    // 好处：
+    // 1. 实现了代码的复用
+    // 2. 只要计算属性中依赖的数据源变化了，则计算属性会自动重新求值
+</script>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包</title>
+</head>
+<body>
+    <button type="button" onclick="myFunction()">点我</button>
+    <p id="demo">0</p>
+<script>
+    // 闭包（closures）是 Javascript 语言的一个难点，也是它的特色，很多高级应用都是依靠闭包实现的。闭包与变量的作用域以及变量的生命周期密切相关
+
+    // 什么是闭包
+    // 闭包，指的就是一个函数。当两个函数彼此嵌套时，内部的函数就是闭包。
+
+    // 在 JavaScript 中，函数属于对象，对象又是属性的集合，而属性的值又可以是对象，所以我们可以在函数内部再定义函数。例如在函数 A 中定义了函数 B，然后在函数外部调用函数 B，这个过程就是闭包。
+
+    // 闭包的形成条件是内部函数需要通过外部函数 return 给返回出来
+    // function funOne(){    // 外部函数
+    //     var num = 0;      // 局部变量
+    //     function funTwo(){
+    //         let aa=1;   // 内部函数
+    //         num++;           
+    //         return num;
+    //     }
+    //     return funTwo;
+    // }
+    // var fun = funOne();             // 返回函数 funTwo
+    // console.log(fun());
+    // console.log(fun());
+
+    // 可变寿命
+    // 只要你的应用程序（你的窗口/你的网页）存在，全局变量就会存在。
+
+    // 局部变量的寿命很短。它们在调用函数时创建，并在函数完成时删除。
+
+
+    // 反困境
+    // 假设你想使用一个变量来计算某事，并且你希望该计数器可用于所有函数。
+    // 你可以使用一个全局变量和一个函数来增加计数器：
+    
+    // var counter = 0;
+    // function add() {
+    //     counter += 1;   // counter = counter + 1
+    // }
+    // function myFunction(){
+    //     document.getElementById("demo").innerHTML = add();
+    // }
+    // 计数器只能由 add() 函数更改。
+
+    // 问题是，页面上的任何脚本都可以更改计数器，而无需调用 add()。
+
+    // 如果我在函数内部声明计数器，没有人能够在不调用 add() 的情况下更改它：
+    // function add() {
+    //     var counter = 0;
+    //     counter += 1;
+    // }
+    // 这没用！每次调用 add() 函数时，计数器都设置为 1。
+
+    // JavaScript 嵌套函数
+    // 所有函数都可以访问全局变量。  
+
+    // 事实上，在 JavaScript 中，所有函数都可以访问它们“上方”的作用域。
+
+    // JavaScript 支持嵌套函数。嵌套函数可以访问它们“上方”的范围。
+
+    // 在这个例子中，内部函数plus()可以访问父函数中的counter变量：
+    // function myFunction(){
+    //     document.getElementById("demo").innerHTML = add();
+    // }
+    // function add() {
+    //     var counter = 0;
+    //     function plus() {
+    //         counter += 1;
+    //     }
+    //     return plus();
+    // }
+    // 如果我们可以 从外部访问plus()函数，这就可以解决计数器困境。
+
+    // 我们还需要找到一种只执行一次counter = 0的方法。
+
+    // 我们需要关闭。这时我们就用到了我们的闭包
+
+    // 还记得自调用函数吗？这个函数有什么作用？
+    var add = (function () {
+        var counter = 0; 
+        return function () {
+            return counter += 1;
+        }
+    })();
+
+
+    function myFunction(){
+        document.getElementById("demo").innerHTML = add();
+    }
+
+    // 说明：
+    // 变量add被分配了一个自调用函数的返回值。
+    // 自调用函数只运行一次。它将计数器设置为零 (0)，并返回一个函数表达式。
+    // 这样 add 就变成了一个函数。“精彩”的部分是它可以访问父作用域中的计数器。
+    // 这称为 JavaScript闭包。它使函数可以具有“私有”变量。
+    // 计数器受匿名函数的作用域保护，只能使用 add 函数更改。
+
+</script>
+</body>
+</html>

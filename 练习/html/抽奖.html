@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+</head>
+<style type="text/css">
+    #wrap {
+        text-align: center;
+        width: 500px;
+        margin: 100px auto;
+        position: relative;
+    }
+
+    #ul1 {
+        width: 310px;
+        height: 303px;
+        margin: 50px auto;
+        padding: 0;
+    }
+
+    #ul1 li {
+        float: left;
+        border: 1px solid #f3f3ff;
+        list-style: none;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        color: rgb(0, 0, 0);
+
+    }
+
+    #tooltips {
+        width: 100%;
+        height: 100%;
+        color: #009f95;
+        position: absolute;
+        top: 0;
+        z-index: 999;
+        display: none;
+    }
+
+    #info .btn button {
+        background-color: #009f95;
+        color: white;
+        outline: none;
+        font-size: 10px;
+        width: 60px;
+        height: 30px;
+        margin-left: 300px;
+    }
+
+    #info .content {
+        height: 120px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    #content {
+        color: rgb(0, 0, 0);
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .title {
+        color: azure;
+        font-size: 20px;
+    }
+</style>
+
+<body>
+    <div id="wrap">
+        <button id="btn">开始抽奖</button>
+        <ul id="ul1">
+            <li>回家</li>
+            <li>球厅</li>
+            <li>加班</li>
+        </ul>
+    </div>
+    <!--提示信息-->
+    <div id="tooltips">
+        <div id="info">
+            <div class="title">信息</div>
+            <div class="content" id="content">恭喜你，中奖啦！！！</div>
+            <div class="btn">
+                <button id="confirm">确定</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var oStart = document.getElementById("btn"); // 开始按钮
+    var aLi = document.getElementsByTagName("li"); // 所有选项
+    var oTooltips = document.getElementById("tooltips"); // 提示框
+    var oConfirm = document.getElementById("confirm"); // 确认按钮
+    var oContent = document.getElementById("content"); // 提示框内容
+    var timer = null; // 定时器
+    var clickCount = 0; // 点击次数
+    oTooltips.style.height = document.documentElement.offsetHeight + "px"; // 设置提示框高度
+    oStart.onclick = function () { // 点击开始按钮
+        if (clickCount < 3) { // 最多只能点击三次
+            clickCount++; // 点击次数加一
+            clearInterval(timer); // 清除定时器
+            var nowIndex = 0; // 当前选项下标
+            var randomInt = getRandomInt(27, 35); // 随机数
+            timer = setInterval(function () { // 开始定时器
+                changeColor(aLi, nowIndex % aLi.length) // 改变选项颜色
+                nowIndex++ // 下标加一
+                console.log("切换的下标", nowIndex, "随机数", randomInt); // 输出日志
+                var oStart = 0; // 初始化抽奖次数为0
+                if (nowIndex === randomInt) { // 到达随机数下标
+                    clearInterval(timer) // 清除定时器
+                    changeColor(aLi, nowIndex % aLi.length) // 改变选项颜色
+                    var oStart = 0; // 初始化抽奖次数为0
+                    if (aLi[randomInt % aLi.length].innerHTML === "很遗憾") { // 没有中奖
+                        oContent.innerHTML = "很遗憾没有中奖" // 设置提示框内容
+                    } else { // 中奖
+                        oContent.innerHTML = "今天晚上" + aLi[randomInt % aLi.length].innerHTML // 设置提示框内容
+                    }
+                    oTooltips.style.display = "block" // 显示提示框
+                }
+            }, 30) // 定时器间隔
+        } else { // 点击次数超过三次
+            alert("今日次数已用完。"); // 弹出提示框
+            oStart.disabled = true; // 禁用开始按钮
+        }
+    }
+    oConfirm.onclick = function () { // 点击确认按钮
+        oTooltips.style.display = "none" // 隐藏提示框
+    }
+    function changeColor(aLi, nowIndex) { // 改变选项颜色
+        for (var i = 0; i < aLi.length; i++) {
+            aLi[i].style.backgroundColor = "white"
+            aLi[i].style.color = "black"
+        }
+        aLi[nowIndex].style.backgroundColor = "red"
+        aLi[nowIndex].style.color = "azure"
+    }
+    function getRandomInt(min, max) { // 获取随机数
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+</script>
+
+</html>

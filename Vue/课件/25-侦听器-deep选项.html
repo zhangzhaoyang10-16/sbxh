@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侦听器-deep选项</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../jQuery/jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 现在双向绑定到的是 data 里面的uname数据，但是我们这个数据在 info对象里面 -->
+        <!-- <input type="text" v-model="uname"> -->
+
+        <!-- 应该是info对象的uname -->
+        <input type="text" v-model="info.uname">
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            // 刚才在这我们又一个数据是uname,现在我把它删掉了
+
+            // 用户的信息对象   在里面包含了uname
+            info: {
+                uname: 'admin'
+                // 现在在data里面有一个info对象，对象里面呢又有一个属性是uname,而咱们在页面上有一个文本框，是不是要双向绑定到 uname,那现在能绑定到吗？
+            }
+            // 需求：现在我想侦听 info 的变化，现在uname属于 info对象，我侦听到 info对象的变化是不是侦听到 uname的变化了
+        },
+
+
+
+
+        // 对象格式的侦听器
+        watch: {
+            // 侦听 info 对象
+            // 方法格式侦听器：
+            // info(newVal) {
+            //     // 输出是否能触发
+            //     console.log(newVal);
+            //     // 方法格式不满足需求换对象格式
+            // }
+
+            // 对象格式侦听器：
+            info: {
+                handler(newVal) {
+
+                    console.log(newVal);    // 按正常来讲这样也不会触发
+
+                },
+                // immediate: true,
+                // 在这需要添加一个deep选项   值为 true
+                // deep选项 开启深度监听   只要对象中任何一个属性变化了，都会触发 '对象的侦听器'
+                deep: true   // 默认值 false
+                // 返回的是一个对象
+            }
+
+        }
+    })
+    // 侦听器的格式：
+        // 1.方法格式的侦听器
+            // 缺点1：无法在刚进入页面的时候，自动触发
+            // 缺点2: 如果侦听的是一个对象，对象中的属性发生了变化不会触发侦听器
+        // 2.对象格式的侦听器
+            // 好处1：可以通过immediate 选项，让侦听器自动触发一次
+            // 好处2：可以通过 deep 选项，让侦听器深度监听对象中每个属性的变化
+</script>
+
+</html>

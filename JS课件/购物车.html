@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .box {
+      width: 700px;
+      margin: 100px auto;
+    }
+
+    .box .title {
+      width: 100%;
+      height: 50px;
+      font-size: 16px;
+      line-height: 50px;
+      border: 1px solid red;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .title input {
+      position: absolute;
+      left: 10px;
+      top: 18px;
+    }
+
+    .title h4 {
+      position: absolute;
+      left: 50px;
+      top: 0;
+    }
+
+    .title h5 {
+      font-size: 16px;
+      position: absolute;
+      left: 150px;
+      top: 0;
+    }
+
+    .title .price {
+      position: absolute;
+      left: 250px;
+      font-weight: 700;
+    }
+
+    .title h6 {
+      font-size: 16px;
+      position: absolute;
+      top: 0;
+      left: 350px;
+    }
+
+    .title .stp {
+      font-size: 16px;
+      font-weight: 700;
+      position: absolute;
+      top: 0;
+      left: 550px;
+    }
+
+    .title .operate {
+      font-size: 16px;
+      font-weight: 700;
+      position: absolute;
+      top: 0;
+      left: 650px;
+    }
+
+    ul {
+      width: 100%;
+    }
+
+    ul li {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    ul li .chose {
+      position: absolute;
+      top: 45px;
+      left: 10px;
+    }
+
+    ul li img {
+      width: 80px;
+      height: 100px;
+      position: absolute;
+      left: 30px;
+    }
+
+    ul li h4 {
+      font-size: 20px;
+      position: absolute;
+      left: 150px;
+      line-height: 50px;
+      top: 0;
+    }
+
+    ul li h5 {
+      position: absolute;
+      left: 250px;
+      line-height: 50px;
+      font-size: 16px;
+    }
+
+    ul li .sub {
+      width: 15px;
+      text-align: center;
+      position: absolute;
+      left: 320px;
+      top: 20px;
+    }
+
+    ul li .nums {
+      width: 30px;
+      text-align: center;
+      position: absolute;
+      left: 340px;
+      top: 18px;
+    }
+
+    ul li .adds {
+      width: 15px;
+      text-align: center;
+      position: absolute;
+      left: 380px;
+      top: 20px;
+    }
+
+    ul li .liTo {
+      position: absolute;
+      left: 540px;
+      top: 20px;
+    }
+
+    ul li .del {
+      position: absolute;
+      left: 650px;
+      top: 20px;
+    }
+
+    .total {
+      width: 100%;
+      height: 50px;
+      border: 1px solid red;
+      position: relative;
+    }
+
+    .total .all {
+      position: absolute;
+      left: 10px;
+      top: 20px;
+    }
+
+    .total .dele {
+      position: absolute;
+      left: 50px;
+      line-height: 50px;
+    }
+
+    .total .clear {
+      position: absolute;
+      left: 150px;
+      line-height: 50px;
+    }
+
+    .total .cho {
+      position: absolute;
+      right: 300px;
+      line-height: 50px;
+    }
+
+    .total .tol {
+      position: absolute;
+      right: 100px;
+      line-height: 50px;
+    }
+
+    .total .submit {
+      position: absolute;
+      right: 0;
+      height: 100%;
+      border: 0;
+      outline: none;
+      color: #fff;
+      background-color: red;
+      font-size: 20px;
+      padding: 0 10px;
+    }
+  </style>
+
+  <body>
+    <div class="box">
+      <div class="title">
+        <input type="checkbox" />
+        <h4>人物</h4>
+        <h5>介绍</h5>
+        <p class="price">单价</p>
+        <h6>数量</h6>
+        <p class="stp">小计</p>
+        <p class="operate">操作</p>
+      </div>
+      <ul>
+        <li>
+                <input type="checkbox" name="per" class="chose">
+                <img src="./image/baimaomm.png" alt="">
+                <h4>xiao</h4>
+                <h5>2800</h5>
+                <button class="sub">-</button>
+                <p class="num">1</p>
+                <input type="text" class="nums" value="1">
+                <button class="add">+</button>
+                <p class="liTo">￥2800</p>
+                <button class="del">删除</button>
+            </li>
+      </ul>
+      <div class="total">
+        <input type="checkbox" class="all" />
+        <p class="dele">删除选中商品</p>
+        <p class="clear">清空购物车</p>
+        <div class="cho">已选择<span>0</span>件商品</div>
+        <p class="tol">总价：￥<span>0</span></p>
+        <input type="submit" value="去结算" class="submit" />
+      </div>
+    </div>
+  </body>
+  <script>
+    var datas;
+    $.ajax({
+      url: "./shopCar.JSON", //请求地址
+      type: "get", //请求方式  get  或者post
+      async: true, //同步还是异步
+      // data:"name=John&location=Boston", //传参
+      success: function (data) {
+        //请求成功之后  返回的数据
+        // console.log(data);
+        datas = data;
+        // 获取元素
+        var ul = document.querySelector("ul");
+        for (var i = 0; i < 3; i++) {
+          // 创建元素
+          var li = document.createElement("li");
+          // 更改样式，输入JSON数据
+          li.innerHTML = `
+                    <input type="checkbox" name="per" class="chose">
+                    <img src="${datas.theOne[i].imgURL}" alt="">
+                    <h4>${datas.theOne[i].title}</h4>
+                    <h5>${datas.theOne[i].price}</h5>
+                    <button class="sub">-</button>
+                    <input type="text" class="nums" value="1">
+                    <button class="adds">+</button>
+                    <p class="liTo">${datas.theOne[i].price}</p>
+                    <button class="del">删除</button>
+                    `;
+          // 添加到ul里
+          ul.appendChild(li);
+        }
+        // // 数量及价格
+        var num1 = parseInt($("ul li>.nums").eq(0).val());
+        var num2 = parseInt($("ul li>.nums").eq(1).val());
+        var num3 = parseInt($("ul li>.nums").eq(2).val());
+        var arrN = [num1, num2, num3];
+        // console.log(arrN)
+        // 总数
+        var sum = 0;
+        // 总价
+        var sums = 0;
+        // console.log(sums)
+        // 控制全选与否
+        // 上边按钮改变事件
+        $(".title>input").change(function () {
+          // 判断当前选择框是否选中 选中执行
+          if ($(".title>input").prop("checked") == true) {
+            // 使所有多选框选中
+            $("ul li>.chose").prop("checked", "checkbox");
+            // 下方选择框选中
+            $(".total>.all").prop("checked", "checkbox");
+            // 计数商品总数
+            $("ul li>.nums").each(function (ins, vals) {
+              sum += parseInt($(vals).val());
+            });
+            $(".cho>span").html(sum);
+            // 计价，商品总价
+            $("ul li>.liTo").each(function (ins, vals) {
+              sums += parseInt($(vals).html());
+            });
+            $(".tol>span").html(sums);
+            sum = 0;
+            sums = 0;
+          }
+          // 判断当前选择框未选中执行
+          else {
+            // 将所有选择框变为未选中
+            $("ul li>.chose").prop("checked", "");
+            $(".total>.all").prop("checked", "");
+            // 计数计价归零
+            $(".cho>span").html(0);
+            $(".tol>span").html(0);
+            sum = 0;
+            sums = 0.0;
+          }
+        });
+        // 下边按钮改变事件
+        $(".total>.all").change(function () {
+          // 判断当前选择框是否选中 选中执行
+          if ($(".total>.all").prop("checked") == true) {
+            // 使所有多选框选中
+            $("ul li>.chose").prop("checked", "checkbox");
+            // 下方选择框选中
+            $(".title>input").prop("checked", "checkbox");
+            // 计数商品总数
+            $("ul li>.nums").each(function (ins, vals) {
+              sum += parseInt($(vals).val());
+            });
+            $(".cho>span").html(sum);
+            // 计价，商品总价
+            $("ul li>.liTo").each(function (ins, vals) {
+              sums += parseInt($(vals).html());
+            });
+            $(".tol>span").html(sums);
+          }
+          // 判断当前选择框未选中执行
+          else {
+            // 将所有选择框变为未选中
+            $("ul li>.chose").prop("checked", "");
+            $(".title>input").prop("checked", "");
+            // 计数计价归零
+            $(".cho>span").html(0);
+            $(".tol>span").html(0);
+            sum = 0;
+            sums = 0.0;
+          }
+        });
+        // 多选框改变事件
+        $("ul li>.chose").change(function () {
+          // 判断多选框被选择数量 如果等于商品种类
+          if ($("ul li>.chose:checked").length == 3) {
+            // 上下两个全选框变为全选
+            $(".title>input").prop("checked", "checked");
+            $(".total>.all").prop("checked", "checked");
+            // 遍历计数
+            $("ul li>.nums").each(function (ins, vals) {
+              sum += parseInt($(vals).val());
+            });
+            $(".cho>span").html(sum); // 遍历计价
+            $("ul li>.liTo").each(function (ins, vals) {
+              sums += parseInt($(vals).html());
+            });
+            $(".tol>span").html(sums);
+            sum = 0;
+            sums = 0;
+          }
+          // 其余情况
+          else {
+            // 两个全选框变为未选中
+            $(".title>input").prop("checked", "");
+            $(".total>.all").prop("checked", "");
+            // 遍历计数计价
+            $("ul li>.chose:checked").each(function (ins, vals) {
+              sum += parseInt($(this).siblings(".nums").val());
+              sums += parseInt($(this).siblings(".liTo").html());
+            });
+            $(".cho>span").html(sum);
+            $(".tol>span").html(sums);
+            sum = 0;
+            sums = 0.0;
+          }
+        });
+
+        // 给开始不可点击
+        $("ul li>.sub").attr("disabled", "true");
+        // 给加号添加点击事件
+        $("ul li>.adds").click(function () {
+          // 获取当前加号对应的索引
+          var index = $(this).parent().index();
+          // 数量增加
+          $(this)
+            .siblings(".nums")
+            .val(1 + arrN[index]++);
+          // 小计
+          $(this)
+            .siblings(".liTo")
+            .html(datas.theOne[index].price * arrN[index]);
+          // 使减号可以点击
+          $(this).siblings(".sub").prop("disabled", "");
+          // 计数计价
+          $("ul li>.chose:checked").each(function (ins, vals) {
+            sum += parseInt($(this).siblings(".nums").val());
+            sums += parseInt($(this).siblings(".liTo").html());
+          });
+          $(".cho>span").html(sum);
+          $(".tol>span").html(sums);
+          sum = 0;
+          sums = 0.0;
+        });
+        // 给减号添加点击事件
+        $("ul li>.sub").click(function () {
+          // 获取当前减号对应的索引
+          var index = $(this).parent().index();
+          if (arrN[index] == 1) {
+            // 如果数量为1，不可点击
+            $(this).prop("disabled", "true");
+            // 小计
+            $(this)
+              .siblings(".liTo")
+              .html(datas.theOne[index].price * arrN[index]);
+            // 计数计价
+            $("ul li>.chose:checked").each(function (ins, vals) {
+              sum += parseInt($(this).siblings(".nums").val());
+              sums += parseInt($(this).siblings(".liTo").html());
+            });
+            $(".cho>span").html(sum);
+            $(".tol>span").html(sums);
+            sum = 0;
+            sums = 0.0;
+          } else {
+            // 使数量自减
+            $(this).siblings(".nums").val(--arrN[index]);
+            // 重新小计
+            $(this)
+              .siblings(".liTo")
+              .html(datas.theOne[index].price * arrN[index]);
+            // 数量变为一，不可点击
+            if (arrN[index] == 1) {
+              $(this).prop("disabled", "true");
+            }
+            // 计数计价
+            $("ul li>.chose:checked").each(function (ins, vals) {
+              sum += parseInt($(this).siblings(".nums").val());
+              sums += parseInt($(this).siblings(".liTo").html());
+            });
+            $(".cho>span").html(sum);
+            $(".tol>span").html(sums);
+            sum = 0;
+            sums = 0.0;
+          }
+        });
+        // 数量框失焦
+        $(".nums").blur(function () {
+          // 获取对应索引
+          var index = $(this).parent().index();
+          // 小计
+          $(this)
+            .siblings(".liTo")
+            .html(datas.theOne[index].price * $(this).val());
+          // 使减号可以点击
+          $(this).siblings(".sub").prop("disabled", "");
+          // 计数计价
+          $("ul li>.chose:checked").each(function (ins, vals) {
+            sum += parseInt($(this).siblings(".nums").val());
+            sums += parseInt($(this).siblings(".liTo").html());
+          });
+          $(".cho>span").html(sum);
+          $(".tol>span").html(sums);
+          sum = 0;
+          sums = 0.0;
+        });
+
+        // 删除操作
+        $(".del").click(function () {
+          // 父级隐藏
+          $(this).parent().hide();
+          // 同级的选择框变为未选中
+          $(this).siblings("ul li>.chose").prop("checked", "");
+          // 计数计价
+          $("ul li>.chose:checked").each(function (ins, vals) {
+            sum += parseInt($(this).siblings(".nums").val());
+            sums += parseInt($(this).siblings(".liTo").html());
+          });
+          $(".cho>span").html(sum);
+          $(".tol>span").html(sums);
+          sum = 0;
+          sums = 0.0;
+        });
+        // 清空购物车
+        $(".clear").click(function () {
+          $("ul li").parent().hide();
+          $(".cho>span").html(0);
+          $(".tol>span").html(0);
+        });
+        // 删除选中商品
+        $(".dele").click(function () {
+          // 选中元素父级隐藏
+          $("ul li>.chose:checked").parent().hide();
+          // 选中元素变为未选中
+          $("ul li>.chose:checked").prop("checked", "");
+          // 归零
+          sum = 0;
+          sums = 0.0;
+          $(".cho>span").html(sum);
+          $(".tol>span").html(sums);
+          sum = 0;
+          sums = 0.0;
+        });
+      },
+      error: function (err) {
+        //请求错误之后给你返回的信息
+        console.log(err);
+      },
+    });
+  </script>
+</html>

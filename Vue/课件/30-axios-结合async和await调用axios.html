@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios-结合async和await调用axios</title>
+    <!-- <script src="../vue.js/vue.js"></script> -->
+    <script src="../axios/axios.js"></script>
+</head>
+
+<body>
+    <button id="btnPost">发起POST请求</button>
+</body>
+<script>
+    // console.log(axios);
+    // 1.使用axios传参
+    // 那么我们的get请求能否带参数，是不是可以
+
+    // 1.1 发起 GET请求
+    // axios({
+    //     method: 'GET',
+    //     url: 'http://www.liulongbin.top:3006/api/getbooks', // 这里是一个接口
+
+    //     // params对象 是 URL 中的查询参数
+    //     params: {
+    //         id: 3
+    //     },
+
+    //     // 请求体参数
+    //     // 所以在这里你要明确，如果你要携带请求体，比如 post就有请求体，咱们的参数就应该放到 data 里面 ，如果我们发的是get请求，我们就要写到 params 里面 
+    //     // 这里就是你要传url参数就可以不写data对象了，如果是请求体参数就可以不写params
+
+    // }).then(function (result) {
+    //     console.log(result.data.data);
+    //     // 返回图书列表 id = 1
+    // })
+
+    // 1.2 发起 POST 请求
+    // 监听点击事件
+    // document.querySelector('#btnPost').addEventListener('click', function () {
+    //     // 发起axios 请求
+    //     axios({
+    //         // 请求方式
+    //         method: 'POST',
+    //         // 请求地址
+    //         url: 'http://www.liulongbin.top:3006/api/post',
+    //         // 请求体数据
+    //         data: {
+    //             name: 'zs',
+    //             age: 18
+    //         }
+    //     }).then(function (result) {
+    //         console.log(result);
+    //         // message属性返回数据请求成功，body属性是我们的请求体数据，发送给服务器的数据
+    //     })
+    // })
+
+    // 截止到这里大家对这个基本的axios的语法，发起数据的方式已经了解的差不多了，那么咱们是不是每次请求都需要 .then 处理函数返回请求结果，是不是很麻烦，我们简化一下
+
+    document.querySelector('#btnPost').addEventListener('click', async function () {
+        // 发起axios 请求
+        // 如果调用某个方法的返回值是 promise 实例，则前面可以添加 await
+        // await 只能用在被async ‘修饰’ 的方法中
+        let result = await axios({  //  如果不加await  返回的是一个 promise 对象
+            // 请求方式
+            method: 'POST',
+            // 请求地址
+            url: 'http://www.liulongbin.top:3006/api/post',
+            // 请求体数据
+            data: {
+                name: 'zs',
+                age: 18
+            }
+        })
+        console.log(result.data.body);
+    })
+
+        // 最后，现在 result 返回的是真实数据吗 
+</script>
+
+</html>

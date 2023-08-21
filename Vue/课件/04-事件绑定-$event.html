@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件绑定-$event</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>count的值是:{{ count }}</p>
+        <!-- 那我在这里不传参 -->
+        <!-- <button @click="add"> +N </button> -->
+
+
+        <!-- 注意：vue 提供了内置变量 名字叫做 $event  它就是原生 DOM 的事件对象 e -->
+        <!-- 那么你想在接收到 e ，我们就可以把 $event 也作为一个参数 传到方法内就可以了 -->
+        <!-- 注意：$event 是固定死的 -->
+        <!-- e ===  $event  -->
+
+        <!-- 案例2： -->
+        <button @click="add(5,$event)"> +N </button>
+        <!-- 这里传递了参数，我现在需要在下面接收一个参数 -->
+    </div>
+</body>
+<script>
+    // 案例1：
+    // 需求：触发add方法时候能够让按钮button换一个背景颜色，如果count 是偶数，则 按钮背景变成红色，否则没有背景颜色 取消背景颜色
+
+    // let vm = new Vue({
+    //     el: "#app",
+    //     data: {
+    //         count: 0
+    //     },
+    //     methods: {
+    //         // 默认在add这里会接收一个事件对象e
+    //         add(e) {
+    //             this.count += 1;
+    //             console.log(e);
+    //             // 那么在这个e身上我们有一个 e.target(触发事件的事件源)   那这个触发事件源的是不是button
+    //             //    e.target 属性获取最初发生事件的元素
+    //             // 那这样拿到这个e.target就可以修改这个背景颜色了？
+    //             // e.target === button
+
+    //             // 判断 this.count 的值是否为偶数
+    //             if (this.count % 2 === 0) {
+    //                 e.target.style.backgroundColor = 'red';
+    //             } else {
+    //                 e.target.style.backgroundColor = '';
+    //             }
+    //             // 写好之后我们考虑的问题就是怎么去让按钮变红，现在需要我们操作 DOM 元素，那在这事件处理函数中有没有一个事件对象e (event)
+    //         }
+    //     }
+
+
+    // })
+
+    // 案例2：
+    // 如果我在button按钮的add传递参数,在输出e返回1，是不是就没有target这个属性了，在这里大家会发现，事件传参了，事件对象会被覆盖掉，那这样我们怎么拿到e.target这个属性
+
+
+
+    // let vm = new Vue({
+    //     el: '#app',
+    //     data: {
+    //         count: 0
+    //     },
+    //     methods: {
+    //         add(n, e) {
+    //             this.count += n;
+    //             console.log(e)
+    //             if (this.count % 2 === 0) {
+    //                 e.target.style.backgroundColor = 'red';
+    //             } else {
+    //                 e.target.style.backgroundColor = 'orange';
+    //             }
+    //         }
+    //     }
+    // })
+
+
+
+
+
+
+
+
+
+
+
+    // let vm = new Vue({
+    //     el:"#app",
+    //     data:{
+    //         count:0
+    //     },
+    //     methods:{
+    //         add(n,e){
+    //             this.count += n;
+    //             console.log(e);
+    //             if(this.count % 2 === 0){
+    //                 e.target.style.backgroundColor = 'red';
+    //             }else{
+    //                 e.target.style.backgroundColor = '';
+    //             }
+    //         }
+    //     }
+
+    // })
+
+    // 什么情况下需要 $event
+    // 如果咱们在绑事件的时候，第一个我们传参了，但是还需要事件对象 e ，那就需要这个$event,参数位置调换一下就可以了，如果我没有使用小括号那就没有必须使用这个e 了，默认就会有
+</script>
+
+</html>

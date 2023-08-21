@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/reset.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <div class="wrap clearfix">
+    <!--播放器主体区域-->
+    <div class="play_wrap" id='player'>
+      <!--播放器顶部-->
+      <div class="top_bar">
+        <img src="https://staticssl.kugou.com/public/root/images/logo.png">
+        <div class="top_ul">
+          <ul>
+            <li>音乐</li>
+            <li>直播</li>
+            <li>听书</li>
+            <li>探索</li>
+          </ul>
+        </div>
+        <input type="text" class="input_txt" placeholder="请输入查询的歌曲" v-model='query' @keyup.enter='serachMusic()'>
+        <a href="javascript:;"><i class="fas fa-search"></i></a>
+      </div>
+      <!--播放区-->
+      <ul class="main">
+        <li class="musci_list box">
+          <span>音乐排行榜</span>
+          <ul class="song_list">
+            <li v-for='item in musicList'>
+              <a href="javascript:;" class="pre" @click='playMusic(item.id)'><i class="fa fa-play" :src="query"></i></a>
+              <span>{{item.name}}</span>
+              <a href="javascript:;" class="last" v-if='item.mvid!=0' @click='playMv(item.mvid)'><i
+                  class="fas fa-video"></i></a>
+            </li>
+          </ul>
+        </li>
+        <li class="music_palyer box">
+          <div class="cd"></div>
+          <div class="cd1"></div>
+          <img v-bind:src="musicCover" class="cover" v-bind:class='{playing:isPlaying}'>
+        </li>
+        <li class="hot_comment box">
+          <span>热门留言</span>
+          <ul class="comment">
+            <li v-for='item in hotComment' class="clearfix">
+              <span><img v-bind:src="item.user.avatarUrl"></span>
+              <span class="name">{{item.user.nickname}}</span>
+              <span class="detail clearfix">{{item.content}}</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!--进度栏-->
+      <div class="progress_bar">
+        <audio v-bind:src="musicUrl" controls='controls' autoplay='autoplay' loop='loop' class="myaudio" @play='play'
+          @pause='pause'></audio>
+      </div>
+      <div class="mask" style="display: none;" v-show='isShow' @click='hide'>
+        <div class="video_con" style="display: none;" v-show='isShow'>
+          <video :src='musicList' controls='controls'></video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script src="./js/index.js"></script>
+
+</html>

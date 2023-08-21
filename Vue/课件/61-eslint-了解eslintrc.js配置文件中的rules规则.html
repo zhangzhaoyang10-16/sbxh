@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eslint 了解eslintrc.js配置文件中的 rules 规则</title>
+  </head>
+  <body></body>
+  <script>
+    // 1. 安装使用 eslint
+    // eslint是有风格规范的，我们选择哪个规范，倒数第二项   Standard config  意思是标准的配置
+    // Lint on save  意思是在 保存的时候进行代码规范的检查  选择这个选项
+    // Lint and fix on commit 意思提交代码的时候进行代码规范的检查，并且自动修复
+
+    // 在项目文件中多了一个配置文件 .eslintrc.js  ，那这个文件就是 eslint 配置文件 打开简单看一下
+
+    // 上面的先不关心，我们现在看 rules 规则的意思对吧，no-console 就代表说，在代码中不允许出现 console
+    // 打开eslint 官方 -->  用户指南  --> 规 则    进入规则   ctrl + f 打开搜索  搜索 no-console
+    // 也就是说这个 console 是给开发人员为了开发方便有这么一个 console.log() 或者 console.dir() 的方法啊，但是当咱们的项目要上线发布了，那我们还应该打印出 console 吗，是不是不能了 ，那么当前  no-console 就是一条规则
+
+    // 1. no-console 只在发布阶段会报一个黄色的警告，但是在开发阶段是不会报任何错误和警告的
+
+    // no-debugger  就是咱们在浏览器里面运行 js ，咱们希望在某一行 js 的时候稍微停一下，看到一个地方不动，
+    // 新建 html文件    我们写了一个 js 内容， 如果我希望在执行到 name = "李四"  第14行的时候，停一下怎么办
+
+    // 打开 sources  打断，那这样是不是很麻烦，所以我们提供了另外一种方式，代码的形式来打断  debugger   只要运行到这就暂停了
+
+    // 所以这个 debugger 就是用代码的方式在咱们文件里打断点啊，让浏览器进行到 这里的时候停顿一下，咱们可以查看里面的变量的值等等
+
+    // 在回到 .eslintrc.js 里面 no-debugger 就是在代码中不允许出现 debugger，那这个是不是和  no-console一样
+
+    // 2. no-debugger 只在发布阶段会报一个黄色的警告，但是在开发阶段是不会报任何错误和警告的
+
+    // 2. 初步了解 ESLint 的语法规范
+    // 接下来我们演示一下 ESLint 是怎样阻止你写代码的
+
+    // 1. 打开 main.js   在里面敲击空格
+    // 报错了，看到这样的错误大家不需要管，不是你代码写的有问题，是代码的风格出现了问题    no-multiple-empty-lines  不允许出现多余的空行的意思
+    // 以后咱们在出现类似语法格式的问题，你能读懂最好，读不懂就去官网搜规则的含义啊
+    // 但是我们出现问题以后要不要定位到哪个文件的第多少行产生的错误啊
+
+    // 在ESlint 的约束之下能出现两个多余的空行吗，是不是不能出现，最多只能有一个空行
+
+    // 2. 在main.js 最后一行  删除掉
+    // 报错了，  eol-last   在中文官网搜索一下什么意思    是不是 要求或禁止文件末尾存在空行
+
+    // 这也就是最后一行默认要有对吧，  Newline required at end of file but not found  文件结束的时候末尾必须有新的一行，但是没找到
+
+    // 3. 了解常用的 ESLint 语法规则
+    // 先写规则，在学习怎么让我们的代码格式化的时候更完美一些
+    // ESLint 提供了许多 校验代码格式 的语法规则，常见的语法如下
+
+    // 例：在main.js 修改掉 vue 单引号 改为 双引号
+    // 1. quotes                           默认：字符串需要使用单引号包裹
+    // 注意：在项目里面默认情况下，要使用单引号
+
+    // 例：render: 后面去掉空格
+    // 2. key-spacing                      默认：对象的属性和值之间，需要一个空格分隔
+
+    // 例：App 组件中的 components 结尾添加 逗号
+    // 3. comma-dangle                     默认：对象或数组的末尾，不允许出现多余的逗号
+    // 注意：ESLint 不允许属性最后多一个逗号
+
+    // 4. no-multiple-empty-lines          不允许出现多个空行
+    // 5. no-trailing-spaces               不允许在行尾出现多余的空格
+    // 6. eol-last                         默认：文件的末尾必须保留一个空行
+
+    // 例：在App 组件中添加一个 注释
+    // 7. spaced-comment                   在注释中的 // 或 /* 后强制使用一致的间距
+
+    // 例：进行代码缩进
+    // 8. indent                           强制一致的缩进
+
+    // 例：在 import 上面声明一个变量 输出
+    // 9. import/first                     import 导入模块的语句必须声明在文件的顶部
+    // 注意：在写 js 的时候，import 必须要放到顶部 ，不应该把普通语句放到 import之前
+
+    // 例：在 App组件中 methods节点下定义一个方法
+    // 10. space-before-function-paren     方法的形参之前是否需要保留一个空格
+    // 在这里比如我就不想加空格，我就的和ESLint 对着干，是不是可以把这个规则配置一下，在中文官网搜索之后点进去
+    // "space-before-function-paren": ["error", "always"],   error 报错  always 总是要满足这个需求，总是有这么一个空格，没有就会报错  ，可选值默认就是 always，还有一个值是 never  禁止在参数的 ( 前面有空格  在或者使用 ignore 就是说有没有空格都可以
+
+    // 找到 .eslintrc.js 打开之后修改 always
+
+    // 4. 配置 VSCode
+    // 接下来是不是就该写代码了，但是我们写的代码你能保证完全符合 eslint 的要求吗，肯定不能，那咱们每一次都要小心翼翼的去写代码，很难受，所以咱们希望装一些 VSCode 插件帮助我们在 保存的时候自动对文件进行格式化，让它满足咱们 eslint 语法要求，就是说哪怕代码写的不标准，我们在保存之后那些工具自动把代码变的很规范啊
+
+    // 什么叫工具？    辅助咱们提高开发体验的，这叫工具对吧，那工具能帮助咱们解决所有的问题吗，是不是不能啊，所以说工具我们可以用，但是不能太过于依赖，比如工具能帮助我们解决百分之90多的问题，剩下的是不是工具无法帮助咱们解决啊，还需要我们自己注意
+
+    // 1. 插件 ESLint
+    // ESLint 插件的配置
+    // "editor.codeActionsOnSave":{
+    //     "source.fixAll":true,
+    // },
+
+    // 2. 插件 prettier
+
+    // 5. 配置默认格式化文档的方式
+    // 注意两点：
+    // 1. 要想保证刚才那两个插件生效的话第一个前提是你要开发哪一个项目就必须用 vscode 打开那个项目
+    // 2. 打开 App.vue
+    // 3. 打开 main.js
+  </script>
+</html>

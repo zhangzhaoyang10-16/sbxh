@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery元素操作</title>
+    <script src=" "></script>
+</head>
+
+<style>
+    div {
+        font-size: 50px;
+    }
+</style>
+
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+</body>
+
+<script>
+    // jQuery元素操作
+        // 主要是遍历、创建、添加、删除元素操作
+        // 1.遍历元素   (重点，重点，重点)
+            // jQuery隐式迭代是对同一类元素做了同样的操作，如果想要给同一类元素做不同操作，就需要用到遍历
+            // 如果针对同一类元素做不同操作，需要用到遍历元素（类似for,但是比for更强大）
+            // (1) each()方法遍历元素   (重点，重点，重点)
+
+                // 语法：$("div").each(function(index,domEle){要改变的样式;})
+                // 1）each() 方法遍历匹配的每一个元素，主要用DOM处理，each每一个元素
+                // 2）里面的回调函数有两个参数：index是每个元素的下标索引值，domEle是每个DOM元素对象，不是jQuery对象
+                // 3）所以要想使用jquery方法，就需要给dom元素转换为jquery对象$(domEle)
+
+                // $(function(){
+                //     // 如果同一类元素做相同的功能：
+                //     // $("div").css("color","red");
+                //     // 上面是相同颜色，如果给同一类添加不同的颜色 就需要遍历了
+                //     $("div").each(function(index,domEle){
+                //         // 回调函数第一个参数一定是下标  不需要自己写，直接自己就排好下标了  也可以自己指定下标名称  比如：i  a
+                //         console.log(index);
+                //         // 回调函数第二个参数一定是  dom元素对象
+                //         // console.log(domEle);
+                //         // domEle.css("color","blue");     //dom对象没有css方法
+                //         $(domEle).css("color","blue");
+                //     })
+                // })
+
+                // 4）遍历数组添加给每一个元素不同的颜色
+                // var arr = ['red','yellow','blue'];
+                // $(function(){
+                //     $("div").each(function(index,domEle){
+                //         $(domEle).css("color",arr[index]);
+                //     })
+                // })
+                
+                // 5）将每个元素的值相加  （购物车计数总和）
+                // $(function(){
+                //     var sum = 0;
+                //     $("div").each(function(index,domEle){
+                //         sum = sum + parseInt($(domEle).text());
+                //     })
+                  
+                //     console.log(sum);
+                // })
+         
+        //2.第二种遍历元素方法
+            // 语法：$.each(Object,function(index,element){})
+            // (1) $.each()方法可用于遍历任何对象，主要用于数据处理，比如数组，对象
+            // (2) 里面的函数有两个参数：index是每一个元素的下标，element遍历内容
+
+            // $(function(){
+            //     var arr = ["red",'yellow',"blue"];
+            //     $.each($("div"),function(index,ele){
+            //         console.log(index);
+            //         console.log(ele);
+            //     })
+            //     $.each(arr,function(index,ele){
+            //         console.log(index);
+            //         console.log(ele);
+            //     })
+
+            //     $.each({name:"张三",age: 18},function(index,ele){
+            //         console.log(index);
+            //         console.log(ele);
+            //     })
+            // })
+
+    // 案例练习：
+            // 购物车案例-计算总计和总额
+            // 分析：
+                // 1.把所有文本框里面的值相加就是总计数量，总额同理
+                // 2.文本框里面的值不相同，如果想要相加需要用到each遍历，声明一个变量，相加即可
+                // 3.点击 + 号 ，- 号,会改变总计和总额，如果用户修改了文本框里面的值同样会改变总计和总额
+                // 4.因此可以封装一个函数求总计和总额的以上2个操作调用这个函数即可
+                // 5.注意：总计是文本框里面的值相加用val()  总额是普通元素的内容用text()
+
+</script>
+
+</html>

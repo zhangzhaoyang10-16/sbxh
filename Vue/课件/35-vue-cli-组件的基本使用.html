@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue-cli 组件的基本使用</title>
+    <script src="../vue.js/vue.js"></script>
+</head>
+<body>
+    <div id="app">{{ username }}</div>
+</body>
+<script>
+    // 1.新建一个组件 Test.vue
+        // 需求将Test.vue渲染到页面中，不要App.vue这个组件
+        // 1.在main.js 中导入 Test.vue
+        // 2. 将Test 替换掉App
+
+        
+    // 2. Test.vue 添加内容
+        // 我们在这个vue组件中添加一个div,渲染页面之后是不是Test.vue 中的结构
+        // 在这里div属于谁，属于index.html吗？   不属于对吧,这个div是不是也属于 Test.vue
+
+        // 那大家发现我们 index.html的div是不是被 Test.vue替换掉了
+
+        // 那再 Test.vue里面我们创建的 new 实例里面是不是有一个el，el大家都知道是挂载，那我现在把el去掉，要渲染到哪里是不是不知道了
+        // 现在除了手动指定 el 渲染到指定的位置，我们还可以换一种方式：
+        // 再new 出来的vue 实例身上它有一个 .$mount 方法 里面可以指定一个选择器，这里你可以使用 el 手动指定 ,也可以使用.$mount方法 ，作用一样
+
+        // 例：测试.$mount方法
+        let vm = new Vue({
+            // 这里不指定 el属性
+            data:{
+                username:'张三',
+                age:18
+            }  
+            // 我们new 了一个vue 实例，有data属性，但是有指定 el属性控制哪一个区域码，是不是没有，那我指定一个区域除了el属性是不是还可以是 .$mount 方法
+        }).$mount('#app');
+
+        // 这个就是 .$mount 方法作用，可以替代掉 el属性
+
+        // 那么从现在开始我们再也不会创建一个html，导入vue，然后去 new 一个构造函数了，现在我们已经有了这种工程化项目了，今后我们都通过工程化项目来使用和学习vue
+
+</script>
+</html>

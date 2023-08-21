@@ -1,0 +1,19 @@
+{
+    "theOne": [
+        {
+            "imgURL": "https://p6-pc-sign.douyinpic.com/tos-cn-i-0813c001/368e5def527c42ddb2ac6fd37b5412d9~tplv-dy-aweme-images:q75.webp?biz_tag=aweme_images&from=3213915784&s=PackSourceEnum_PUBLISH&sc=image&se=false&x-expires=1690110000&x-signature=K3mNxXzmsSCnR%2BjiqrX0u6dI1qM%3D",
+            "title": "萧佩吟",
+            "price": 2800
+        },
+        {
+            "imgURL": "./image/ling.png",
+            "title": "凌烟",
+            "price": 3000
+        },
+        {
+            "imgURL": "./image/liumm.png",
+            "title": "柳如意",
+            "price": 1000
+        }
+    ]
+}

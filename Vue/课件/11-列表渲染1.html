@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表渲染-了解for循环基本用法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 数组数据有了，我在这里放一个 table -->
+        <table class="table table-bordered table-hover table-striped" style="width:1200px;margin:100px auto">
+            <!-- thead 标签定义表格的表头，与 tbody和tfoot元素结合使用 -->
+            <!-- 注意：如果您使用 thead、tfoot 以及 tbody 元素，您就必须使用全部的元素。它们的出现次序是：thead、tfoot、tbody，这样浏览器就可以在收到所有数据前呈现页脚了。您必须在 table 元素内部使用这些标签。 -->
+            <thead>
+                <th>索引</th>
+                <th>id</th>
+                <th>姓名</th>
+            </thead>
+            <!-- 整体结构有了，而我们在 tbody里面是不是写的都是假数据 -->
+            <!-- 真正的写法是不是循环谁渲染谁，我们应该循环的是不是 data 里面的 list 数组数据，而要渲染的数据是tbody还是每一行tr -->
+            <!-- 那是不是给 tr 添加 v-for 就可以了，剩下的数据我们就不要了 -->
+            <tbody>
+                <!-- <tr v-for="(item,index) in list">
+                    <td>{{ index }}</td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                </tr> -->
+                <!--这里注意：in 后面是谁，是不是数组也就是我们 data 里面的 list 数组数据，其次 item相当于是形参，它不一定是这个，也可以是 row ,只是推荐 item  -->
+                <!-- <tr v-for="(item,index) in list"> -->
+                <!-- tr是外层父元素，在里面还嵌套了多个td，父子嵌套，那里面的 td 能否访问到 item? -->
+                <!-- 那么第一次循环是不是item指向 id:1的那个，第二次id:2,一直循环 -->
+                <!-- <td>{{index}}</td> -->
+                <!-- 第一次循环是不是把 id值渲染进去，在元素内容中我们填写 id，是不是用插值表达式 ，item是指向对象的，那我们是不是就可以 item.id了 -->
+                <!-- <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                </tr> -->
+
+                <!-- 设置索引 -->
+                <!-- <tr v-for="(item,index) in list" >
+                    <td>{{ index }}</td>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                </tr> -->
+
+                <tr v-for="(item,index) in list">
+                    <td>{{idex}}</td>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                </tr>
+
+                <!-- 最后这里有一个小注意点：我现在是不是循环每一个tr对吧，那我循环的时候，tr之上能不能访问到item和index？ -->
+                <!-- 我在tr加一个title 动态绑定一下,然后我们把item每一项的name属性的值作为 title 在加上我们的索引-->
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    // 1.列表渲染指令
+    // 1.1 v-for指令
+    // vue 提供了 v-for 列表渲染指令，用来辅助开发者基于一个数组来循环渲染一个列表结构。v-for 指令需要使用  item in items 形式的特殊语法
+    // items 是待循环的数组
+    // item 是被循环的每一项
+
+    // 我们最近做这个页面 操做 DOM 的时候会有这么一个情况，比如我们通过 Ajax 拿回来一个列表的数据 是一个数组，然后我们希望根据数组里面的数据里面的数据结构循环渲染相似的 DOM
+    // 就类似列表，列表每一行的结构是不是完成一样的，假设给大家一个数组，数组里面存放每一行对应的数据，我希望把这个数组渲染这么一个表格出来，那我们是不是需要循环里面的每一项，每循环一项是不是再页面中显示一个 tr 行，这就是目前的一个需求
+
+    // 例：
+    // data: {
+    //     list: [
+    //         { id: 1, name: '小明' },
+    //         { id: 2, name: '小红' }
+    //     ]
+    // }
+    // <ul>
+    //     <li v-for="item in list">姓名是：{{ item.name }}</li>
+    // </ul>
+
+    // 在data 数据源里面，先声明了一个 list 数组，数组是一个列表，里面每一项都是一个对象，那我们是不是希望把里面的每一项循环出来，每循环一次我们就在页面上放一个 li 循环第二项时候是不是在放一个 li   那此时要生成什么样的 DOM结构，就在这个 DOM身上 加一个 V-for指令，在v-for后面是它的语法
+
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            // 数组数据
+            list: [
+                { id: 1, name: '高启强' },
+                { id: 2, name: '高启盛' },
+                { id: 3, name: '高启兰' },
+                { id: 4, name: '高明远' },
+                { id: 5, name: '高小陈' }
+            ]
+        }
+    })
+        // 1.2 v-for 指令中的索引
+        // v-for 指令还支持一个 可选的 第二个参数，即当前项的索引。 语法格式为（item,index）in items ,同样这个index是当前循环项的索引，这个index也是不一定就是这个名字，也可以是i a b
+
+        // 最后得出结论就是item 和 index 除了可以被自己的子元素访问之外还可以自己访问使用
+</script>
+
+</html>

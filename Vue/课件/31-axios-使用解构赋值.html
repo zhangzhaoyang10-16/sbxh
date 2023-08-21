@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用解构赋值</title>
+    <script src="../axios/axios.js"></script>
+</head>
+
+<body>
+    <!-- 发起POST请求 -->
+    <button id="btnPost">发送POST</button>
+
+    <!-- 发起GET请求 -->
+    <button id="btnGet">发送GET</button>
+</body>
+<script>
+    // 之前说了 result 返回的不是我们请求的真实数据，而 result.data 才是我们要的真实的数据
+    // 在这里 = 代表是不是赋值，我们把请求回来的结果赋值给了 result ，而result 又是一个大对象，里面有6个属性，那这样我们是不是可以这么认为，= 右侧是不是也是一个大对象，也就是里面的6个属性
+    // 那之前是不是学习过解构赋值，那等号右侧的内容我们是不是可以在左侧进行解构，在这我把data属性 解构出来，那这样是不是就是右侧是个大对象，里面有6个属性，那么在这6个属性里，我只解构 data在这个属性   data 是服务器返回的真正的对象
+
+    // 发起POST请求
+    // document.querySelector('#btnPost').addEventListener('click', async function () {
+    //     // { data } = result.data 
+    //     let { data } = await axios({  //  如果不加await  返回的是一个 promise 对象
+    //         // 请求方式
+    //         method: 'POST',
+    //         // 请求地址
+    //         url: 'http://www.liulongbin.top:3006/api/post',
+    //         // 请求体数据
+    //         data: {
+    //             name: 'zs',
+    //             age: 18
+    //         }
+    //     })
+    //     console.log(data.body);
+    //     // 现在返回的是一个大的 data 对象
+    //     // 我们想要拿到的是 data 对象中的 data 真实数据，再次需要解构赋值 将 data 这个属性解构出来，然后直接使用
+    // })
+
+    // 发起GET请求
+    document.querySelector('#btnGet').addEventListener('click', async function () {
+        // {} = result    {data} = result.data 
+        // let { data } = await axios({
+        //     method: "GET",
+        //     url: 'http://www.liulongbin.top:3006/api/getbooks',
+        // })
+        // console.log(data);
+        // // 这个data 是服务器返回的真实数据，但是里面真正的图书列表在这个对象的 .data里面，那这里我们想要获取它是不是应该是
+        // console.log(data.data);
+        // 前边这个data是服务器返回的真实数据，后面的 data 是图书列表数据
+
+        let { data: res } = await axios({
+            // 解构赋值里面的: 就是把解构出来的数据做一个重命名
+            // 重命名以后是不是就没有 data了 ，改成 res了，所以我们要访问data 只能使用 res
+            method: "GET",
+            url: 'http://www.liulongbin.top:3006/api/getbooks',
+        })
+        console.log(res.data);
+    })
+
+    // 1. 调用 axios 之后，使用 async/await 进行简化
+    // 2. 使用解构赋值，从 axios 封装的大对象中，把data属性解构出来
+    // 3. 把解构出来的 data 属性，使用 冒号 进行重命名，一般都重命名为 {data : res}
+    // 4. GET传参是 params:{}  POST传参是 data:{}
+</script>
+
+</html>

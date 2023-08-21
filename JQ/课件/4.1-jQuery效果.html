@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery效果</title>
+    <script src="../js/js/jquery-3.5.1.min.js"></script>
+    <script src="../js/js/animate.js"></script>
+</head>
+<style>
+    div {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        /* display: none; */
+
+        position: absolute;
+    }
+</style>
+
+<body>
+    <!-- <button>显示</button>
+    <button>隐藏</button>
+    <button>切换</button>
+    <div></div> -->
+
+    <!-- <button>下拉滑动</button>
+    <button>上拉滑动</button>
+    <button>切换滑动</button>
+    <div></div> -->
+
+    <button>淡入效果</button>
+    <button>淡出效果</button>
+    <button>淡入淡出效果</button>
+    <button>修改透明度</button>
+    <div></div>
+
+    <!-- <button>让我们一起摇摆</button>
+    <div id="box"></div> -->
+</body>
+<script>
+    // jquery封装了很多动画效果，常见如下:
+    // (1) 显示隐藏
+    // show() hide() toggle()
+    // (2) 滑动
+    // slideDown()  slideUp()  slideToggle()
+    // (3) 淡入淡出
+    // fadeIn()  fadeOut()  fadeToggle()  fadeTo()
+    // (4) 自定义动画
+    // animate()
+
+    // 1.显示隐藏效果
+    // 显示/隐藏/切换效果： show([speed],[easing],[fn]);  hide([speed],[easing],[fn]);  toggle([speed],[easing],[fn])
+    //     (1) 参数可以省略，无动画直接显示
+    //     (2) speed:三种预定速度之一的字符串("slow","normal","fast")或者毫秒
+    //     (3) easing:用来指定切换效果，默认"swing" ,也可以用"linear" 匀速
+    //     (4) fn:回调函数，在动画完成时执行的函数，每个元素执行一次
+    // $(function(){
+    //     // 隐藏效果
+    //     $('button').eq(1).click(function(){
+    //         $('div').hide(2000,'linear',function(){
+    //             alert(11);
+    //         });
+    //     })
+    // // //     // 显示效果
+    //     $('button').eq(0).click(function(){
+    //         $('div').show(1000);
+    //     })
+    //     // 切换显示隐藏双开关
+    //     $('button').eq(2).click(function(){
+    //         $('div').toggle(2000);
+    //     })
+    // })
+    // 一般实际开发中，我们不加参数直接显示隐藏
+
+    // 2.滑动效果
+    // 显示/隐藏/切换效果： slideDown([speed,[easing],[fn]]);  slideUP([speed,[easing],[fn]]);  slideToggle([speed,[easing],[fn]])
+    //     (1) 参数可以省略，无动画直接显示
+    //     (2) speed:三种预定速度之一的字符串("slow","normal","fast")或者毫秒
+    //     (3) easing:用来指定切换效果，默认"swing" ,也可以用"linear" 匀速
+    //     (4) fn:回调函数，在动画完成时执行的函数，每个元素执行一次
+    // $(function () {
+    //     // 下拉滑动效果
+    //     $("button").eq(0).click(function () {
+    //         $("div").slideDown(2000, function () {
+    //             alert("div呈现了！");
+    //         });
+    //     })
+    //     // 上拉滑动效果
+    //     $("button").eq(1).click(function () {
+    //         $("div").slideUp(2000, function () {
+    //             alert("div消失了！");
+    //         });
+    //     })
+    //     // 切换上拉下拉滑动双开关
+    //     $("button").eq(2).click(function () {
+    //         $("div").slideToggle(2000)
+    //     })
+    // })
+
+    // 复合写法
+    // 1. 事件切换  .hover(function(){} , function(){}) 第一个function是鼠标经过 第二个function是鼠标离开
+    // 2. 事件切换  .hover() 如果只写一个函数，那么鼠标经过和鼠标离开都会触发这个函数
+
+    // 3.动画队列及其停止排队方法
+    // (1) 动画队列
+    // (2) 停止排队   stop()
+    // stop() 方法用于停止动画或效果
+    // 注意：stop()写到动画或者效果前面，相当于停止结束上一次动画
+    // 4. 淡入淡出效果           fadeIn()  fadeOut()  fadeToggle()  fadeTo()
+    // $(function () {
+    //     $("button").eq(0).click(function () {
+    //         // 淡入  fadeIn()
+    //         $("div").fadeIn(2000);
+    //     })
+    //     $("button").eq(1).click(function () {
+    //         // 淡出  fadeOut()
+    //         $("div").fadeOut(1000);
+    //     })
+    //     $("button").eq(2).click(function () {
+    //         // 淡入淡出  fadeToggle()
+    //         $("div").fadeToggle(2000);
+    //     })
+    //     //     // fadeTo() 参数是4个 opacity透明度必须写  取值 0-1之间
+    //     $("button").eq(3).click(function () {
+    //         // 淡入淡出  fadeTo()  速度和透明度必须写
+    //         $("div").fadeTo(2000, 0.6);
+    //     })
+    // })
+    // 案例练习：
+    // 高亮显示
+
+    // 5. 自定义动画     animate(params,[speed],[easing],[fn])
+    //     params：想要改变的样式属性，以对象形式传递，必须写，属性名可以不带引号，如果是复合属性则需要采取驼峰命名法backgroundColor
+    // $(function () {
+    //     $("button").click(function () {
+    //         $("#box").animate(
+    //             {
+    //                 width: "400px",
+    //                 left: "500px",
+    //                 top: "200px"
+    //             }
+    //             , 1000)
+    //     })
+    // })
+    // 案例：
+        // 王者荣耀手风琴（卡片折叠）效果
+        // 分析
+            // 鼠标经过某一个li有两步：
+            //     (1) 当前li宽度变为224px，同时里面的小图片淡出，大图片淡入
+            //     (2) 其余li宽度为69px,小图片淡入，大图片淡出
+</script>
+
+</html>

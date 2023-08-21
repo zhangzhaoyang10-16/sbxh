@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+</head>
+<style>
+    body {
+        background-color: #e8e8e8;
+    }
+
+    #box {
+        width: 1200px;
+        height: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #d4d4d4;
+        border-radius: 5px;
+    }
+
+    .box p {
+        margin: 10px 0;
+    }
+
+    #boxs {
+        width: 400px;
+        text-align: center;
+        line-height: 100px;
+        font-size: 22px;
+        margin: 0 auto;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    #getback {
+        display: none;
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+</style>
+
+<body>
+    <div id="box">
+
+        <p>问题： <input id="answer" type="text" placeholder="请输入您的问题"></p>
+        <p>答案： <input id="input" type="text" placeholder="请输入您的答案"></p>
+
+        <button id="delete" onclick="deleteQuestion()">删除</button>
+        <button id="addition" onclick="addQuestion()" disabled>添加</button>
+    </div>
+    <div id="boxs"> </div>
+    <button id="getback" onclick="back()">返回</button>
+</body>
+
+<script>
+    var box = document.getElementById('box');
+    var boxs = document.getElementById('boxs');
+    var input = document.getElementById('input');
+    var answer = document.getElementById('answer');
+    var addition = document.getElementById('addition');
+    var getback = document.getElementById('getback');
+    var questionCount = 0; // 问题计数器
+    input.addEventListener('input', checkInputs);
+    answer.addEventListener('input', checkInputs);
+
+    function checkInputs() {
+        if (input.value !== '' && answer.value !== '') { // 判断两个输入框都有内容
+            addition.disabled = false; // 启用添加按钮
+        } else {
+            addition.disabled = true; // 禁用添加按钮
+        }
+    }
+
+    // 添加问题和答案
+    function addQuestion() {
+        var question = input.value; // 获取输入框中的问题
+        var ans = answer.value; // 获取输入框中的答案
+        if (question !== '' && ans !== '') { // 检查问题和答案是否都不为空
+            var questionDiv = document.createElement('div'); // 创建一个新的<div>元素来包含问题和答案
+            questionDiv.id = 'questionDiv' + questionCount; // 设置元素的唯一id
+            var questionElement = document.createElement('p'); // 创建一个<p>元素来显示问题的文本内容
+            questionElement.textContent = '问题: ' + question;
+            var answerElement = document.createElement('p'); // 创建一个<p>元素来显示答案的文本内容
+            answerElement.textContent = '答案: ' + ans;
+            var deleteButton = document.createElement('button'); // 创建一个删除按钮
+            deleteButton.textContent = '删除';
+            deleteButton.onclick = function () { // 删除按钮的点击事件
+                deleteQuestion(questionDiv); // 调用deleteQuestion函数来删除对应的问题
+            }
+            questionDiv.appendChild(questionElement); // 将问题和答案的元素以及删除按钮添加到<div>元素中
+            questionDiv.appendChild(answerElement);
+            questionDiv.appendChild(deleteButton);
+            boxs.appendChild(questionDiv); // 将<div>元素添加到页面上的容器中
+            input.value = ''; // 清空输入框的值
+            answer.value = '';
+            addition.disabled = true; // 禁用添加按钮
+            questionCount++; // 增加问题计数器
+        }
+    }
+
+    // 删除问题
+    function deleteQuestion(questionDiv) {
+        boxs.removeChild(questionDiv); // 从页面上的容器中移除问题
+    }
+
+    // 当输入框内容发生变化时检查是否为空
+    input.addEventListener('input', function () {
+        if (input.value !== '') {
+            addition.disabled = false; // 启用添加按钮
+        } else {
+            addition.disabled = true; // 禁用添加按钮
+        }
+    });
+</script>
+
+</html>

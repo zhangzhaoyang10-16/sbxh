@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲区染-v-if和v-show的别</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 第一个p标签是通过 v-if 控制，在p标签添加上 v-if -->
+        <p v-if="flag"> 这是被 v-if 控制的元素</p>
+
+        <!-- 第二个p标签是通过 v-show 控制，在p标签添加上 v-show -->
+        <p v-show="flag"> 这是被 v-show 控制的元素</p>
+
+        <!-- 我们在调试工具控制一下 -->
+        <!-- 大家会发现两个都被隐藏了，如果 v-if 后面这个条件是 false 会被隐藏，v-show 也会被隐藏，如果后面条件是 true 两个都会被显示 -->
+
+        <!-- 我们审查元素看一下，它的隐藏方式不一样，我们会看到只剩下一个p标签了，另外一个被动态的删除了，剩下的 v-show 控制的p标签是被display隐藏掉了 -->
+
+        <!-- 所以说 v-if 每一次都会动态的移出元素或者创建元素，但是 v-show 只是添加 display 的样式，这就是 v-if 和 v-show 的区别 -->
+        <!-- 大家觉得哪个性能更好，如果频繁的隐藏和展示是不是 v-show 性能更好，因为不用每次动态的创建和移出元素 -->
+        <!-- 如果我们将true改成 false 大家会发现 if 的性能会更好  在这里因为一开始我们是不是不需要展示这个元素，而 v-show 有没有创建这个元素，是不是创建了只不过是通过 display:none 隐藏了，但是 v-if 它发现一上来不需要展示这个元素，那它还有创建的必要吗，有些元素可能一直都不会展示，只有在特定情况才会展示-->
+    </div>
+</body>
+<script>
+    // 1. 条件渲染指令
+    // 条件渲染指令用来辅助开发者按需控制 DOM 的显示与隐藏。条件渲染指令有2个：
+    // v-if
+    // v-show
+    // 已经学习了一些指令，大家会发现除了插值表达式，其他指令是不是都是 v-开头的，这是vue 指令的一个特点
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            // 如果 flag 为 true ,则显示被控制的元素，如果为 false 则隐藏被控制的元素
+            // flag: true,
+            // 如果flag 为 false v-if性能更好
+            flag: false
+
+        },
+    })
+    // v-show 的原理：动态为元素添加和移除 display:none 样式，来实现元素的显示和隐藏
+            // 性能：如果要频繁的切换元素的显示状态，用 v-show 性能更好
+    // v-if 的原理：每次动态创建或移除元素，实现元素的显示和隐藏
+            // 性能：如果刚进入页面的时候，某些元素默认不需要被展示，而且后期这个元素很可能也不需要被展示出来，此时 v-if 性能更好
+
+    // 记住这个性能好坏都是说给面试官听的，如果被问道了我们能说出来为啥性能好，在实际开发中，我们简单点，能用 v-if 就用 v-if,不考虑性能问题
+</script>
+
+</html>

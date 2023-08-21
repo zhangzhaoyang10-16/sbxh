@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue-cli介绍项目的目录结构</title>
+</head>
+<body>
+    
+</body>
+<script>
+    
+    // 介绍项目目录结构：
+        // 1. 在项目中有一个文件夹我们是绝对认识的 node_modules 所有的第三方包全都在这个文件夹里面存放着
+        // 2. 在项目中还有一个文件夹我们同样也认识，src 项目的源代码目录，程序员写的源代码都要写在这个文件夹下
+        // 3. 在项目中的 public 文件夹里面有两个文件，一个是 favicon.ico 它是我们网站的小图标 ，还有一个是index.html 首页，我们在开课之前是不是说过我们开发的是单页面应用程序，一个页面中是不是只有一个html文件，那么我们的页面就放到了public文件夹里的 index.html里面了
+        // 4. 打开index.html 我们能看到一个 id名为 app的div,我们学习的第一天是不是就给大家介绍过要让一个 vue控制一个区域，控制的区域是不是就是这个 div ，所以它的作用就是挂载给 vue 控制的， 我们打开源代码，可以看到下面有一个注释，注释下面是不是注入了一些脚本文件，那我们在我们引入的一些脚本文件下加 new 一个实例，那这个实例会不会控制 我们的 div
+        // 5. 其他的就是咱们的配置文件啊，package.json包管理配置文件，babel.config.js 是babel的配置文件，将来大家要配置babel文件就把内容放到里面去，.gitignore是git忽略文件，默认的忽略掉 node_modules、dist文件
+
+
+    // 了解src目录的构成
+        // 1. assets 目录：就是存放项目中用到的静态资源文件，如：css样式表、图片资源等
+        // 2. components 目录：我们先介绍一下这个组件化就是 可复用的UI结构 封装 的一个一个的 组件 ，这个目录就是程序员封装的、可复用的组件，都要放到 components 目录下
+        // 3. main.js 是项目的入口文件，整个项目的运行，要先执行main.js,(包括项目最后进行打包构建也是从main.js开始打包)
+        // 4. APP.vue 是项目的根组件，我们打开的页面所看到的就是APP.vue,那如果我们想把这个页面重新的换一个页面出来，我们只需要打开APP.vue把它清空掉
+            // 清空掉之后我们要先放一个结构：
+            //<template><h1>这是 APP.vue 组件</h1></template>  
+            //  (template代表模板结构)
+            // 里面的h1就是代表我们要把它渲染到页面上，大家所看到的页面就是这个APP.vue所呈现出来的，APP.vue定义一些UI结构的，定义成什么结构我们就可以看到什么结构
+    
+
+    // 了解vue项目运行过程
+        // 1. vue项目的运行流程
+        // 在工程化的项目中，vue要做的事情很单纯：通过 main.js 把APP.vue渲染到 index.html 的指定区域中
+        // 打开 index.html 里面id 为 app 的div 是不是我们指定的那个结构，也就是要把APP.vue 里面的结构渲染到id 为app 的位置，要渲染的位置知道了，要渲染的目标是不是也知道了，就是我们的h1，h1渲染到div的位置，div给我们呈现
+        // 问题：怎么渲染？              是不是我们的main.js开渲染了
+        // 这就是这三个文件之间的关系
+
+        // 打开main.js 第一行：导入 vue 这个包，得到vue 构造函数
+        // 第二行：导入 APP.vue 根组件，将来要把 APP.vue 中的模板结构，渲染到 html 页面中，v3和v2的写法在main.js有注释
+            // 注意：
+                // 1. App.vue 用来编写待渲染的模板结构
+                // 2. index.html 中需要预留一个el区域
+                // 3. main.js 把 App.vue渲染到了index.html 所预留的区域中
+        
+</script>
+</html>

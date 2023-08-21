@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态组件 介绍 component 标签基本用法</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 1. 什么是动态组件
+    // 动态组件指的是动态切换组件的显示与隐藏
+
+    // 2. 如何实现动态组件渲染
+    // vue 提供了一个内置的 <component> 组件，专门用来实现动态组件的渲染
+
+        // data(){
+        //     // 1. 当前要渲染的组件名称
+        //     return { comName:'Left' }
+        // }
+
+        // 2. 通过 is 属性，动态指定要渲染的组件
+        // <component :is="comName"></component>
+
+        // 3. 点击按钮，动态切换组件的名称
+        // <button @click="comName = 'Left'">展示 Left 组件 </button>
+        // <button @click="comName = 'Right'">展示 Right 组件 </button>
+
+
+    // 3. 分析：
+        // 1.vue 给内置了一个 <component> 组件，注意：大家可以认为这个 <component> 组件就是一个占位符，给谁占位的？是不是给组件占位的，你要展示哪一个组件，咱们就给 这个 <component> 组件指定要展示的组件的名称就可以了，那现在大家来想 <component> 组件代表具体的某个组件吗？是不是不代表，它只是个占位符    --> App.vue
+
+        // 2. 在 App.vue 里面我们是不是通过 Left 和 Right 标签写死了，固定了，如果不这么写的话，是不是可以使用 <component> 组件
+
+        // 3. 实现了之后，我们有一个需求，就是 Left是动态绑定的还是写死的，是不是写死的，那我能不能不把 is 属性里面的值写死，怎么办呢，我在js里面定义一个 data 数据可以吧
+
+    // 4. 动态的切换组件的展示和隐藏
+        // 现在我们可以动态的添加组件渲染组件了，那现在有一个需求：
+        // 在 App页面方两个按钮，点击第一个按钮展示 Left组件，点击第二个按钮展示 Right 组件
+        // 1. 放置两个按钮，一个展示 Left 一个展示 Right
+        // 2. 点击按钮的时候我只需要给 comName 重新赋值就可以了
+</script>
+</html>

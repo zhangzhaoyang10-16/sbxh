@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History对象：获取浏览历史</title>
+</head>
+
+<body>
+    <a href="https://www.baidu.com">百度</a>
+    <a href="https://www.mi.com">小米</a>
+    <button onclick="myBack()">back()</button>
+    <button onclick="myForward()">forward()</button>
+    <button onclick="myGo()">go()</button>
+    <button onclick="myPushState()">pushState()</button>
+    <button onclick="myReplaceState()">replaceState()</button>
+    <script>
+        // JavaScript history 对象中包含了用户在浏览器中访问过的历史记录，其中包括通过浏览器浏览过的页面，以及当前页面中通过<iframe>加载的页面。我们可以通过 window 对象中的 history 属性来获取 history 对象，由于 window 对象是一个全局对象，因此在使用window.history时可以省略 window 前缀，例如window.history.go()可以简写为history.go()。
+
+        // history 对象中的属性
+
+
+        // 属性	                                    说明
+        // length	            返回浏览历史的数目，包含当前已经加载的页面。
+        // scrollRestoration	利用浏览器特性，使我们在返回上一页或者下一页时，将页面滚动到之前浏览的位置，该属性有两个值，分别是 auto（表示滚动）与 manual（表示不滚动）。
+        // state	            返回浏览器在当前 URL 下的状态信息，如果没有调用过 pushState() 或 replaceState() 方法，则返回默认值 null。
+
+        document.write(history.length + "<br>");
+        document.write(history.scrollRestoration + "<br>");
+        document.write(history.state + "<br>");
+
+
+        // history 对象中的方法
+
+        // 方法	                                 说明
+        // back()	        参照当前页面，返回历史记录中的上一条记录（即返回上一页），也可以通过点击浏览器工具栏中的←按钮来实现同样的效果。
+        // forward()	    参照当前页面，前往历史记录中的下一条记录（即前进到下一页），也可以通过点击浏览器工具栏中的→按钮来实现同样的效果。
+        // go()	            参照当前页面，根据给定参数，打开指定的历史记录，例如 -1 表示返回上一页，1 表示返回下一页。
+        // pushState()	    向浏览器的历史记录中插入一条新的历史记录。
+        // replaceState()	使用指定的数据、名称和 URL 来替换当前历史记录。
+
+        function myBack() {
+            history.back();
+        }
+        function myForward() {
+            history.forward();
+        }
+        function myGo() {
+            var num = prompt('请输入一个整数', '1');
+            history.go(num);
+        }
+        function myPushState() {
+            var state = { 'page_id': 1, 'user_id': 5 }
+            var title = 'JavaScript'
+            var url = '../index.html'
+            history.pushState(state, title, url)
+            console.log(history.state);
+        }
+        function myReplaceState() {
+            var state = { 'page_id': 3, 'user_id': 5 }
+            var title = 'history'
+            var url = '../index.html'
+            history.replaceState(state, title, url)
+            console.log(history.state);
+        }
+    </script>
+</body>
+
+</html>

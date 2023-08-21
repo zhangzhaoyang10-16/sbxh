@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen对象：获取屏幕信息</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+</style>
+<body>
+    <button type="button" onclick="getResolution();">获取屏幕的宽度和高度</button>
+    <button type="button" onclick="getColorDepth();">获取颜色深度</button>
+<script>
+// screen 对象中包含了有关计算机屏幕的信息，例如分辨率、宽度、高度等，我们可以通过 window 对象的 screen 属性来获取它。由于 window 对象是一个全局对象，因此在使用window.screen时可以省略 window 前缀，例如window.screen.width可以简写为screen.width。
+
+// screen 对象中的属性
+
+// 属性	                    说明
+// availTop	    返回屏幕上方边界的第一个像素点（大多数情况下返回 0）
+// availLeft	返回屏幕左边边界的第一个像素点（大多数情况下返回 0）
+// availHeight	返回屏幕的高度（不包括 Windows 任务栏）
+// availWidth	返回屏幕的宽度（不包括 Windows 任务栏）
+// colorDepth	返回屏幕的颜色深度（color depth），根据 CSSOM（CSS 对象模型）视图，为兼容起见，该值总为 24。
+// height	    返回屏幕的完整高度
+// pixelDepth	返回屏幕的位深度/ 色彩深度（bit depth），根据 CSSOM（CSS 对象模型）视图，为兼容起见，该值总为 24
+// width	    返回屏幕的完整宽度
+// orientation	返回当前屏幕的方向
+
+document.write(screen.availTop + "<br>");   // 输出：0
+document.write(screen.availLeft + "<br>");  // 输出：0
+document.write(screen.availHeight + "<br>");// 输出：1050
+document.write(screen.availWidth + "<br>"); // 输出：1920
+document.write(screen.height + "<br>");     // 输出：1080
+document.write(screen.width + "<br>");      // 输出：1920
+document.write(screen.colorDepth + "<br>"); // 输出：24
+document.write(screen.pixelDepth + "<br>"); // 输出：24
+console.log(screen.orientation);            // 输出：ScreenOrientation {angle: 0, type: "landscape-primary", onchange: null}
+
+// 获取屏幕的宽度和高度
+function getResolution() {
+    alert("计算机屏幕的尺寸为：" + screen.width + "x" + screen.height);
+}
+// 获取屏幕的颜色深度
+function getColorDepth() {
+    alert("计算机屏幕的颜色深度为：" + screen.colorDepth);
+}
+
+
+// document.body.clientWidth ==> BODY对象宽度  
+// document.body.clientHeight ==> BODY对象高度  
+// document.documentElement.clientWidth ==> 可见区域宽度  
+// document.documentElement.clientHeight ==> 可见区域高度  
+  
+// 网页可见区域宽： document.body.clientWidth  
+// 网页可见区域高： document.body.clientHeight  
+// 网页可见区域宽： document.body.offsetWidth (包括边线的宽)  
+// 网页可见区域高： document.body.offsetHeight (包括边线的高)  
+// 网页正文全文宽： document.body.scrollWidth  
+// 网页正文全文高： document.body.scrollHeight  
+// 网页被卷去的高： document.body.scrollTop  
+// 网页被卷去的左： document.body.scrollLeft  
+// 网页正文部分上： window.screenTop  
+// 网页正文部分左： window.screenLeft  
+// 屏幕分辨率的高： window.screen.height  
+// 屏幕分辨率的宽： window.screen.width  
+// 屏幕可用工作区高度： window.screen.  availHeight  
+// 屏幕可用工作区宽度： window.screen.availWidth  
+</script>   
+</body>
+</html>

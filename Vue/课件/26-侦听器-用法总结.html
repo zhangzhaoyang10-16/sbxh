@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侦听器-用法总结</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="info.uname">
+    </div>
+</body>
+<script>
+    // 现在我们用了这个 deep 是不是有点麻烦，我们在此返回的是info对象而不是直接的那个值，我们要拿到 uname 是不是还需要双向绑定里面 .uname
+    // 需求：我想侦听对象中某一个具体属性的变化，直接侦听到这个属性就完事了
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            info: {
+                uname: 'admin'
+
+            }
+        },
+        // 对象格式的侦听器
+        // watch:{
+        //     // 对象格式侦听器：
+        //     info:{
+        //         handler(newVal){  
+        //             console.log(newVal);    // 按正常来讲这样也不会触发
+        //         },
+
+        //         deep:true   // 默认值 false
+        //     }
+
+        // }
+
+        // 改造一下：
+        watch: {
+            // 之前是这样写：
+            // uname(){}   // 侦听谁的变化，函数名就是谁
+
+            // 现在我们要侦听的是 info 下的 uname属性值 在这里我们这么写
+
+            // 如果要侦听的是对象的子属项的变化，则必须包一层单引号
+            'info.uname'(newVal) {
+                console.log(newVal) // 可监听到 如果你想用 deep深度监听就使用可以，如果你想一步到位，那就用目前这个方法
+            }
+        }
+    })
+</script>
+
+</html>

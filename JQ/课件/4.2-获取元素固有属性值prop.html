@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取元素固有属性值prop()</title>
+ </head>
+
+<body>
+    <a href="https://www.baidu.com" title="百度">百度</a>
+    男：<input type="checkbox" name="sex">
+    女：<input type="checkbox" name="sex">
+    <div data-index="2">我是div</div>
+
+    <span>我是span</span>
+</body>
+<script>
+    // 设置或获取元素固有属性值    prop()
+    // 所谓元素固有属性就是元素本身自带的属性，比如a标签中的href  input标签中的type
+    // 1. 获取属性值       prop("属性名")
+    // $(function () {
+    //     // element.prop("属性名")  获取属性值
+    //     console.log($("a").prop("href"));
+    // })
+    // 2. 设置属性        prop("属性名","属性值")
+    // $(function () {
+    //     $("a").prop("title", "我是百度");
+    //     $("a").prop("target", "_blank");
+    //     $("input").change(function () {      // change()   当发生了改变时候
+    //         console.log($(this).prop("checked"));
+    //     })
+    //     $("input").prop("checked", "checkbox");
+    // })
+    // 3. 元素自定义属性     attr()      实际开发中会添加一些自定义属性
+    // $(function () {
+
+    //     // 添加自定义属性
+    //     $("div").attr("index", "2");       // 类似原生setAttribute()
+    //     console.log($("div").attr("index"));    // 获取得到 1    获取类似原生getAttribute()
+    // })
+    // 4. H5新增的自定义属性    data-index
+    // $(function () {
+    //     console.log($("div").attr("data-index"));
+    //     console.log(typeof $("div").attr("data-index"));
+    // })
+    // 5. 数据缓存    data()   设置或获取属性值的另一种方法    这里的数据是存放在元素内存里面
+    // date() 方法可以在指定的元素上存取数据，并不会修改DOM元素结构，一旦页面刷新，之前存放的数据将被移出   我们可以将这个方法当作一个变量来看  存放数据
+    // $(function () {
+    //     $("span").data("sex", "boy");
+    //     console.log($("span").data("sex"));
+    //     // 同时我们还可以获取H5中的属性
+    //     console.log($("div").data("index"));
+    //     console.log(typeof $("div").data("index"));
+    //     // 这个方法获取data-index h5自定义属性 第一个不用写data-  而且返回数字型
+    // })
+    // 案例：购物车全选功能
+        // 分析
+            // 全选和全不选功能
+                // 1.里面3个复选框按钮选中状态(checked)跟着全选按钮走
+                // 2.checked是复选框的固有属性，此时我们需要利用prop()方法获取和设置该属性
+                // 3.把全选按钮状态赋值给3个复选框
+            // 复选框按钮每次点击时，判断点击了几个，如果全部选中按钮就将全选选中
+                // 1.当我们每次点击复选框按钮，就判断
+                // 2.如果复选框被选中的个数等于全部复选框数量就应该全选按钮选上，否则全选按钮不选
+                // 3.jq提供了一个  :checked选择器     :checked查找被选中的表单元素  也就是说只需要给目前的复选框按钮都加上:checked，那么有几个就会选出几个 没点按钮就不会被选出来
+
+</script>
+
+</html>

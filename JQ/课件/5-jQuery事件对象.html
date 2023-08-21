@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery事件对象</title>
+    <script src="../js/js/jquery-3.5.1.min.js"></script>
+</head>
+<style>
+    div {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+    }
+</style>
+
+<body>
+    <div></div>
+    <a href="https://wwww.baidu.com">百度</a>
+</body>
+<script>
+    // jQuery事件对象
+    // 语法：element.on(events,[selector],function(event){})
+    $(function () {
+        $(document).on("click", function () {
+            console.log("点击document")
+            // 在此先会执行下面的div点击事件，然后通过冒泡事件在进行当前点击事件
+        })
+        $("div").on("click", function (e) {
+            // console.log(e);
+            console.log("点击了div");
+            // 如果你点击之后不想在执行冒泡事件，向上点击就添加  event.stopPropagation()
+            e.stopPropagation();
+        })
+
+        $('a').on('click', function (e) {
+            console.log('鼠标移入就可以跳转页面');
+            // 取消默认事件
+            e.preventDefault();
+            // 阻止冒泡
+            e.stopPropagation();
+        })
+    })
+    // 同样事件对象可以让我们操作很多事情，比如：
+        // 阻止默认行为：event.preventDefault()  或者 return false
+        // 阻止冒泡：event.stopPropagation()
+</script>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建删除添加元素</title>
+    <script src="../js/js/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <ul>
+        <li>我是一开始就有的li</li>
+        <li>我是我是</li>
+        <li>
+            <ul>
+                <li>我不是我不是</li>
+            </ul>
+        </li>
+
+    </ul>
+    <!-- <ul>
+        <li>我真不知道</li>
+
+    </ul> -->
+    <div class="box">
+        我是一直都在的div
+
+        <span>我是一个 span </span>
+
+    </div>
+</body>
+<script>
+    // jQuery元素操作
+        // 主要是遍历、创建、添加、删除元素操作
+        // 1.创建元素
+        // 语法：  $("<li></li>");   动态的创建了一个li标签
+        // var li = $("<li>我是新创建的li</li>");
+        // 2.添加元素        
+            // (1) 内部添加        
+            // 语法：element.append("内容");
+            // $("ul").append(li);
+            // 这样会把内容放入匹配元素内部最后面，类似appendChild
+            // $("ul").prepend(li);
+            // 这样会把内容放入匹配元素内部前面
+            // (2) 外部添加
+            // 语法1：element.after("内容");
+            // var div = $("<div>我是石头哈喇蹦出来的</div>");
+            // $(".box").after(div);     // 内容放在匹配元素的后面
+            // 语法2：element.before("内容");
+            // $(".box").before(div);     // 内容放在匹配元素的前面
+            // 注意：
+            //     (1) 内部添加元素，生成以后，它们是父子关系
+            //     (2) 外部添加元素，生成之后，它们是兄弟关系
+        // 3.删除元素
+        // (1) 删除匹配的元素（本身）
+        // 语法：element.remove() 
+        // $("ul").remove();
+        // (2) 删除匹配的元素集合中所有的子节点
+        // 语法：element.empty()   
+        // $("ul").empty('我也想');
+        // (3) 删除匹配的元素集合中所有的子节点及内容，并可以替换其他文本内容
+        // 语法：element.html("") 
+        // $(".box").html("<span>我是一个span1</span>");
+
+    // 案例1：购物车删除商品
+        // 分析：核心思路   把商品remove()删除元素就可以了
+            // (1) 有三个地方需要删除：1>商品后面的删除按钮，2>删除选中的商品，3>清理购物车
+            // (2) 商品后面的删除按钮：一定是删除当前的商品，所以从$(this)开始
+            // (3) 删除选中的商品：先判断复选框按钮是否选中状态，如果是选中，则删除对应的商品
+    // 案例2：购物车-选中商品添加背景色
+        // 核心思路：选中的商品添加背景，不选中移除背景就可以了
+        // (1) 全选按钮点击：如果全选是选中状态，则所有的商品添加背景，否则移除背景
+        // (2) 复选框点击：如果是选中状态，则当前商品添加背景，否则移除背景
+        // (3) 背景可以通过类名修改，添加类和删除类
+
+</script>
+</html>

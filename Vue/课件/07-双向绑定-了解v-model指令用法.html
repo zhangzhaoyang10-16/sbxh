@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>了解 v- model 指令的用法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>用户的名字是：{{username}}</p>
+        <!-- 需求：放一个input输入框，然后给这个input加一个指令 v-model -->
+        <input type="text" v-model="username"><br />
+        <!-- 这里代表就是说文本框它的内容和咱们某一份数据进行双向的绑定 比如我把 username 这个绑定过来，这样就是说如果这个data里面 username 值发生了变化，那么p标签的内容会被更新对吧，那input的数据是不是也会被更新啊，同时用户操作了文本框，在里面填了一些数据，那这些数据也会自动的更新到 data 数据源里面，这就是双向的绑定-->
+
+        <!-- 在这里我们首先通过 data 数据源渲染了文本框内容，这是正常渲染文本结构内容，之后你只要操作了文本框就会被 v-model 这个指令感知到或者监听到用户在这里填写修改了内容，然后将最新的文本框的内容更新到我们 data 数据源里,这是一个逆向的的更新 -->
+
+        <!-- 那大家想一下我们学习了双向绑定指令 以后在提交表单或者采集表单数据的时候，还需要先拿到 DOM 元素在去点 value 拿到它里面的值吗？ -->
+        <!-- 只要你操作了文本框，那必然会修改数据源，咱们只需要通过 this 点出来最新的 username 的值，今后只需要 v-model 直接采集到用户最新的数据 -->
+
+        <!-- 比如我在来一个input 添加一个 value属性-->
+
+        <!-- <input type="text" :value="username"> -->
+        <!-- <input type="text" :value="username"> -->
+        <!-- value 是自身的一个属性，它的作用是不是就是我们填写个任意数据就默认是这个数据，比如填写一个小米商城 -->
+        <!-- 那我现在希望把 username 的值渲染到 这个文本框里面去，之前我们是不是学过 v-bind  ,使用 v-bind 修改 username，那我们看 data里面的数据会不会发生改变 -->
+
+        <!-- 我们发现只是单纯的文本框内容在改变，而 data 里面的数据源没有改变，那 v-bind 是单向绑定还是双向绑定呢？ -->
+        <!-- 什么叫单向绑定：数据源的数据会渲染到页面上，但是页面上的改动不会同步到 data 数据源上 -->
+
+        <!-- 我们只需要在调试工具上调试 data 数据看一下即可， 数据源的变化会导致 v-bind和v-model同时发生改变，但是当 v-bind 里面的数据发生改变的时候不会同步到 data 数据源里面，反过来我们在 v-model里面更改数据，data 数据源更新了数据，那之前我们也介绍过，只要 data 数据源发生变化，vue 就会自动重新渲染页面，大家可以看到我们这个拿到最新的数据先把 插值更新了一下，把两个文本框内容也更新了-->
+
+        <!-- 在此，我们在用 v-model 指令的时候在使用value就没有意义了 -->
+
+        <!-- 最后我们在说一个小注意点 -->
+        <!-- 我给div添加一个 v-model绑定有意义吗 -->
+        <!-- <div v-model="username">我给div添加一个</div> -->
+
+
+        <!-- 首先 div 是不是同样能呈现数据，就是我可以把数据渲染到div内部，包括p，h1~h6 它们有呈现数据的能力，但是用户不能修改他们里面的值，能和用户产生交互的是不是都是一些表单元素，所有大家一定要记住只有表单元素才能使用 v-model 指令，才有意义 -->
+
+        <!-- 总结：v-model 只能和 input输入框、textarea、select一起使用 -->
+
+        <!-- 需求：用户在选择一个值以后，咱们立即把这个值双向绑定到咱们的数据源里面去 -->
+        <!-- option默认有一个value 值，那我们现在要添加 v-model 指令了，添加到谁的身上 -->
+
+
+        <select v-model="city">
+            <option value="">请选择城市</option>
+            <option value="1">北京</option>
+            <option value="2">上海</option>
+            <option value="3">广州</option>
+        </select>
+        <!-- 那是不是这个选项只要发生了变化，那咱们选中的这个值是不是就会同步到数据源里面，如果我们需要一个默认值，直接将 city值改为1或者其他值 -->
+    </div>
+</body> bgft6
+<script>
+    // 1. 双向绑定指令
+    // vue 提供了 v-model 双向数据绑定指令，它的好处就是用来辅助开发者在不操作 DOM 的前提下，快速获取表单的数据
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            username: "",
+            // 在此添加 city 默认值为空
+            city: ''
+        },
+        methods: {
+
+        }
+
+    })
+</script>
+
+</html>

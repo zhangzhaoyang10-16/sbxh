@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器的其他用法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
+<body>
+    <div id="app">
+        <table class="table table-bordered table-hover table-strped">
+            <thead>
+                <th scope="col">#</th>
+                <th scope="col">品牌名称</th>
+                <th scope="col">状态</th>
+                <th scope="col">创建时间</th>
+                <th scope="col">操作</th>
+            </thead>
+            <tbody>
+                <tr v-for="item in list" :key="item.id">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>
+                        <div class="custom-control custom-switch">
+                            <!-- 是不是使用v-bind绑定属性值，字符串拼接的方式 -->
+
+                            <input type="checkbox" class="custom-control-input" :id="'cc' + item.id"
+                                v-model="item.state">
+                            <label :for="'cc' + item.id" class="custom-control-label"
+                                v-if="item.state === true">已启用</label>
+                            <label :for="'cc' + item.id" class="custom-control-label" v-else>已禁用</label>
+                        </div>
+                    </td>
+                    <td>
+                        <!-- 使用过滤器 -->
+                        {{ item.time | dataTime(x,y)}}
+                    </td>
+                    <td>
+                        <!-- 点击这个链接绑定一个点击事件 -->
+                        <a href="javascript:" @click="remover(item.id)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    // 过滤器主要的核心内容已经给大家讲解完了，下面呢还有两个小特性，不经常使用但是大家的知道
+    // 1.连续调用多个过滤器
+    // item.time是前面显示的数据,后面是用管道符调用了一个指定的过滤器 
+    // 这里其实我们可以一直 | 调用过滤器  {{ item.time | dataTime | xxxx | aaaa}} 
+    // 分析： 
+    // item.time会先交给第一个过滤器处理,第一个过滤器处理完之后会有一个 return 返回值，接下来把这个返回值当作一个数据在传给下一个过滤器,依此进行,前一个过滤器是后一个过滤器的形参，最后输出的是不是最后一个过滤器的返回值,然后渲染到 插值的位置 
+
+    // 2.过滤器传参
+    // 例： <p>{{ message | filterA(x,y)}}</p>
+    // 过滤器处理函数的形参：
+    // 第一个参数：永远都是 管道符 前面待处理的值
+    // 第二个值开始，才是调用过滤器时传递过来的 x y 参数
+    // Vue.filter('filterA', (val, x, y) => {
+    //     // 过滤器的代码逻辑
+    // })
+
+    // 3.过滤器的兼容性
+    // 过滤器仅在 vue2.x 和 1.x 中受支持，在 vue3.x 的版本中删除了过滤器相关的功能
+    // 在企业级项目开发中：
+        // 如果使用的是 vue2.x 版本,则依然可以使用过滤器相关功能
+        // 如果项目已经到了 vue3.x 版本，官方建议使用 计算属性或方法代替被剔除的过滤器功能 
+</script>
+
+</html>

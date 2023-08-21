@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+</head>
+
+<style>
+
+</style>
+
+<body>
+  <div class="box">
+    <input type="text" id="content">
+    <button id="publishBtn">发布</button>
+  </div>
+  <div id="posts"></div>
+</body>
+
+<script>
+  $(document).ready(function () {
+    // 当输入框内容发生变化时 
+    $("#content").on("input", function () {
+      // 获取输入框的内容并去除首尾空格 
+      var content = $(this).val().trim();
+      // 如果内容为空 
+      if (content === "") {
+        // 禁用发布按钮 
+        $("#publishBtn").prop("disabled", true);
+      } else {
+        // 否则启用发布按钮 
+        $("#publishBtn").prop("disabled", false);
+      }
+    });
+    // 当发布按钮被点击时 
+    $("#publishBtn").on("click", function () {
+      // 获取输入框的内容并去除首尾空格 
+      var content = $("#content").val().trim();
+      // 如果内容为空 
+      if (content === "") {
+        // 返回 
+        return;
+      }
+      // 获取当前日期和时间 
+      var date = new Date();
+      var timestamp = date.toLocaleString();
+      // 创建包含帖子内容的段落元素 
+      var postContent = $("<p>").text(content);
+      // 创建显示发布时间的span元素 
+      var postTime = $("<span>").text("发布时间：" + timestamp);
+      // 创建删除按钮 
+      var deleteButton = $("<button>").text("删除").on("click", function () {
+        // 当删除按钮被点击时，移除其父元素 
+        $(this).parent().remove();
+      });
+      // 创建包含帖子内容、发布时间和删除按钮的div元素 
+      var output = $("<div>").append(postContent, postTime, deleteButton);
+      // 将帖子添加到帖子列表中 
+      $("#posts").append(output);
+      // 清空输入框的内容 
+      $("#content").val("");
+      // 禁用发布按钮 
+      $("#publishBtn").prop("disabled", true);
+    });
+  });
+</script>
+
+</html>

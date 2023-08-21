@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性-了解计算属性的应用场景</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<style>
+    .box {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #000;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div>
+            <span>R:</span>
+            <input type="text" v-model.number="r">
+        </div>
+        <div>
+            <span>G:</span>
+            <input type="text" v-model.number="g">
+        </div>
+        <div>
+            <span>B:</span>
+            <input type="text" v-model.number="b">
+        </div>
+
+        <!-- 给用户呈现颜色的 div 盒子 -->
+        <!-- 在属性身上， : 代表 v-bind 属性绑定  -->
+        <!-- 在:style代表动态绑定一个样式对象，它的值是一个 { } 样式对象 -->
+        <!-- 当前的样式对象中，只包含 backgroundColor   它的值是动态生成的 -->
+        <div class="box" :style="{ backgroundColor:`rgb(${r} ,${g} ,${b})`}">
+            {{`rgb(${r},${g},${b})`}}
+            <!-- 在这里插值表达式会动态拼接一次rgb，而在背景样式里面也拼接了一次，当点按钮时候触发方法 show 又拼接了一次 -->
+            <!-- 这样很麻烦，万一到时候你要改成rgba的时候你是不是每一个都要加一个 a -->
+
+            <!-- 一段代码在多个地方都被用到了，这些代码会被封装成方法或者其他的形式来进行复用，我们现在是不是想把这三个模板字符串的内容进行复用，那这里就用到了我们的计算属性 -->
+        </div>
+        <button @click="show">按钮</button>
+    </div>
+</body>
+<script>
+    // 1.计算属性   它是一个属性（切忌）  这个属性是通过一系列的运算后得到的，不是声明的
+    // 计算属性在实际开发中非常的常用，用法呢非常的简单
+    // 什么是计算属性
+    // 计算属性指的是 通过一系列运算之后，最终得到一个属性值
+    // 而这个动态计算出来的属性值 可以被模板结构（在插值或 v-bind使用） 或 methods方法使用
+
+    // 我们先看页面，页面中放了三个文本框，里面可以输入一个数值RGB，R红，G绿，B蓝，我们在里面随意写一个数值，rgb范围是0-255，我们会发现下面的颜色会变，而且同时把我们输入的rgb值也显示了出来，当前没有用计算属性，看看怎么做的
+
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            // 只要这三个值变化，我就动态的将这三个数值用模板字符串做一次拼接，然后通过插值渲染到页面
+            r: 0,
+            g: 0,
+            b: 0
+        },
+        methods: {
+            show() {
+                console.log(`rgb(${this.r},${this.g},${this.b})`)
+            }
+        }
+    })
+</script>
+
+</html>

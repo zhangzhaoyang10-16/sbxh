@@ -1,0 +1,102 @@
+
+.margin {
+  width: 1200px;
+  margin: 0 auto;
+}
+.top {
+  height: 32px;
+  background-color: #f3f3f3;
+}
+.max {
+  width: 100%;
+}
+.max .box {
+  width: 1200px;
+  margin: 0 auto;
+}
+.max .box ul {
+  display: flex;
+}
+.max .box ul li {
+  flex-basis: 100px;
+  line-height: 32px;
+  padding: 0 10px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.max .box ul li input {
+  margin-right: 4px;
+}
+.max .box ul li span {
+  width: 100%;
+}
+.max .box ul li:nth-child(1) {
+  display: flex;
+}
+.max .box ul li:nth-child(2) {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 20px;
+}
+.max .box .nr_box > div {
+  display: flex;
+  margin-top: 20px;
+  line-height: 32px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border-bottom: 2px solid black;
+}
+.max .box .nr_box > div input {
+  margin-right: 4px;
+}
+.max .box .nr_box ul {
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+.max .box .nr_box ul li button {
+  width: 20px;
+}
+.max .box .nr_box ul li input {
+  width: 40px;
+  text-align: center;
+}
+.max .box .nr_box ul li:nth-child(2) {
+  display: flex;
+}
+.max .box .nr_box ul li:nth-child(2) div {
+  flex-basis: 206px;
+  line-height: 20px;
+  margin-right: 20px;
+}
+.max .box .nr_box ul li:nth-child(4) {
+  margin-top: 6px;
+  display: flex;
+  height: 20px;
+}
+.max .box .nr_box ul li:nth-child(4) input {
+  margin-right: 0;
+  margin: 0 auto;
+}
+.max .foot .footter {
+  margin: 0 auto;
+  font-size: 16px;
+  width: 1200px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+.max .foot .footter p {
+  margin-left: 20px;
+  flex-grow: 1;
+}
+.max .foot .footter span {
+  margin-right: 10px;
+}
+.max .foot .footter div {
+  width: 200px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background-color: brown;
+  color: white;
+}

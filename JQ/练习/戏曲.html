@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+</head>
+<style>
+    ul {
+        height: 200px;
+        background-color: #d4d4d4;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    li {
+        float: left;
+        width: 200px;
+        height: 200px;
+        background-color: #d4d4d4;
+        margin-left: 10px;
+        background: url("../img/Lui.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .box {
+        background-color: #f3f3f3f3;
+       background: url("../img/Lui.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    </style>
+
+<body>
+    <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    </ul>
+</body>
+
+<script>
+    $("li").mouseover(function () {
+        // 移除之前的active类
+        $("li").removeClass("box");
+        // 添加当前点击的li的active类
+        $(this).addClass("box");;
+    });
+
+</script>
+
+</html>

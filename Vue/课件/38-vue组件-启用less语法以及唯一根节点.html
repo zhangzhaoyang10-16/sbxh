@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>启用 less 语法以及唯一根节点</title>
+</head>
+<body>
+    <!-- 还是进入 Test.vue 组件内 --> 
+</body>
+<script>
+    // 1. template 中的根节点
+        // 在 Test.vue组件模板中，我们在最外层有一个 div，如果我在里面在放一个div   刷新网页是不是会报错
+        // 报错信息：
+        // Component template should contain exactly one root element.  
+        // 组件的模板结构中应该包含一个根元素，根元素就是必须有唯一的根节点，那我们 Test.vue 模板结构中现在有两个，所以记住在这里不能出现两个根节点
+        // 这里你要有两个 div 那就只能在这两个div的外层在包一个 div 
+
+        // 所以在以后开发中，我们写入我们的模板结构之后，第一件事就是放一个 div 来进行占位 ，在里面放一些我们要写的内容子元素
+    
+    // 2. less语法
+        // 在第二次进行创建项目的时候，有很多选项，有一个less的选项就是咱们 less的预处理器
+        // 我们现在写的样式是不是普通的 css 样式   ,我们进行一个操作，在这个样式里面嵌套 h1的样式
+
+    // 3. App.vue 
+        // 为什么我们把App.vue 叫做根组件   --> App.vue
+        // index.html 中的 div 是我们的占位符，在普通的vue页面中 el 所控制的区域就是我们的根
+        // 在看main.js 我们是不是把App.vue的内容渲染并替换了 div 的区域，那是不是我们把 el所控制的区域app替换成了 App.vue了，所以我们把 App.vue叫做根组件
+
+
+        // 结论：render 函数中，渲染的是哪个 .vue 组件，那么这个组件就叫做 "根组件"
+</script>
+</html> 

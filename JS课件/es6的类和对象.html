@@ -1,0 +1,419 @@
+<DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ES6的类和对象</title>
+    </head>
+
+    <body>
+        <button>点击</button>
+    </body>
+    <script>
+        //   1.面向对象编程介绍
+        // 面向对象中我们把编程思维分为两大编程思维：
+        // 一种是面向过程，一种是面向对象    // 1.1 面向过程编程   POP
+        // 面向过程就是分析出解决问题所需要的步骤，然后用函数把这些步骤一步一步的实现，使用的时候在一个一个的一次调用就可以了
+        // 举个例子：   大象装进冰箱      冰箱门打开   大象装进去   把冰箱门关上
+        // 就是按照我们分析好的步骤，按照步骤解决问题
+
+        // 1.2 面向对象编程   OOP
+        // 面向对象是把事务分解成一个个的对象，然后由对象之间分工与合作来实现我们想要的功能
+        // 举个例子：   大象装进冰箱    使用面向对象的方法
+        // 我们首先先找出对象，并且写出这些对象的功能；
+        // 1）大象对象    进去
+        // 2）冰箱对象    打开和关闭
+        // 3）最后我们就需要做一个调用者，使用大象和冰箱的功能就可以了
+        // 那么面向对象是以对象功能来划分问题，而不是步骤
+
+        // 总结：在面向对象程序开发思想中，是以对象为功能中心的，他们具有明确的分工
+        // 面向对象编程具有灵活、代码复用、容易维护和开发的优点，更适合多人合作的大型软件项目
+        // 面向对象有三个非常典型的特性：
+        //     封装性：
+        //     继承性：
+        //     多态性：
+
+        // 1.3 面向对象和面向过程的对比：
+        // 面向过程：                                                                       
+        // 优点：性能比面向对象高，适合跟硬件联系很紧密的东西，比如单片机就是采用的面向过程的编程
+        // 缺点：没有面向对象易维护、易复用、易扩展
+        // 面向对象：
+        // 优点：易维护、易复用、易扩展，由于面向对象有封装、继承、多态的特性、可以设计出低耦合的系统，使系统更加灵活、更加易维护
+        // 缺点：性能比面向过程低
+        // 如果是比较简单的推荐使用面向过程思想，实现的步骤会更简单一些，那么如果程序比较大，多人合作，就建议大家使用面向对象的方法来写，因为面向对象维护起来会比较方便
+
+        // 2.ES6中的类和对象
+        // 面向对象更贴近我们的实际生活，可以使用面向对象描述现实世界的事物，但是事物分为具体事物和抽象事物
+        // 比如：手机      抽象的（泛指的）
+        //      我的手机   具体的（特指的）
+
+        // 面向对象的思维特点：
+        // 1.首先我们先把手机对象一些公共的属性和行为抽取出来封装成一个类（模板）
+        // 2.对类进行实例化，获取类的对象
+        // 我们面向对象编程考虑的是有哪些对象，按照面向对象的思维特点，不断的创建对象，使用对象，指挥对象做事情
+        // 总之：面向对象离不开两个概念：一个是类，一个是对象
+
+        // 2.1 对象
+        // 对象前面学了很多，万物皆对象，对象是一个具体的事物，比如一辆车，一个人
+        // 在javascript中，对象是一组无序的相关属性和方法的集合，所有的事物都是对象，例如字符串、数组、数值、函数等
+        // 对象是由属性和方法组成的
+        // 所谓属性：就是事物的特征，在对象中用属性来表示
+        // 所谓方法：就是事物的行为，在对象中用方法来表示
+
+        // 2.2 类 class
+        // 在ES6中新增加了类的概念，可以使用class关键字声明一个类，之后以这个类来实例化对象
+        // 在这里大家一定要知道这个类是抽象了对象的公共部分，它泛指某一大类（class）
+        // 而刚才我们讲的对象是特指某一个，通过类实例化一个具体的对象
+
+
+        // 2.3 创建类：
+        // 语法：
+        // class name{
+
+        // }
+        // 那你想用我们的类创建实例，只需要new一下就可以了
+        // 创建实例:
+        // var xx = new name();
+
+        // 2.4 类 constructor()  构造函数
+        // constructor() 方法是类的构造函数，用于传递参数，返回实例对象，通过new命令生成对象实例化，自动调用该方法，如果没有现实定义，类的内部会自动给我们创建一个constructor()
+ 
+                                                                                                                                                                                                                                                                                                                                                                 
+        // 1.创建类    一个明星类
+        // 类的共有属性放到 constructor 里面
+        // class Star {
+        //     constructor(uname, age, sex) {
+        //         // this 指向 Star
+        //         this.uname = uname;
+        //         this.age = age;
+        //         this.sex = sex
+        //     }
+        //     sing(song) {
+        //         console.log(this.uname + '他是' + this.sex + '的' + "会唱" + song);
+        //     }
+
+        // }
+
+
+        // 2.利用类创建实例化对象
+        // var ldh = new Star("刘德华", 60, '男');
+        // var zxy = new Star("张学友", 65, '男');
+        // console.log(ldh.uname);
+        // console.log(zxy.age);
+        // ldh.sing("笨小孩");
+        // zxy.sing('吻别')
+
+        // (1) 通过class 关键字创建类  ，类名我们还是首字母大写
+        // (2) 类里面有一个constructor 构造函数，可以接收传递的参数，同时返回实例对象
+        // (3) constructor 函数，只要new生成实例时，就会自动调用这个函数，如果我们不写这个函数，类也会自动生成这个函数
+        // (4) 在生成实例时new 是不能省略的
+        // (5) 最后要注意语法规范，创建类，类名后面不加小括号，生成实例 类名后面一定要加小括号，构造函数不需要加function
+
+        //  2.5 类 添加方法：
+        // (1) 我们类里面所有的函数不需要写function
+        // (2) 多个函数方法之间不需要添加逗号分割
+        // ldh.sing('恭喜发财');
+        // zxy.sing('吻别');
+
+        // 3. 类的继承
+        // 3.1 继承
+
+        // 1. 类的继承
+        // class Father1{
+        //     // 共有属性
+        //     constructor () {
+
+        //     }
+        //     money(){
+        //         console.log(100);
+        //     }
+        // }
+        // 程序的继承： 子类可以继承父类的一些属性和方法
+        // 语法：
+        // class Father{
+
+        // }
+        // class Son extends Father{
+
+        // }
+
+        // class Son1 extends Father1{
+
+        // }
+        // var son = new Son1();
+        // son.money();
+
+        // class Father {
+        //     constructor(a, b) {
+        //         this.a = a;
+        //         this.b = b;
+        //     }
+        //     sum() {
+        //         console.log(this.a + this.b)
+        //     }
+        // }
+        // var aa = new Father(1000, 2000)
+        // aa.sum();
+
+        // class Son extends Father {
+        //     constructor(x, y) {
+        //         super(x, y)
+        //         this.x = x;
+        //         this.y = y;
+
+        //     }
+        // }
+        // var bb = new Son(1000, 2000)
+        // var cc = new Son(2,3)
+        // bb.sum();
+        // cc.sum()
+
+        // class Father1{
+        //     constructor(x,y){
+        //         // this 指向的是 Father1
+        //         this.x = x;
+        //         this.y = y;
+        //     }
+        //     sum(){
+        //         console.log(this.x + this.y);// this 指向的是Father1   不是Son1
+        //     }
+        // }
+        // class Son1 extends Father1{
+        //     constructor(x,y){
+        //         // this 指向的是 Son1
+        //         this.x = x;
+        //         this.y = y;  // 2,3传给的是   Son1自己的this.x和this.y里面
+        //     }
+        // }
+        // var son = new Son1(2,3);
+        // son.sum();
+
+        // 3.2 super 关键字
+        // super 关键字用于访问和调用对象父类上的函数，也可以调用父类的普通函数
+        // class Son1 extends Father1{
+        //     constructor(x,y){
+        //         // super()  调用父类中的构造函数
+        //         super(x,y);
+        //         this.x = x;
+        //         this.y = y;
+        //     }
+        // }
+        // var son = new Son1(2,2);
+        // var son1 = new Son1(1,5);
+        // son.sum();
+        // son1.sum();
+
+        // super 关键字调用普通函数
+        // class Father1 {
+        //     say() {
+        //         return '我是爸爸';
+        //     }
+        // }
+        // class Son1 {
+        //     say(){
+        //         console.log('我是儿子');
+        //     }
+        // }
+        // var son = new Son1();
+        // son.say();
+        // class Son1 extends Father1 {
+        //     say() {
+        //         // console.log('我是儿子');
+        //         console.log(super.say() + '的儿子');
+        //         console.log(super.say())
+        //         // super.say() //就是调用父类中的普通函数say()
+        //     }
+        // }
+        // var son = new Son1();
+        // son.say();
+
+        // 继承中的属性或者方法查找原则：就近原则
+        // 1. 继承中，如果实例化子类输出一个方法，先看子类有没有这个方法，如果有就先执行子类的
+        // 2. 继承中，如果子类里面没有，就查找父类有没有这个方法，如果有，就执行父类的这个方法。（就近原则）
+
+
+        // 3.3 子类继承父类的方法同时扩展自己的方法
+
+        // 父类的加法
+        class Father1 {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+            sum() {
+                console.log(this.x + this.y);
+            }
+            chu() {
+                console.log(this.x / this.y)
+            }
+        }
+        class Son1 extends Father1 {
+            constructor(x, y) {
+                super(x, y);
+                this.x = x;
+                this.y = y;
+                //super 必须在子类this 之前调用   切记 切记 切记
+            }
+            subtraction() {
+                console.log(this.x - this.y);
+            }
+            cheng() {
+                console.log(this.x * this.y)
+            }
+        }
+        var son = new Son1(9, 3);
+        son.subtraction();
+        son.sum();
+        son.chu();
+        son.cheng();
+
+
+
+
+
+
+    // class Father {
+    //     constructor(x, y) {
+    //         this.x = x;
+    //         this.y = y;
+    //     }
+    //     sum() {
+    //         console.log(this.x + this.y)
+    //     }
+    // }
+
+    // class Son extends Father {
+    //     constructor(x, y) {
+    //         // 关键字 super()  一定要写在 自己属性上
+    //         super(x, y)
+    //         this.x = x;
+    //         this.y = y;
+    //     }
+    //     sub() {
+    //         console.log(this.x - this.y)
+    //     }
+    // }
+    // var son = new Son(5, 3);
+    // son.sub()
+    // son.sum()
+
+    // 注意：子类在构造函数中使用super ,必须放在this前面
+
+
+    // 4.ES6中的类和对象三个注意点
+    // 1. 在ES6中类没有变量提升，所以必须定义类，才能通过类实例化对象
+    // var ldh = new Star('刘德华');
+    // ldh.sing();
+    // class Star {
+    //     // constructor 是类里面的构造函数   里面存储我们的共有属性
+    //     constructor(uname) {
+    //         this.uname = uname;
+    //     }
+    //     sing() {
+    //         console.log('hello');
+    //     }
+    // }
+    //    注意：先有类才能进行实例化，实例化必须写在类的下边
+
+    // 2.类里面的共有属性和方法一定要加this使用
+    // class Star{
+    //     // constructor 是类里面的构造函数   里面存储我们的共有属性
+    //     constructor(uname){
+    //         this.uname = uname;
+    //         // sing();// 报错  我们sing()这个方法属于类里面的，实例对象的，那么调用这个方法需要加this
+    //         this.sing();
+    //     }
+    //     sing(){
+    //         console.log(this.uname);// 报错，
+    //         // console.log(this.uname);// this指向的是实例化对象  ldh
+    //     }
+    // }
+    // var ldh = new Star('李德华');
+    // ldh.sing();
+
+    // 通过点击按钮，调用sing()方法
+    // class Star {
+    //     // constructor 是类里面的构造函数   里面存储我们的共有属性
+    //     constructor(uname = 刘德华) {
+    //         console.log(this)
+    //         this.uname = uname;
+    //         // this.sing();
+    //         // this.btn.onclick = this.sing
+    //         // this.btn = document.querySelector('button');
+    //         // this.btn.onclick = this.sing;// 注意，在这里千万不要加小括号，加了之后就会立马调用
+    //     }
+    //     sing() {
+    //         console.log(this.uname);
+    //     }
+    // }
+    // var ldh = new Star('刘德华');
+
+    // 3. 类里面的this指向问题
+    // constructor里面的this 指向的是创建的实例化对象
+    // var that;
+    // class Star {
+    //     // constructor 是类里面的构造函数   里面存储我们的共有属性
+    //     constructor(uname) {
+    //         that = this;
+    //         // console.log(this);
+    //         this.uname = uname;
+    //         // this.sing();
+    //         this.btn = document.querySelector('button');
+    //         this.btn.onclick = this.sing;// 注意，在这里千万不要加小括号，加了之后就会立马调用
+    //     }
+    //     sing() {
+    //         // console.log(this);// 返回button   但是我们想要的是ldh 这个对象
+    //         console.log(that.uname);
+    //         // this代表的是button   但是我们把this换成that  that = this (这个that代表的是实例化对象 lhd)
+
+    //     }
+    //     dance() {
+    //         console.log(this.uname); // this  属于它的调用者
+    //     }
+    // }
+    // var ldh = new Star('刘德华');
+    // var zxc = new Star('周星驰');
+    // // console.log(that ===ldh);
+    // ldh.dance();
+    // zxc.dance();
+
+    // 小结：constructor里面的this 指向实例化对象，方法里面的this 指向的是这个方法的调用者
+
+    // var that;
+    // class Father {
+    //     constructor(x, y) {
+    //         that = this;
+    //         this.x = x;
+    //         this.y = y;
+    //         this.btn = document.querySelector('button').onclick = this.sum;
+    //     }
+    //     sum() {
+    //         console.log(that.x + that.y);
+    //     }
+    // }
+    // class Son extends Father {
+    //     constructor(x, y) {
+    //         super(x, y);
+    //         // this.x = x;
+    //         // this.y = y;
+    //     }
+    //     j() {
+    //         console.log(this.x - this.y);
+    //     }
+    //     c() {
+    //         console.log(this.x * this.y);
+    //     }
+    //     ch() {
+    //         console.log(this.x / this.y);
+    //     }
+    // }
+    // var son = new Son(5, 2);
+    // son.sum()
+    // son.j();
+    // son.c();
+    // son.ch();
+    </script>
+
+    </html>

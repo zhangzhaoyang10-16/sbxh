@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机点名</title>
+    <style>
+        td {
+            border: 1px solid #333;
+        }
+
+        .tdBg {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>胡羽婷</td>
+            <td>耿子腾</td>
+            <td>权宇轩</td>
+            <td>王常兴</td>
+            <td>梁晨杰</td>
+        </tr>
+        <tr>
+            <td>刘梦娇</td>
+            <td>郝泽华</td>
+            <td>莫林</td>
+            <td>张炳煜</td>
+            <td>成才华</td>
+        </tr>
+    </table>
+    <input type="button" value="开始" class="put" onclick="start()">
+    <input type="button" value="结束" onclick="end()">
+    <script>
+        var timer = null;
+        function start() {
+            timer = setInterval(function () {
+                var allTd = document.getElementsByTagName("td");
+                var num = parseInt(Math.random() * 10);
+                for (let i = 0; i < allTd.length; i++) {
+                    if (i == num) {
+                        allTd[i].className = 'tdBg';
+                    } else {
+                        allTd[i].className = '';
+                    }
+
+                }
+            }, 100);
+        }
+        function end() {
+            clearInterval(timer);
+        }
+    </script>
+</body>
+
+</html>

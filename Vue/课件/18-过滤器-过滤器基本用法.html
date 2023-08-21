@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>过滤器的基本用法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <p>message 的值是 {{ message }}</p> -->
+
+        <!-- 我们将 message 里面的值 hello 改变为首字母大写 -->
+        <p>message 的值是 {{ message | aa }}</p>
+
+        <!-- 在这里我们是不是要调用一个过滤器来改变message值首字母大写 -->
+
+
+        <!-- 需求： 将h l o 改变为大写  将G改为小写 -->
+        <p>message 新增为 {{ message | toUpper}}</p>
+    </div>
+</body>
+<script>
+
+    // 1.过滤器
+    // 过滤器是（Filters） vue 为开发者提供的功能，常用于 文本的格式化，过滤器可以用在两个地方：插值表达式和 v-bind:属性绑定
+    // 例：<p>{{message | aa }}</p>
+    // 分析：
+    // 1.如果我们只看message 那就是说message 的值是啥，我p标签在页面呈现的就是啥
+    // 2.后面多了一个竖线，不是竖杠，这个竖线的作用就是调用一个过滤器函数，那注意过滤器是什么，是一个函数，加上竖线就代表调用一个过滤器函数,函数名字叫 aa
+    // 3.现在message的值并没有渲染到页面的内部，而是把message的值先作为参数传给了过滤器函数，那函数的调用是不是一般都有返回值
+    // 4.那p标签里大家看到的是 过滤器aa的返回值，而不是message的原值
+    // 5.给一个要处理的值，这个函数会返回一个新值，如果不调用过滤器函数看到的就是message的值，调用就是调用函数返回的新值，这就是过滤器的作用
+
+    // 过滤器应该被添加在javascript表达式的尾部，由 | 进行调用，在vue里面 |有一个特殊的名字，叫"管道符"
+
+    // 2.声明过滤器：
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            // 需求，我们要将hello的首字母变为大写
+            message: "hello 5G"
+        },
+        // 过滤器函数 必须被定义到 filters 节点下
+        // 过滤器本质上是函数
+        filters: {
+            aa(val) {
+                // 强调 过滤器中一定要有一个返回值   return
+                // return 'abc';
+                // 这里返回的是message的值还是 abc?   
+
+                // abc  在这里是不合理的，我们要返回的是message的值改变后的新值，所以在 aa 这个函数中是不是需要先拿到 message的值
+                // 那我们这里 message 的值在 过滤器函数的形参中可以接收到
+                // 注意： 过滤器函数形参中的 val 永远都是"管道符"前面的那个值
+                // console.log(val);
+                // 这样我们就知道通过形参就可以拿到，这个形参的名字同样不是只能叫val ，形参可以是任意名字，不能是关键字和保留字
+
+                // 拿到message 的值之后就剩下添加到这个方法上即可
+                // 我们可以通过截取字符串的方式来把第一个h截取出来，然后改为大写，其他的值从索引值为1的开始在截取一下，后面的值不动的填充就可以了
+                // 截取字符串有4种：
+                // slice() 方法返回从指定索引之后截取
+                // substr() 方法返回从指定位置开始的字符串中指定字符数的字符
+                // substring()方法返回一个索引和另一个索引之间的字符串
+
+                // charAt() 返回字符串中的指定位置的字符
+                // 也就是接收索引值，表示从字符串中把索引对应的字符 获取出来
+                // console.log(val.charAt(0));  // h
+                let first = val.charAt(0).toUpperCase();
+                console.log(first);// 拿到了第一个字符
+
+                // 拿剩下的字符
+                // let leftover = val.substr(1, 7);   // 7为结束值是个数，从索引为1开始数到第7位
+                // let leftover = val.slice(1,8)    // 1为索引起始值，后面不跟代表全选,结束值为索引，不包含结束值
+                let leftover = val.substring(1,8)
+                console.log(leftover);
+
+                // 拼接字符串  first + leftover   返回即可
+                return first + leftover;
+            },
+
+            toUpper(val) {
+                // 大写
+                let first = val.charAt(0).toUpperCase();
+                let three = val.charAt(2).toUpperCase();
+                let five = val.charAt(4).toUpperCase();
+                // 小写
+                let last = val.slice(-1).toLowerCase();
+                let two = val.charAt(1);
+                let four = val.charAt(3);
+                let six = val.charAt(5);
+                let seven = val.charAt(6);
+
+                return first + two + three + four + five + six + seven + last
+
+            }
+        }
+    })
+    // 3. 过滤器的注意点
+        // 1.1 要定义到 filters 节点下，本质是一个函数
+        // 1.2 在过滤器函数中，一定要有 return 值
+        // 1.3 在过滤器的形参中，就可以获取到"管道符"前面待处理的那个值
+</script>
+
+</html>

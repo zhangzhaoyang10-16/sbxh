@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>侦听器基本的语法格式</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <input type="text" v-model="uname" />
+    </div>
+  </body>
+  <script>
+    // 1.侦听器
+    // 我们知道data里面放的是我们的数据，那么这些数据的变化如果你希望监听到某些数据的变化，怎么去监听，这个vue给我们提供了侦听器的功能，我们可以定义一个侦听器监视 data里面某个数据的变化，只要数据一变，咱们就可以在在侦听器里面做一些事情，这就是它的作用，就是监视数据变化，然后做一些事情的功能
+    // 那么我们最关心的就是什么时候用到侦听器：当你要监听数据变化的时候
+
+    // 1.1 什么是 watch 侦听器
+    // watch 侦听器允许开发者监视数据的变化，从而针对数据的变化做特定的操作
+    // 语法格式：
+    // let vm = new Vue({
+    //     el:"#app",
+    //     data:{uname:"张三"},
+    //     // 注意：侦听器要定义到 watch 节点之下  目前我们学过的节点有：el data  methods filters    watch
+    //     watch:{
+    //         // 监听uname 值的变化
+    //         // 在watch节点下声明一个uname的函数，函数名就是我们要侦听谁就把谁当做函数名就可以了
+    //         uname(newVal,oldVal){
+    //             console.log(newVal,oldVal);
+    //         }
+    //         // 在函数里面有两个参数：newVal 是“变化后的新值”    oldVal是“变化之前的旧值”
+
+    //     }
+    // })
+
+    let vm = new Vue({
+      el: "#app",
+      data: {
+        uname: "",
+      },
+      // 所有的侦听器要定义到 watch 节点之下
+      watch: {
+        // 侦听器本质上就是个函数，要监视哪个数据的变化，就把数据名作为方法名你就，
+        // uname(){
+        //     console.log("监听到了 uname 值的变化");
+        // }
+        // 结果验证只要 watch 监听到了数据的变化，就会执行这个 uname函数
+
+        // 现在我们是不是希望拿到最新客户改变的值，怎么拿？
+        // 刚才语法我们看到是不是有两个参数啊，第一个参数永远都是 变化后最新的值，第二个是旧值，我们接收一下
+
+        uname(newVal, oldVal) {
+          // 直接输出newVal 和oldVal
+
+          console.log("监听到了 uname 值的变化", newVal, oldVal);
+          // 参数新增在前，旧值在后
+        },
+      },
+    });
+  </script>
+</html>

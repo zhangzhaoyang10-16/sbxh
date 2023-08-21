@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/reset.css">
+</head>
+
+<style>
+    .box {
+        width: 900px;
+        height: 600px;
+        background-color: #f3f3f3;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap
+    }
+
+    .box li {
+        width: 300px;
+        height: 200px;
+        text-align: center;
+        line-height: 200px;
+        font-size: 20px;
+    }
+
+    .tag {
+        width: 300px;
+        height: 200px;
+        text-align: center;
+        line-height: 200px;
+        font-size: 20px;
+        background-color: red;
+        color: #f3f3f3;
+    }
+</style>
+
+<body>
+    <ul class="box">
+        <li>真心话</li>
+        <li><j/li>
+        <li></li>
+        <li>大冒险</li>
+        <li></li>
+        <li></li>
+        <li>免死金牌</li>
+        <li></li>
+        <li></li>
+    </ul>
+    <button style="margin: 0 auto; display: block;" onclick="sun()">
+        开始
+    </button>
+    <button style="margin: 0 auto; display: block;" onclick="end()">
+        js
+    </button>
+</body>
+
+<script>
+    var funt = null;
+    function sun() {
+        funt = setInterval(function () {
+            var accd = document.getElementsByTagName("li")
+            console.log(accd)
+            var num = parseInt(Math.random() * 10);
+            for (let i = 0; i < accd.length; i++) {
+                if (i == num) {
+                    accd[i].className = 'tag'
+                } else {
+                    accd[i].className = ''
+                }
+            }
+        }, 100)
+    }
+    function end() {
+        clearInterval(funt)
+    }
+</script>
+
+</html>
